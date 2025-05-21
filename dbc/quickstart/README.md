@@ -1,6 +1,6 @@
 # Dynamic Bonding Curve Quickstart
 
-The Dynamic Bonding Curve Quickstart repository is to give you the basic level of understanding of how the Dynamic Bonding Curve works. In this `quickstart` folder, you will get started with creating a config key and launching a token pool on the Solana blockchain.
+The Dynamic Bonding Curve Quickstart repository provides a foundational understanding of how the Dynamic Bonding Curve operates. Within the quickstart folder, you’ll learn how to create a configuration key and launch a token pool on Solana.
 
 ## Getting Started
 
