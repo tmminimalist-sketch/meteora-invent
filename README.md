@@ -7,5 +7,9 @@ Meteora Studio is a suite of scripts, tools and scaffolds to help you get starte
 ```bash
 meteora-studio/
 ├── dbc/
-│ ├── quickstart/
+│ └── quickstart/
 ```
+
+## Dynamic Bonding Curve
+
+1. [Quickstart](dbc/quickstart/README.md)
