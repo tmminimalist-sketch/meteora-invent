@@ -1,10 +1,10 @@
 {
   "name": "dbc-quickstart",
   "version": "1.0.0",
-  "description": "A quickstart to create a config and deploy a token pool on the dynamic bonding curve.",
+  "description": "A quickstart guide to create a config and deploy a token pool on Meteora's Dynamic Bonding Curve.",
   "main": "index.ts",
   "scripts": {
-    "start": "npx tsx src/index.ts"
+    "dbc": "npx tsx src/index.ts"
   },
   "keywords": [
     "dynamic bonding curve",
@@ -22,6 +22,7 @@
     "@solana/spl-token": "^0.4.13",
     "@solana/web3.js": "^1.98.2",
     "bn.js": "^5.2.2",
-    "bs58": "^6.0.0"
+    "bs58": "^6.0.0",
+    "dotenv": "^16.5.0"
   }
 }

@@ -10,8 +10,14 @@ import {
   TokenType,
 } from "@meteora-ag/dynamic-bonding-curve-sdk";
 import bs58 from "bs58";
-import { Connection, Keypair, PublicKey } from "@solana/web3.js";
+import {
+  Connection,
+  Keypair,
+  PublicKey,
+  sendAndConfirmTransaction,
+} from "@solana/web3.js";
 import { BN } from "bn.js";
+import "dotenv/config";
 
 const WALLET_PRIVATE_KEY = process.env.PRIVATE_KEY;
 if (!WALLET_PRIVATE_KEY) {
@@ -75,6 +81,25 @@ async function main() {
     ...curveConfig,
   });
 
+  const { blockhash } = await connection.getLatestBlockhash("confirmed");
+  createConfigTx.recentBlockhash = blockhash;
+  createConfigTx.feePayer = wallet.publicKey;
+
+  createConfigTx.partialSign(configKey);
+
+  const createConfigSignature = await sendAndConfirmTransaction(
+    connection,
+    createConfigTx,
+    [wallet, configKey],
+    { commitment: "confirmed", skipPreflight: true }
+  );
+
+  console.log(`Config created successfully! ${configKey.publicKey.toString()}`);
+  console.log(`Transaction: https://solscan.io/tx/${createConfigSignature}`);
+
+  // Wait for config key creation to be confirmed and finalized
+  await connection.confirmTransaction(createConfigSignature, "finalized");
+
   // Step 2: Create Base Mint Token Pool
   const baseMint = Keypair.generate();
 
@@ -87,6 +112,18 @@ async function main() {
     payer: wallet.publicKey,
     poolCreator: wallet.publicKey,
   });
+
+  const createPoolSignature = await sendAndConfirmTransaction(
+    connection,
+    createPoolTx,
+    [wallet, baseMint, wallet],
+    {
+      commitment: "confirmed",
+      skipPreflight: true,
+    }
+  );
+  console.log(`Generated base mint: ${baseMint.publicKey.toString()}`);
+  console.log(`Transaction: https://solscan.io/tx/${createPoolSignature}`);
 }
 
 main()
