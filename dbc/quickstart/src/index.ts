@@ -16,8 +16,8 @@ import {
   PublicKey,
   sendAndConfirmTransaction,
 } from "@solana/web3.js";
-import { BN } from "bn.js";
 import "dotenv/config";
+import { NATIVE_MINT } from "@solana/spl-token";
 
 const WALLET_PRIVATE_KEY = process.env.PRIVATE_KEY;
 if (!WALLET_PRIVATE_KEY) {
@@ -38,24 +38,24 @@ async function main() {
 
   const curveConfig = buildCurveWithMarketCap({
     totalTokenSupply: 1000000000,
-    initialMarketCap: 1000,
-    migrationMarketCap: 10000,
+    initialMarketCap: 30000,
+    migrationMarketCap: 500000,
     migrationOption: MigrationOption.MET_DAMM_V2,
     tokenBaseDecimal: TokenDecimal.SIX,
     tokenQuoteDecimal: TokenDecimal.SIX,
-    lockedVesting: {
-      amountPerPeriod: new BN(0),
-      cliffDurationFromMigrationTime: new BN(0),
-      frequency: new BN(0),
-      numberOfPeriod: new BN(0),
-      cliffUnlockAmount: new BN(0),
+    lockedVestingParam: {
+      totalLockedVestingAmount: 0,
+      amountPerVestingPeriod: 0,
+      numberOfVestingPeriod: 0,
+      totalVestingDuration: 0,
+      cliffDurationFromMigrationTime: 0,
     },
     feeSchedulerParam: {
-      startingFeeBps: 100,
+      startingFeeBps: 5000,
       endingFeeBps: 100,
-      numberOfPeriod: 0,
-      totalDuration: 0,
-      feeSchedulerMode: FeeSchedulerMode.Linear,
+      numberOfPeriod: 100,
+      totalDuration: 10 * 60 * 60,
+      feeSchedulerMode: FeeSchedulerMode.Exponential,
     },
     dynamicFeeEnabled: true,
     activationType: ActivationType.Slot,
