@@ -12,4 +12,4 @@ meteora-studio/
 
 ## Dynamic Bonding Curve
 
-1. [Quickstart](dbc/quickstart/README.md)
+1. [Quickstart](dbc/quickstart/README.md) - A quickstart guide to create a config and deploy a token pool on Meteora's Dynamic Bonding Curve.
