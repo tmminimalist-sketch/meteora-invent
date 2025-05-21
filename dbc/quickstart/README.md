@@ -13,7 +13,7 @@ git clone https://github.com/MeteoraAg/meteora-studio.git
 2. Change directory to the `dbc/quickstart` folder
 
 ```bash
-cd dbc/quickstart
+cd meteora-studio/dbc/quickstart
 ```
 
 3. Copy `.env.example` file and add your private key and RPC URL
