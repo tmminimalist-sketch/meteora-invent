@@ -16,7 +16,7 @@ git clone https://github.com/MeteoraAg/meteora-studio.git
 cd meteora-studio/dbc/quickstart
 ```
 
-3. Copy `.env.example` file and add your private key and RPC URL
+3. Copy `.env.example` file and add your private key and RPC URL (optional but highly encouraged)
 
 ```bash
 cp .env.example .env
@@ -28,7 +28,7 @@ cp .env.example .env
 npm install
 ```
 
-5. Run the script
+5. Run the script to launch a token
 
 ```bash
 npm run dbc

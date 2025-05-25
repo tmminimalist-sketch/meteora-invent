@@ -84,6 +84,7 @@ async function main() {
   );
   console.log(`Generated base mint: ${baseMint.publicKey.toString()}`);
   console.log(`Transaction: https://solscan.io/tx/${createPoolSignature}`);
+  console.log(`Trade on Jup Pro: https://jup.ag/tokens/${baseMint.publicKey.toString()}`);
 }
 
 main()
