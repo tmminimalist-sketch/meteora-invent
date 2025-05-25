@@ -13,7 +13,6 @@ import bs58 from "bs58";
 import {
   Connection,
   Keypair,
-  PublicKey,
   sendAndConfirmTransaction,
 } from "@solana/web3.js";
 import "dotenv/config";
@@ -38,16 +37,16 @@ async function main() {
 
   const curveConfig = buildCurveWithMarketCap({
     totalTokenSupply: 1000000000,
-    initialMarketCap: 30000,
-    migrationMarketCap: 500000,
+    initialMarketCap: 100,
+    migrationMarketCap: 100.1,
     migrationOption: MigrationOption.MET_DAMM_V2,
     tokenBaseDecimal: TokenDecimal.SIX,
-    tokenQuoteDecimal: TokenDecimal.SIX,
+    tokenQuoteDecimal: TokenDecimal.NINE,
     lockedVestingParam: {
-      totalLockedVestingAmount: 0,
-      amountPerVestingPeriod: 0,
-      numberOfVestingPeriod: 0,
-      totalVestingDuration: 0,
+      totalLockedVestingAmount: 10000000,
+      numberOfVestingPeriod: 365,
+      cliffUnlockAmount: 0,
+      totalVestingDuration: ((365 * 24 * 60 * 60) / 1000) * 400,
       cliffDurationFromMigrationTime: 0,
     },
     feeSchedulerParam: {
@@ -74,7 +73,7 @@ async function main() {
 
   const createConfigTx = await client.partner.createConfig({
     config: configKey.publicKey,
-    quoteMint: new PublicKey("EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"),
+    quoteMint: NATIVE_MINT,
     feeClaimer: wallet.publicKey,
     leftoverReceiver: wallet.publicKey,
     payer: wallet.publicKey,
