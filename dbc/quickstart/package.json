@@ -1,5 +1,5 @@
 {
-  "name": "dbc-quickstart",
+  "name": "meteora-studio-quickstart",
   "version": "1.0.0",
   "description": "A quickstart guide to create a config and deploy a token pool on Meteora's Dynamic Bonding Curve.",
   "main": "index.ts",
@@ -12,7 +12,7 @@
   ],
   "author": "@dannweeeee",
   "license": "ISC",
-  "type": "commonjs",
+  "type": "module",
   "devDependencies": {
     "@types/bn.js": "^5.1.6",
     "tsx": "^4.19.4"
@@ -22,7 +22,7 @@
     "@solana/spl-token": "^0.4.13",
     "@solana/web3.js": "^1.98.2",
     "bn.js": "^5.2.2",
-    "bs58": "^6.0.0",
-    "dotenv": "^16.5.0"
+    "bs58": "latest",
+    "dotenv": "latest"
   }
 }
