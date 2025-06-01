@@ -10,8 +10,11 @@ import {
   TokenUpdateAuthorityOption,
 } from "@meteora-ag/dynamic-bonding-curve-sdk";
 import { NATIVE_MINT } from "@solana/spl-token";
+import { PublicKey } from "@solana/web3.js";
 
-export const quoteMint = NATIVE_MINT; // new PublicKey("EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v") (for USDC)
+export const quoteMint = new PublicKey(
+  "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
+);
 
 export const configKeyParams: BuildCurveWithMarketCapParam = {
   totalTokenSupply: 1000000000,
@@ -19,7 +22,7 @@ export const configKeyParams: BuildCurveWithMarketCapParam = {
   migrationMarketCap: 100,
   migrationOption: MigrationOption.MET_DAMM_V2,
   tokenBaseDecimal: TokenDecimal.SIX,
-  tokenQuoteDecimal: TokenDecimal.NINE, // TokenDecimal.SIX (for USDC)
+  tokenQuoteDecimal: TokenDecimal.SIX, // TokenDecimal.SIX (for USDC)
   lockedVestingParam: {
     totalLockedVestingAmount: 100000000,
     numberOfVestingPeriod: 365,
@@ -47,8 +50,8 @@ export const configKeyParams: BuildCurveWithMarketCapParam = {
   leftover: 0,
   tokenUpdateAuthority: 1,
   migrationFee: {
-    feePercentage: 25,
-    creatorFeePercentage: 50,
+    feePercentage: 0,
+    creatorFeePercentage: 0,
   },
 };
 
