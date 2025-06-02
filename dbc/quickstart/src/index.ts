@@ -9,10 +9,9 @@ import {
   sendAndConfirmTransaction,
 } from "@solana/web3.js";
 import "dotenv/config";
-import { quoteMint, configKeyParams, tokenParams } from "../config";
+import { quoteMint, configKeyParams, tokenParams } from "../examples/basic";
 
 
-console.log(configKeyParams);
 const WALLET_PRIVATE_KEY = process.env.PRIVATE_KEY;
 if (!WALLET_PRIVATE_KEY) {
   throw new Error("PRIVATE_KEY is not set");
@@ -32,7 +31,6 @@ async function main() {
 
     const curveConfig = buildCurveWithMarketCap(configKeyParams);
 
-  console.log(curveConfig);
 
   const createConfigTx = await client.partner.createConfig({
     config: configKey.publicKey,
