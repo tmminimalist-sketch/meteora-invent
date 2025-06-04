@@ -11,7 +11,6 @@ import {
 import "dotenv/config";
 import { quoteMint, configKeyParams, tokenParams } from "../examples/basic";
 
-
 const WALLET_PRIVATE_KEY = process.env.PRIVATE_KEY;
 if (!WALLET_PRIVATE_KEY) {
   throw new Error("PRIVATE_KEY is not set");
@@ -29,8 +28,7 @@ async function main() {
   // Step 1: Create Config Key
   const configKey = Keypair.generate();
 
-    const curveConfig = buildCurveWithMarketCap(configKeyParams);
-
+  const curveConfig = buildCurveWithMarketCap(configKeyParams);
 
   const createConfigTx = await client.partner.createConfig({
     config: configKey.publicKey,
@@ -82,7 +80,9 @@ async function main() {
   );
   console.log(`Generated base mint: ${baseMint.publicKey.toString()}`);
   console.log(`Transaction: https://solscan.io/tx/${createPoolSignature}`);
-  console.log(`Trade on Jup Pro: https://jup.ag/tokens/${baseMint.publicKey.toString()}`);
+  console.log(
+    `Trade on Jup Pro: https://jup.ag/tokens/${baseMint.publicKey.toString()}`
+  );
 }
 
 main()
