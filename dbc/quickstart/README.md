@@ -1,6 +1,6 @@
 # Dynamic Bonding Curve Quickstart
 
-The Dynamic Bonding Curve Quickstart repository provides a foundational understanding of how the Dynamic Bonding Curve operates. Within the quickstart folder, you’ll learn how to create a configuration key and launch a token pool on Solana.
+The Dynamic Bonding Curve Quickstart repository provides a foundational understanding of how the Dynamic Bonding Curve operates. Within the quickstart folder, you'll learn how to create a configuration key and launch a token pool on Solana.
 
 ## Getting Started
 
@@ -16,8 +16,9 @@ git clone https://github.com/MeteoraAg/meteora-studio.git
 cd meteora-studio/dbc/quickstart
 ```
 
-3. Copy `.env.example` file and add your private key and RPC URL (optional but highly encouraged)
+3. Copy `.env.example` file and add your private key and RPC URL into .env (RPC is optional but highly encouraged)
 
+Note: Private key owner will be the owner of the token
 ```bash
 cp .env.example .env
 ```
@@ -28,8 +29,19 @@ cp .env.example .env
 npm install
 ```
 
-5. Run the script to launch a token
+5. For a basic default launch, edit examples/basic.ts to edit token params
+
+Edit `tokenParams` which includes: 
+  - Token name
+  - Token symbol
+  - Token URI (image)
+
+
+
+6. Run the script to launch a token
 
 ```bash
 npm run dbc
 ```
+
+
