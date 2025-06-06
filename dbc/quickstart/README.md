@@ -35,12 +35,13 @@ Edit `tokenParams` which includes:
   - Token name
   - Token symbol
   - Token URI (image)
+  - Token supply
+  - Token decimal 
 
 For more complex launches, edit the launch params:
 
 Edit `configKeyParams` which includes:
   - Initial and migration market cap
-  - Token supply and decimal
   - Vest and cliff params
   - Fee scheduler params
   - Activation type
