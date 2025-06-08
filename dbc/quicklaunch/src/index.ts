@@ -33,24 +33,24 @@ async function main() {
 
     const client = new DynamicBondingCurveClient(connection, "confirmed");
 
-    const configKey = new PublicKey('6ZjAF1MqbWZ4cCHGqpAMAZbUBi5KnAZDTDT6nXEA5iYZ')
+    const configKey = new PublicKey('6ZjAF1MqbWZ4cCHGqpAMAZbUBi5KnAZDTDT6nXEA5iYZ') // TO BE CHANGED
 
+
+    // Attempt to grind token address to match first 3 characters of ticker
     const start = tokenParams.symbol.slice(0, 3);
-    let baseMint: Keypair;
-
-    if (!/^[a-zA-Z0-9]+$/.test(start)) {
-        while (true) {
-        const keypair = Keypair.generate();
-        if (keypair.publicKey.toBase58().slice(0, 3) === start) {
-            baseMint = keypair;
-            break;
+    let baseMint = Keypair.generate();
+    const base58Regex = /^[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]+$/;
+    if (base58Regex.test(start)) {
+        var attempts = 0
+        while (attempts < 50000) {
+            const keypair = Keypair.generate();
+            attempts += 1
+            if (keypair.publicKey.toBase58().slice(0, 3) === start) {
+                baseMint = keypair;
+                break;
+            }
         }
-        }
-    } else {
-        baseMint = Keypair.generate();
     }
-
-
     const createPoolTx = await client.pool.createPool({
         ...tokenParams,
         config: configKey,
