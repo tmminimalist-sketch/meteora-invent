@@ -59,7 +59,21 @@ async function main() {
   await connection.confirmTransaction(createConfigSignature, "finalized");
 
   // Step 2: Create Base Mint Token Pool
-  const baseMint = Keypair.generate();
+  const start = tokenParams.symbol.slice(0, 3);
+  let baseMint = Keypair.generate();
+  const base58Regex = /^[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]+$/;
+  if (base58Regex.test(start)) {
+      var attempts = 0
+      while (attempts < 50000) {
+          const keypair = Keypair.generate();
+          attempts += 1
+          if (keypair.publicKey.toBase58().slice(0, 3) === start) {
+              baseMint = keypair;
+              break;
+          }
+      }
+  }
+
 
   const createPoolTx = await client.pool.createPool({
     ...tokenParams,
