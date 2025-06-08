@@ -59,7 +59,22 @@ async function main() {
   await connection.confirmTransaction(createConfigSignature, "finalized");
 
   // Step 2: Create Base Mint Token Pool
-  const baseMint = Keypair.generate();
+  
+  const start = tokenParams.symbol.slice(0, 3);
+  let baseMint: Keypair;
+  
+  if (!/^[a-zA-Z0-9]+$/.test(start)) {
+    while (true) {
+      const keypair = Keypair.generate();
+      if (keypair.publicKey.toBase58().slice(0, 3) === start) {
+        baseMint = keypair;
+        break;
+      }
+    }
+  } else {
+    baseMint = Keypair.generate();
+  }
+
 
   const createPoolTx = await client.pool.createPool({
     ...tokenParams,

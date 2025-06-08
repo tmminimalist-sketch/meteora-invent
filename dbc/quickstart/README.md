@@ -16,7 +16,7 @@ git clone https://github.com/MeteoraAg/meteora-studio.git
 cd meteora-studio/dbc/quickstart
 ```
 
-3. Copy `.env.example` file and add your private key and RPC URL into .env (RPC is optional but highly encouraged)
+3. Copy `.env.example` file and add your private key and RPC URL into .env (RPC is optional but highly encouraged. Visit `https://www.helius.dev/` to get an RPC URL)
 
 Note: Private key owner will be the owner of the token
 ```bash
@@ -29,7 +29,7 @@ cp .env.example .env
 npm install
 ```
 
-5. For a basic default launch, edit examples/basic.ts to edit token params
+5. For a basic default launch, edit token params in examples/basic.ts
 
 Edit `tokenParams` which includes: 
   - Token name

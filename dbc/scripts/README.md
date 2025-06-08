@@ -40,7 +40,7 @@ git clone https://github.com/MeteoraAg/meteora-studio.git
 cd meteora-studio/dbc/scripts
 ```
 
-3. Copy `.env.example` file and add your private key and RPC URL into .env (RPC is optional but highly encouraged)
+3. Copy `.env.example` file and add your private key and RPC URL into .env (RPC is optional but highly encouraged. Visit `https://www.helius.dev/` to get an RPC URL)
 
 ```bash
 cp .env.example .env

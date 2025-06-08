@@ -3,12 +3,8 @@
 Meteora Studio is a suite of scripts, tools and scaffolds to help you get started with building and launching on Meteora.
 
 
-  
-  
 
-## Getting started
-
-  
+## Getting started  
 
 ```bash
 
@@ -40,7 +36,6 @@ Find the type of project you want to launch here
 ## Repository Structure
 
 ```bash
-
 meteora-studio/
 ├──  dbc/
 │  └──  quickstart/
