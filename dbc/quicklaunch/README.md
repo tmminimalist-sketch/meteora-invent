@@ -1,7 +1,6 @@
 # Dynamic Bonding Curve Quicklaunch
 
-The Dynamic Bonding Curve Quicklaunch is an effortless way to launch tokens using the default launch values
-
+The Dynamic Bonding Curve Quicklaunch provides a simple way to launch tokens when using the default setup or an existing config key.
 
 
 ## Getting Started
@@ -31,7 +30,7 @@ cp .env.example .env
 npm install
 ```
 
-5. Edit the token name, ticker and image in src/index.ts
+5. Edit the token name, ticker and image in src/index.ts. If you want to use a custom config key, edit `configKey' to your custom key
 
 6. Run the script to launch a token
 

@@ -28,9 +28,9 @@ To get started with launching your token, check out our [Quickstart](dbc/quickst
 
 Find the type of project you want to launch here
 
-1.[Quicklaunch](dbc/quicklaunch/README.md) - Launch token with default launch config.
+1.[Quicklaunch](dbc/quicklaunch/README.md) - Launch token with default launch config or with an existing config key.
   
-2. [Quickstart](dbc/quickstart/README.md) - A quick and easy way to launch your token and to customise token launch.
+2. [Quickstart](dbc/quickstart/README.md) - A quick and easy way to create a custom config key and launch your token.
   
 2. [Scripts](dbc/script/README.md) - Some tools to help launch and buy tokens.
   
