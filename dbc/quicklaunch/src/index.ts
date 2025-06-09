@@ -41,7 +41,7 @@ async function main() {
     const base58Regex = /^[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]+$/;
     if (base58Regex.test(start)) {
         var attempts = 0
-        while (attempts < 50000) {
+        while (attempts < 100000) {
             const keypair = Keypair.generate();
             attempts += 1
             if (keypair.publicKey.toBase58().slice(0, 3) === start) {
@@ -50,6 +50,7 @@ async function main() {
             }
         }
     }
+    
     const createPoolTx = await client.pool.createPool({
         ...tokenParams,
         config: configKey,
