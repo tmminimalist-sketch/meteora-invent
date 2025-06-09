@@ -2,7 +2,9 @@ import {
   Connection,
   Keypair,
   PublicKey,
-  sendAndConfirmTransaction,
+  SystemProgram,
+  Transaction,
+  VersionedTransaction,
 } from "@solana/web3.js";
 import {
   DAMM_V2_MIGRATION_FEE_ADDRESS,
@@ -14,11 +16,14 @@ import {
 } from "@meteora-ag/dynamic-bonding-curve-sdk";
 import { BN } from "bn.js";
 import bs58 from "bs58";
+import "dotenv/config";
+import { searcherClient } from "jito-ts/dist/sdk/block-engine/searcher";
+import { Bundle } from "jito-ts/dist/sdk/block-engine/types";
 
-/**
- * Migrate to DAMM V1
- */
+
+
 async function migrateToDammV2() {
+
   const PAYER_PRIVATE_KEY = process.env.PRIVATE_KEY;
   if (!PAYER_PRIVATE_KEY) {
     throw new Error("PRIVATE_KEY is not set");
@@ -27,15 +32,20 @@ async function migrateToDammV2() {
   const payer = Keypair.fromSecretKey(payerSecretKey);
   console.log("Payer public key:", payer.publicKey.toBase58());
 
-  const connection = new Connection(
-    "https://api.mainnet-beta.solana.com",
-    "confirmed"
+  const JITO_BLOCK_ENGINE_URL = "mainnet.block-engine.jito.wtf";
+
+  const JITO_TIP_ACCOUNT = new PublicKey(
+    "96gYZGLnJYVFmbjzopPSU6QiEV5fGqZNyN9nmNhvrZU5"
   );
 
+    const connection = new Connection(
+      process.env.RPC_URL || 'https://api.mainnet-beta.solana.com',
+      'confirmed'
+  )
   try {
     const client = new DynamicBondingCurveClient(connection, "confirmed");
 
-    const baseMint = new PublicKey("YOUR_BASE_MINT");
+    const baseMint = new PublicKey("");
 
     const virtualPoolState = await client.state.getPoolByBaseMint(baseMint);
     if (!virtualPoolState) {
@@ -67,60 +77,30 @@ async function migrateToDammV2() {
     console.log("Migration metadata address:", migrationMetadata.toString());
 
     const metadataAccount = await connection.getAccountInfo(migrationMetadata);
+    let metadataTx: Transaction | null = null;
     if (!metadataAccount) {
       console.log("Creating migration metadata...");
-      const createMetadataTx =
-        await client.migration.createDammV2MigrationMetadata({
-          payer: payer.publicKey,
-          virtualPool: poolAddress,
-          config: config,
-        });
-
-      const { blockhash } = await connection.getLatestBlockhash("confirmed");
-      createMetadataTx.recentBlockhash = blockhash;
-      createMetadataTx.feePayer = payer.publicKey;
-
-      const metadataSignature = await sendAndConfirmTransaction(
-        connection,
-        createMetadataTx,
-        [payer],
-        { commitment: "confirmed" }
-      );
-
-      console.log(`Migration metadata created successfully!`);
-      console.log(`Transaction: https://solscan.io/tx/${metadataSignature}`);
+      metadataTx = await client.migration.createDammV2MigrationMetadata({
+        payer: payer.publicKey,
+        virtualPool: poolAddress,
+        config: config,
+      });
     } else {
       console.log("Migration metadata already exists");
     }
 
-    // check if locked vesting exists
+    let lockerTx: Transaction | null = null;
     if (poolConfigState.lockedVestingConfig.amountPerPeriod.gt(new BN(0))) {
-      // Check if locker already exists
       const base = deriveBaseKeyForLocker(poolAddress);
       const escrow = deriveEscrow(base);
       const escrowAccount = await connection.getAccountInfo(escrow);
 
       if (!escrowAccount) {
         console.log("Locker not found, creating locker...");
-        const createLockerTx = await client.migration.createLocker({
+        lockerTx = await client.migration.createLocker({
           virtualPool: poolAddress,
           payer: payer.publicKey,
         });
-
-        const { blockhash: lockerBlockhash } =
-          await connection.getLatestBlockhash("confirmed");
-        createLockerTx.recentBlockhash = lockerBlockhash;
-        createLockerTx.feePayer = payer.publicKey;
-
-        const lockerSignature = await sendAndConfirmTransaction(
-          connection,
-          createLockerTx,
-          [payer],
-          { commitment: "confirmed" }
-        );
-
-        console.log(`Locker created successfully!`);
-        console.log(`Transaction: https://solscan.io/tx/${lockerSignature}`);
       } else {
         console.log("Locker already exists, skipping creation");
       }
@@ -137,24 +117,52 @@ async function migrateToDammV2() {
         dammConfig: dammConfigAddress,
       });
 
-      const { blockhash: migrateBlockhash } =
-        await connection.getLatestBlockhash("confirmed");
-      migrateTx.transaction.recentBlockhash = migrateBlockhash;
-      migrateTx.transaction.feePayer = payer.publicKey;
-
-      const migrateSignature = await sendAndConfirmTransaction(
-        connection,
-        migrateTx.transaction,
-        [
-          payer,
-          migrateTx.firstPositionNftKeypair,
-          migrateTx.secondPositionNftKeypair,
-        ],
-        { commitment: "confirmed" }
+      // Create tip transaction
+      const tipTx = new Transaction().add(
+        SystemProgram.transfer({
+          fromPubkey: payer.publicKey,
+          toPubkey: JITO_TIP_ACCOUNT,
+          lamports: 3_000_000, // 0.003 SOL tip
+        })
       );
 
+      // Get latest blockhash for all transactions
+      const { blockhash } = await connection.getLatestBlockhash("confirmed");
+
+      // Set blockhash and fee payer for all transactions
+      if (metadataTx) {
+        metadataTx.recentBlockhash = blockhash;
+        metadataTx.feePayer = payer.publicKey;
+        metadataTx.sign(payer);
+      }
+      if (lockerTx) {
+        lockerTx.recentBlockhash = blockhash;
+        lockerTx.feePayer = payer.publicKey;
+        lockerTx.sign(payer);
+      }
+      migrateTx.transaction.recentBlockhash = blockhash;
+      migrateTx.transaction.feePayer = payer.publicKey;
+      migrateTx.transaction.sign(payer, migrateTx.firstPositionNftKeypair, migrateTx.secondPositionNftKeypair);
+      
+      tipTx.recentBlockhash = blockhash;
+      tipTx.feePayer = payer.publicKey;
+      tipTx.sign(payer);
+
+      // Convert all transactions to versioned transactions
+      const versionedTransactions = [
+        ...(metadataTx ? [metadataTx as unknown as VersionedTransaction] : []),
+        ...(lockerTx ? [lockerTx as unknown as VersionedTransaction] : []),
+        migrateTx.transaction as unknown as VersionedTransaction,
+        tipTx as unknown as VersionedTransaction
+      ];
+
+      const bundle = new Bundle(versionedTransactions, 1);
+
+      const searcher = searcherClient(JITO_BLOCK_ENGINE_URL);
+
+      const result = await searcher.sendBundle(bundle);
+
       console.log(`Migration to DAMM V2 completed successfully!`);
-      console.log(`Transaction: https://solscan.io/tx/${migrateSignature}?`);
     } else {
       console.log("Pool already migrated to DAMM V2");
     }

@@ -10,6 +10,14 @@ This folder contains scripts for interacting with Meteora's Dynamic Bonding Curv
 
 - [Create a DBC Pool](./src/create-pool.ts)
 
+## Migrate to DAMM V1
+
+- [Migrate to DAMM V1](./src/migrate-to-damm-v1.ts)
+
+## Migrate to DAMM V2
+
+- [Migrate to DAMM V2](./src/migrate-to-damm-v2.ts)
+
 ## Create Partner Metadata (to be indexed by integrators)
 
 - [Create Partner Metadata](./src/create-partner-metadata.ts)
