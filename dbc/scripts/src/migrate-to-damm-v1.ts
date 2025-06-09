@@ -14,6 +14,7 @@ import {
 } from "@meteora-ag/dynamic-bonding-curve-sdk";
 import { BN } from "bn.js";
 import bs58 from "bs58";
+import "dotenv/config";
 
 async function migrateToDammV1() {
   const PAYER_PRIVATE_KEY = process.env.PRIVATE_KEY;
@@ -25,14 +26,14 @@ async function migrateToDammV1() {
   console.log("Payer public key:", payer.publicKey.toBase58());
 
   const connection = new Connection(
-    "https://api.mainnet-beta.solana.com",
+    process.env.RPC_URL || 'https://api.mainnet-beta.solana.com',
     "confirmed"
   );
 
   try {
     const client = new DynamicBondingCurveClient(connection, "confirmed");
 
-    const baseMint = new PublicKey("YOUR_BASE_MINT");
+    const baseMint = new PublicKey("5uJYcuxAeca3YJQvkimWQJKrQMNnxhPitjnnJKacc11D");
 
     const virtualPoolState = await client.state.getPoolByBaseMint(baseMint);
     if (!virtualPoolState) {
