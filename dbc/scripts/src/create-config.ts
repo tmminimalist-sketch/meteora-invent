@@ -38,7 +38,7 @@ async function createConfig() {
   const config = Keypair.generate();
   console.log(`Config account: ${config.publicKey.toString()}`);
 
-  const feeClaimer = new PublicKey("");
+  const feeClaimer = new PublicKey(process.env.PARTNER_PRIVATE_KEY || "");
 
   const curveConfig = buildCurveWithMarketCap({
     totalTokenSupply: 1000000000,

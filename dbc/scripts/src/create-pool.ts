@@ -17,7 +17,7 @@ async function createPool() {
   const payer = Keypair.fromSecretKey(payerSecretKey);
   console.log("Payer public key:", payer.publicKey.toBase58());
 
-  const POOL_CREATOR_PRIVATE_KEY = "";
+  const POOL_CREATOR_PRIVATE_KEY = process.env.POOL_CREATOR_PRIVATE_KEY || PAYER_PRIVATE_KEY; // Default is the payer private key.
   const poolCreatorSecretKey = bs58.decode(POOL_CREATOR_PRIVATE_KEY);
   const poolCreator = Keypair.fromSecretKey(poolCreatorSecretKey);
   console.log("Pool creator public key:", poolCreator.publicKey.toBase58());
@@ -78,7 +78,7 @@ async function createPool() {
       )
       console.log('Transaction confirmed!')
       console.log(
-          `Pool created: https://solscan.io/tx/${signature}?cluster=devnet`
+          `Pool created: https://solscan.io/tx/${signature}t`
       )
   } catch (error) {
       console.error('Failed to create pool:', error)

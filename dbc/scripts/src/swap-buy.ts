@@ -20,7 +20,7 @@ async function swapBuy() {
         throw new Error("PRIVATE_KEY is not set");
     }
 
-    const baseMint = new PublicKey('DvmD9osXg6tAnF3rGJ4X3Q4RGDkCQ3gkJ6BKRpwtBCkX')
+    const baseMint = new PublicKey('')
     const walletSecretKey = bs58.decode(WALLET_PRIVATE_KEY);
     const wallet = Keypair.fromSecretKey(walletSecretKey);
     console.log("Wallet public key:", wallet.publicKey.toBase58());

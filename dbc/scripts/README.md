@@ -6,6 +6,10 @@ This folder contains scripts for interacting with Meteora's Dynamic Bonding Curv
 
 - [Create a DBC Config](./src/create-config.ts)
 
+## Create Partner Metadata (to be indexed by integrators)
+
+- [Create Partner Metadata](./src/create-partner-metadata.ts)
+
 ## Create a DBC Pool
 
 - [Create a DBC Pool](./src/create-pool.ts)
@@ -18,10 +22,6 @@ This folder contains scripts for interacting with Meteora's Dynamic Bonding Curv
 
 - [Migrate to DAMM V2](./src/migrate-to-damm-v2.ts)
 
-## Create Partner Metadata (to be indexed by integrators)
-
-- [Create Partner Metadata](./src/create-partner-metadata.ts)
-
 ## Swap Buy
 
 - [Swap Buy](./src/swap-buy.ts)
@@ -33,6 +33,8 @@ This folder contains scripts for interacting with Meteora's Dynamic Bonding Curv
 ## Simulate Curve
 
 - [Simulate Curve](./src/simulate-curve.ts)
+
+
 
 ## Getting Started
 
@@ -53,6 +55,10 @@ cd meteora-studio/dbc/scripts
 ```bash
 cp .env.example .env
 ```
+
+For create-partner-metadata, set the PARTNER_PRIVATE_KEY in the .env file if PARTNER_PRIVATE_KEY is not PAYER_PRIVATE_KEY.
+
+For create-pool, set the POOL_CREATOR_PRIVATE_KEY in the .env file if POOL_CREATOR_PRIVATE_KEY is not PAYER_PRIVATE_KEY.
 
 4. Install dependencies
 

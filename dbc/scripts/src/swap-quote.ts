@@ -13,7 +13,7 @@ async function swapQuote() {
         'confirmed'
     )
 
-    const baseMint = new PublicKey('DvmD9osXg6tAnF3rGJ4X3Q4RGDkCQ3gkJ6BKRpwtBCkX')
+    const baseMint = new PublicKey('')
 
     try{
         const client = new DynamicBondingCurveClient(connection, "confirmed");

@@ -15,7 +15,7 @@ async function createPartnerMetadata() {
     const payer = Keypair.fromSecretKey(payerSecretKey);
     console.log("Payer public key:", payer.publicKey.toBase58());
 
-    const PARTNER_PRIVATE_KEY = "";
+    const PARTNER_PRIVATE_KEY = process.env.PARTNER_PRIVATE_KEY || PAYER_PRIVATE_KEY; // Default is the payer private key.
     const partnerSecretKey = bs58.decode(PARTNER_PRIVATE_KEY);
     const partner = Keypair.fromSecretKey(partnerSecretKey);
     console.log("Partner public key:", partner.publicKey.toBase58());
