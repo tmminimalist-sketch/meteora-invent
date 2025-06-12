@@ -1,14 +1,13 @@
 import {
     DynamicBondingCurveClient,
-  } from "@meteora-ag/dynamic-bonding-curve-sdk";
-  import bs58 from "bs58";
-  import {
+} from "@meteora-ag/dynamic-bonding-curve-sdk";
+import bs58 from "bs58";
+import {
     Connection,
     Keypair,
     sendAndConfirmTransaction,
     PublicKey,
-  } from "@solana/web3.js";
-  import "dotenv/config";
+} from "@solana/web3.js";
 import "dotenv/config";
 
 const WALLET_PRIVATE_KEY = process.env.PRIVATE_KEY;

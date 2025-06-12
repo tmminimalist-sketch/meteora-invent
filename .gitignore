@@ -1,15 +1,7 @@
 # dbc
-dbc/quicklaunch/node_modules
-dbc/quicklaunch/package-lock.json
-dbc/quicklaunch/.env
-dbc/quicklaunch/.DS_Store
 
-dbc/quickstart/node_modules
-dbc/quickstart/package-lock.json
-dbc/quickstart/.env
-dbc/quickstart/.DS_Store
+dbc/node_modules
+dbc/package-lock.json
+dbc/.env
+dbc/.DS_Store
 
-dbc/scripts/node_modules
-dbc/scripts/package-lock.json
-dbc/scripts/.env
-dbc/scripts/.DS_Store

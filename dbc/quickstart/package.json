@@ -1,10 +1,10 @@
 {
-  "name": "meteora-studio-quickstart",
+  "name": "meteora-studio-DBC",
   "version": "1.0.0",
-  "description": "A quickstart guide to create a config and deploy a token pool on Meteora's Dynamic Bonding Curve.",
+  "description": "",
   "main": "index.ts",
   "scripts": {
-    "dbc": "npx tsx src/index.ts"
+    "quickstart": "npx tsx src/index.ts"
   },
   "keywords": [
     "dynamic bonding curve",
