@@ -10,14 +10,13 @@ import {
   TokenType,
   ActivationType,
   MigrationOption,
-  FeeSchedulerMode,
+  BaseFeeMode,
   MigrationFeeOption,
   TokenDecimal,
   buildCurveWithMarketCap,
   TokenUpdateAuthorityOption,
 } from "@meteora-ag/dynamic-bonding-curve-sdk";
 import { NATIVE_MINT } from "@solana/spl-token";
-import BN from "bn.js";
 import "dotenv/config";
 import bs58 from "bs58";
 
@@ -54,12 +53,14 @@ async function createConfig() {
       totalVestingDuration: 0,
       cliffDurationFromMigrationTime: 0,
     },
-    feeSchedulerParam: {
-      startingFeeBps: 100,
-      endingFeeBps: 100,
-      numberOfPeriod: 0,
-      totalDuration: 0,
-      feeSchedulerMode: FeeSchedulerMode.Linear,
+    baseFeeParams: {
+      baseFeeMode: BaseFeeMode.FeeSchedulerLinear,
+      feeSchedulerParam: {
+        startingFeeBps: 100,
+        endingFeeBps: 100,
+        numberOfPeriod: 0,
+        totalDuration: 0,
+      },
     },
     dynamicFeeEnabled: true,
     activationType: ActivationType.Slot,

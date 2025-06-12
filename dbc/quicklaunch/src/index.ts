@@ -1,5 +1,4 @@
 import {
-    buildCurveWithMarketCap,
     DynamicBondingCurveClient,
   } from "@meteora-ag/dynamic-bonding-curve-sdk";
   import bs58 from "bs58";
@@ -30,7 +29,6 @@ async function main() {
         symbol: "PUMP",
         uri: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTgk7EaZ4MxetCM1IB2B8z0MFJZg8IOn8AcMw&s",
     };
-    
     // Attempt to grind token address to match first 3 characters of ticker
     const start = tokenParams.symbol.slice(0, 3);
     let baseMint = Keypair.generate();
@@ -46,11 +44,9 @@ async function main() {
             }
         }
     }
-
     const configKey = new PublicKey('6ZjAF1MqbWZ4cCHGqpAMAZbUBi5KnAZDTDT6nXEA5iYZ') // TO BE CHANGED // Or use custom / partner config key 
 
     const client = new DynamicBondingCurveClient(connection, "confirmed");
-
     
     const createPoolTx = await client.pool.createPool({
         ...tokenParams,

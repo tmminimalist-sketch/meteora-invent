@@ -1,7 +1,7 @@
 import {
     ActivationType,
     CollectFeeMode,
-    FeeSchedulerMode,
+    BaseFeeMode,
     MigrationFeeOption,
     MigrationOption,
     TokenDecimal,
@@ -67,12 +67,14 @@ async function simulateCurve() {
             totalVestingDuration: 0,
             cliffDurationFromMigrationTime: (1000 * 365 * 24 * 60 * 60) / 0.4,
         },
-          feeSchedulerParam: {
+          baseFeeParams: {
+            baseFeeMode: BaseFeeMode.FeeSchedulerLinear,
+            feeSchedulerParam: {
               startingFeeBps: 100,
               endingFeeBps: 100,
-              numberOfPeriod: 0,
-              totalDuration: 0,
-              feeSchedulerMode: FeeSchedulerMode.Linear,
+              numberOfPeriod: 100,
+              totalDuration: 1800 / 0.4,
+            },
           },
         dynamicFeeEnabled: true,
         activationType: ActivationType.Slot,
