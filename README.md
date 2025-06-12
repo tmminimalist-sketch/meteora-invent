@@ -12,7 +12,7 @@ git  clone  https://github.com/MeteoraAg/meteora-studio.git
 
 ```
 
-## Getting Started
+
 
 ### Prerequisites:
 
@@ -41,5 +41,7 @@ Find the type of project you want to launch here
 meteora-studio/
 ├──  dbc/
 │  └──  quickstart/
+│  └──  quicklaunch/
+│  └──  scripts/
 
 ```

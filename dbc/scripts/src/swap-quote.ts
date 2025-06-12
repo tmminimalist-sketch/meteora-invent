@@ -14,21 +14,26 @@ async function swapQuote() {
     )
 
     const baseMint = new PublicKey('')
-    const config = new PublicKey('')
 
-    try {
+    try{
+        const client = new DynamicBondingCurveClient(connection, "confirmed");
+        const virtualPoolState = await client.state.getPoolByBaseMint(baseMint);
+        if (!virtualPoolState) {
+        throw new Error(`Pool not found for base mint: ${baseMint.toString()}`);
+        }
+
+        const config = virtualPoolState.account.config;
+        if (!config) {
+        throw new Error("Pool config is undefined");
+        }
+
         const poolAddress = deriveDbcPoolAddress(NATIVE_MINT, baseMint, config) // ensure that your quote mint is correct
         console.log('Derived pool address:', poolAddress.toString())
 
-        const client = new DynamicBondingCurveClient(connection, 'confirmed')
 
-        const virtualPoolState = await client.state.getPool(poolAddress)
-        if (!virtualPoolState) {
-            throw new Error(`Pool not found: ${poolAddress.toString()}`)
-        }
 
         const poolConfigState = await client.state.getPoolConfig(
-            virtualPoolState.config
+            virtualPoolState.account.config
         )
 
         const amountIn = new BN(0.01 * 1e9)
@@ -39,8 +44,8 @@ async function swapQuote() {
         console.log('Calculating swap quote...')
         try {
             if (
-                !virtualPoolState.sqrtPrice ||
-                virtualPoolState.sqrtPrice.isZero()
+                !virtualPoolState.account.sqrtPrice ||
+                virtualPoolState.account.sqrtPrice.isZero()
             ) {
                 throw new Error(
                     'Invalid pool state: sqrtPrice is zero or undefined'
@@ -52,7 +57,7 @@ async function swapQuote() {
             }
 
             const quote = await client.pool.swapQuote({
-                virtualPool: virtualPoolState,
+                virtualPool: virtualPoolState.account,
                 config: poolConfigState,
                 swapBaseForQuote,
                 amountIn,
@@ -80,11 +85,11 @@ async function swapQuote() {
             console.error('Failed to calculate swap quote:', error)
             console.log('Pool state:', {
                 sqrtPrice:
-                    virtualPoolState.sqrtPrice?.toString() || 'undefined',
+                    virtualPoolState.account.sqrtPrice?.toString() || 'undefined',
                 baseReserve:
-                    virtualPoolState.baseReserve?.toString() || 'undefined',
+                    virtualPoolState.account.baseReserve?.toString() || 'undefined',
                 quoteReserve:
-                    virtualPoolState.quoteReserve?.toString() || 'undefined',
+                    virtualPoolState.account.quoteReserve?.toString() || 'undefined',
             })
             console.log('Config state:', {
                 curveLength: poolConfigState.curve?.length || 0,

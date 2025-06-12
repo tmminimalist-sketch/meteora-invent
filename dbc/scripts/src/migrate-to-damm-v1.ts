@@ -33,7 +33,7 @@ async function migrateToDammV1() {
   try {
     const client = new DynamicBondingCurveClient(connection, "confirmed");
 
-    const baseMint = new PublicKey("5uJYcuxAeca3YJQvkimWQJKrQMNnxhPitjnnJKacc11D");
+    const baseMint = new PublicKey("");
 
     const virtualPoolState = await client.state.getPoolByBaseMint(baseMint);
     if (!virtualPoolState) {

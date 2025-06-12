@@ -2,12 +2,13 @@ import {
   ActivationType,
   BuildCurveWithMarketCapParam,
   CollectFeeMode,
-  FeeSchedulerMode,
   MigrationFeeOption,
   MigrationOption,
+  FeeSchedulerParams,
   TokenDecimal,
   TokenType,
   TokenUpdateAuthorityOption,
+  BaseFeeMode,
 } from "@meteora-ag/dynamic-bonding-curve-sdk";
 import { NATIVE_MINT } from "@solana/spl-token";
 
@@ -35,12 +36,14 @@ export const configKeyParams: BuildCurveWithMarketCapParam = {
     totalVestingDuration: 0,
     cliffDurationFromMigrationTime: 0,
   },
-  feeSchedulerParam: {
-    startingFeeBps: 100,
-    endingFeeBps: 100,
-    numberOfPeriod: 0,
-    totalDuration: 0,
-    feeSchedulerMode: FeeSchedulerMode.Linear,
+  baseFeeParams: {
+    baseFeeMode: BaseFeeMode.FeeSchedulerLinear,
+    feeSchedulerParam: {
+      startingFeeBps: 100,
+      endingFeeBps: 100,
+      numberOfPeriod: 0,
+      totalDuration: 0,
+    },
   },
   dynamicFeeEnabled: true,
   activationType: ActivationType.Slot,

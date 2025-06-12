@@ -19,6 +19,8 @@ async function swapBuy() {
     if (!WALLET_PRIVATE_KEY) {
         throw new Error("PRIVATE_KEY is not set");
     }
+
+    const baseMint = new PublicKey('')
     const walletSecretKey = bs58.decode(WALLET_PRIVATE_KEY);
     const wallet = Keypair.fromSecretKey(walletSecretKey);
     console.log("Wallet public key:", wallet.publicKey.toBase58());
@@ -27,11 +29,19 @@ async function swapBuy() {
         process.env.RPC_URL || 'https://api.mainnet-beta.solana.com',
         'confirmed'
     )
-    const baseMint = new PublicKey('')
-    const config = new PublicKey('')
 
-    try {
-        const client = new DynamicBondingCurveClient(connection, 'confirmed')
+    try{
+        const client = new DynamicBondingCurveClient(connection, "confirmed");
+        const virtualPoolState = await client.state.getPoolByBaseMint(baseMint);
+        if (!virtualPoolState) {
+        throw new Error(`Pool not found for base mint: ${baseMint.toString()}`);
+        }
+
+        const config = virtualPoolState.account.config;
+        if (!config) {
+        throw new Error("Pool config is undefined");
+        }
+
 
         const poolAddress = deriveDbcPoolAddress(NATIVE_MINT, baseMint, config)
         console.log('Derived pool address:', poolAddress.toString())
