@@ -11,7 +11,7 @@ import {
 import "dotenv/config";
 import { quoteMint, configKeyParams, tokenParams } from "../examples/basic";
 
-const WALLET_PRIVATE_KEY = process.env.PRIVATE_KEY;
+const WALLET_PRIVATE_KEY = process.env.PAYER_PRIVATE_KEY;
 if (!WALLET_PRIVATE_KEY) {
   throw new Error("PRIVATE_KEY is not set");
 }

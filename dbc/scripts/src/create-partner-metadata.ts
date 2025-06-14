@@ -7,7 +7,7 @@ import "dotenv/config";
  * Create a partner metadata for the dynamic bonding curve
  */
 async function createPartnerMetadata() {
-    const PAYER_PRIVATE_KEY = process.env.PRIVATE_KEY;
+    const PAYER_PRIVATE_KEY = process.env.PAYER_PRIVATE_KEY;
     if (!PAYER_PRIVATE_KEY) {
         throw new Error("PRIVATE_KEY is not set");
     }
