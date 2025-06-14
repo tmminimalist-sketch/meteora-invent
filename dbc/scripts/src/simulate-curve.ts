@@ -99,7 +99,7 @@ async function simulateCurve() {
     console.log('migrationQuoteThreshold', curveConfig.migrationQuoteThreshold.toString())
 
     try {
-        const PAYER_PRIVATE_KEY = process.env.PRIVATE_KEY;
+        const PAYER_PRIVATE_KEY = process.env.PAYER_PRIVATE_KEY;
         if (!PAYER_PRIVATE_KEY) {
             throw new Error("PRIVATE_KEY is not set");
         }

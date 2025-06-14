@@ -5,3 +5,13 @@ dbc/package-lock.json
 dbc/.env
 dbc/.DS_Store
 
+
+damm/node_modules
+damm/package-lock.json
+damm/.env
+damm/.DS_Store
+
+damm-v2/node_modules
+damm-v2/package-lock.json
+damm-v2/.env
+damm-v2/.DS_Store

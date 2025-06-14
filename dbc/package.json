@@ -27,15 +27,14 @@
         "typescript": "^5.3.3"
     },
     "dependencies": {
+        "@coral-xyz/anchor": "^0.31.1",
         "@meteora-ag/dynamic-bonding-curve-sdk": "^1.2.4",
         "@solana/spl-token": "^0.4.13",
         "@solana/web3.js": "^1.98.2",
-        "@coral-xyz/anchor": "^0.31.1",
-        "bn.js": "^5.2.1",
-        "bs58": "^6.0.0",
+        "bn.js": "^5.2.2",
+        "bs58": "latest",
         "decimal.js": "^10.5.0",
-        "dotenv": "^16.5.0",
+        "dotenv": "latest",
         "jito-ts": "latest"
     }
 }
-  

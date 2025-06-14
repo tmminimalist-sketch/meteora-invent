@@ -15,12 +15,14 @@ import "dotenv/config";
 async function swapBuy() {
     console.log('Starting pool creation and swap process...')
 
-    const WALLET_PRIVATE_KEY = process.env.PRIVATE_KEY;
+    const WALLET_PRIVATE_KEY = process.env.PAYER_PRIVATE_KEY;
     if (!WALLET_PRIVATE_KEY) {
         throw new Error("PRIVATE_KEY is not set");
     }
 
     const baseMint = new PublicKey('')
+    const amountIn = 0.01 * 1e9; // Amount is in base units
+    const swapBaseForQuote = false; // False to buy token, true to sell token
     const walletSecretKey = bs58.decode(WALLET_PRIVATE_KEY);
     const wallet = Keypair.fromSecretKey(walletSecretKey);
     console.log("Wallet public key:", wallet.publicKey.toBase58());
@@ -47,9 +49,9 @@ async function swapBuy() {
         console.log('Derived pool address:', poolAddress.toString())
 
         const swapParam = {
-            amountIn: new BN(0.01 * 1e9),
+            amountIn: new BN(amountIn),
             minimumAmountOut: new BN(0),
-            swapBaseForQuote: false,
+            swapBaseForQuote: swapBaseForQuote,
             owner: wallet.publicKey,
             pool: poolAddress,
             referralTokenAccount: null,
