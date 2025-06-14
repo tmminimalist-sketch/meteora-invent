@@ -76,7 +76,7 @@ Gets quote for token in DBC pool.
 ## Getting Started
 
   
-1. Change directory to the `dbc/scripts` folder
+1. Change directory to the `meteora-studio/dbc` folder
 
 ```bash
 
