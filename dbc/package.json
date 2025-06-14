@@ -1,7 +1,7 @@
 {
-    "name": "meteora-studio-quickstart",
+    "name": "meteora-studio-dbc",
     "version": "1.0.0",
-    "description": "Meteora Studio tool and scripts for devs to interact with DBC",
+    "description": "Developer tools and scripts to interact with the Dynamic Bonding Curve",
     "main": "index.ts",
     "scripts": {
         "quickstart": "tsx quickstart/src/index.ts",
@@ -32,9 +32,9 @@
         "@solana/spl-token": "^0.4.13",
         "@solana/web3.js": "^1.98.2",
         "bn.js": "^5.2.2",
-        "bs58": "latest",
+        "bs58": "^6.0.0",
         "decimal.js": "^10.5.0",
-        "dotenv": "latest",
-        "jito-ts": "latest"
+        "dotenv": "^16.5.0",
+        "jito-ts": "^4.2.0"
     }
 }

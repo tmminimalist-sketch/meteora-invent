@@ -18,7 +18,7 @@ async function checkAndClaimLockFees() {
     const RECEIVER_PUBLIC_KEY = ""; // Enter receiver public key here. Default is owner.
     const receiverPublicKey = RECEIVER_PUBLIC_KEY ? new PublicKey(RECEIVER_PUBLIC_KEY) : undefined;
 
-    const PAYER_PRIVATE_KEY = process.env.PRIVATE_KEY;
+    const PAYER_PRIVATE_KEY = process.env.PAYER_PRIVATE_KEY;
     if (!PAYER_PRIVATE_KEY) {
         throw new Error("PRIVATE_KEY is not set");
     }

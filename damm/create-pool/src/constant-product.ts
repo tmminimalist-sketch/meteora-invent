@@ -1,12 +1,11 @@
 import AmmImpl, { PROGRAM_ID } from "@meteora-ag/dynamic-amm-sdk";
 import { Connection, Keypair, PublicKey } from "@solana/web3.js";
 import { AnchorProvider, Wallet } from "@coral-xyz/anchor";
-import * as dotenv from "dotenv";
+import "dotenv/config";
 import { derivePoolAddressWithConfig } from "@meteora-ag/dynamic-amm-sdk/dist/cjs/src/amm/utils";
 import { BN } from "@coral-xyz/anchor";
 import bs58 from "bs58";
 
-dotenv.config();
 
 async function createConstantProductPool() {
   console.log("Starting constant product pool creation process...");
@@ -18,7 +17,7 @@ async function createConstantProductPool() {
   );
 
   // Initialise user wallet
-  const userWallet = new Wallet(Keypair.fromSecretKey(bs58.decode(process.env.PRIVATE_KEY || "")));
+  const userWallet = new Wallet(Keypair.fromSecretKey(bs58.decode(process.env.PAYER_PRIVATE_KEY)));
   console.log("User wallet initialized:", userWallet.publicKey.toBase58());
 
   // Initialise anchor provider

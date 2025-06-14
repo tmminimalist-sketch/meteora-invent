@@ -1,0 +1,27 @@
+{
+  "name": "meteora-studio-dlmm",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "create-balance-position": "tsx create-position/src/balance.ts",
+    "create-imbalance-position": "tsx create-position/src/imbalance.ts",
+    "create-one-sided-position": "tsx create-position/src/one-sided.ts",
+    "get-active-bin": "tsx get-position/src/get-active-bin.ts",
+    "get-positions-list": "tsx get-position/src/get-positions-list.ts",
+    "add-liquidity": "tsx src/manage-position/add-liquidity.ts"
+  },
+  "keywords": [],
+  "author": "@dannweeeee",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "tsx": "^4.19.3"
+  },
+  "dependencies": {
+    "@coral-xyz/anchor": "^0.31.1",
+    "@meteora-ag/dlmm": "^1.4.7",
+    "@solana/web3.js": "^1.98.2",
+    "bs58": "^6.0.0",
+    "dotenv": "^16.5.0"
+  }
+}
