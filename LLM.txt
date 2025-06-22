@@ -37,6 +37,8 @@ The 4 pools developers can interact with are:
  - run `npx tsx validate-env.ts` to validate PAYER_PRIVATE_KEY, RPC URL and to identify the RPC cluster
  - Never hardcode private keys or RPC endpoints
 
+## Debugging
+  - Always run the validate-env.ts and ensure that the rpc is active and that the wallet exists
 
 ## The different types of pools 
 

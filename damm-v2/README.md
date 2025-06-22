@@ -10,6 +10,6 @@ Use [claim fees](./claim-fees/README.md) to claim any unclaimed fees from a DAMM
 
 Use [create pool](./create-pool/README.md) to create a DAMM V2 pool
 
-## Create position
+## Manange position
 
-Use [create position](./create-postion/README.md) to create a position on DAMM V2 pools and to lock a position
+Use [manange position](./manange-postion/README.md) to manange a position on DAMM V2 pools and to lock a position

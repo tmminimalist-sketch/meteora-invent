@@ -4,10 +4,8 @@ import { AnchorProvider, Wallet } from "@coral-xyz/anchor";
 import { derivePoolAddressWithConfig } from "@meteora-ag/dynamic-amm-sdk/dist/cjs/src/amm/utils";
 import { BN } from "@coral-xyz/anchor";
 import bs58 from "bs58";
-import path from "path";
-import { config } from "dotenv";
+import 'dotenv/config';
 
-config({ path: path.resolve(process.cwd(), "../.env") });
 
 const PAYER_PRIVATE_KEY = process.env.PAYER_PRIVATE_KEY;
 if (!PAYER_PRIVATE_KEY) {
@@ -26,25 +24,22 @@ async function createConstantProductPool() {
   //Variables to be configured
   const tokenAMint = new PublicKey("");
   const tokenBMint = new PublicKey("");
-  
+  const tokenAAmount = 10; 
+  const tokenBAmount = 1500;
+  const tokenADecimals = 9;
+  const tokenBDecimals = 6;
+  const config = new PublicKey("");
+
   //
   try {
-
-
-
     // Initialise anchor provider
     const provider = new AnchorProvider(connection, new Wallet(payer), {
       commitment: "confirmed",
     });
 
-    // Configuration address for the pool (get from https://amm-v2.meteora.ag/swagger-ui/#/pools/get_all_pool_configs)
-    const config = new PublicKey(
-      "" // Note that you must have the authority to use config and that each pair can only have 1 pool under the same config
-    );
-
     // Amount of token A and B to be deposited to the pool in base units
-    const tokenAAmount = new BN(); 
-    const tokenBAmount = new BN(); 
+    const totalTokenAAmount = new BN(tokenAAmount * 10 ** tokenADecimals); 
+    const totalTokenBAmount = new BN(tokenBAmount * 10 ** tokenBDecimals); 
 
     console.log("Pool configuration:");
     console.log("Token A:", tokenAMint.toBase58());
@@ -71,8 +66,8 @@ async function createConstantProductPool() {
         payer.publicKey, // payer
         tokenAMint,
         tokenBMint,
-        tokenAAmount,
-        tokenBAmount,
+        totalTokenAAmount,
+        totalTokenBAmount,
         config
       );
 

@@ -1,9 +1,6 @@
 import { Connection, PublicKey, Keypair } from "@solana/web3.js";
 import AmmImpl from "@meteora-ag/dynamic-amm-sdk";
-import path from "path";
-import { config } from "dotenv";
-
-config({ path: path.resolve(process.cwd(), "../.env") });
+import 'dotenv/config';
 
 const connection = new Connection(
     process.env.RPC_URL || "https://api.mainnet-beta.solana.com"

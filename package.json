@@ -1,0 +1,61 @@
+{
+    "name": "meteora-studio-damm-v1",
+    "version": "1.0.0",
+    "main": "index.js",
+    "scripts": {
+      "validate-env": "tsx validate-env.ts",
+
+      "damm-v1-create-constant-product-pool": "tsx damm-v1/create-pool/src/constant-product.ts",
+      "damm-v1-claim-lock-fees": "tsx damm-v1/claim-fees/src/claim-position-fees.ts",
+      "damm-v1-get-lock-fees": "tsx damm-v1/claim-fees/src/get-position-fees.ts",
+
+      "damm-v2-lock-position": "tsx damm-v2/manange-position/src/lock-position.ts",
+      "damm-v2-claim-position-fee": "tsx damm-v2/claim-fees/src/claim-position-fee.ts",
+      "damm-v2-create-pool": "tsx damm-v2/create-pool/src/create-pool.ts",
+      "damm-v2-create-position": "tsx damm-v2/manange-position/src/create-position.ts",
+      "damm-v2-get-positions": "tsx damm-v2/manange-position/src/get-positions.ts",
+
+      "damm-v2-get-postion-fees": "tsx damm-v2/claim-fees/src/get-position-fees.ts",
+
+      "dlmm-create-balance-position": "tsx dlmm/src/create-position/create-balanced-position.ts",
+      "dlmm-create-imbalance-position": "tsx dlmm/src/create-position/create-imbalanced-position.ts",
+      "dlmm-get-active-bin": "tsx dlmm/src/get-position/get-active-bin.ts",
+      "dlmm-get-positions-list": "tsx dlmm/src/get-position/get-positions-list.ts",
+      "dlmm-add-liquidity": "tsx dlmm/src/manage-position/add-balanced-liquidity.ts",
+
+      "dbc-quickstart": "tsx dbc/quickstart/src/index.ts",
+      "dbc-quicklaunch": "tsx dbc/quicklaunch/src/index.ts",
+      "dbc-create-config": "tsx dbc/scripts/src/create-config.ts",
+      "dbc-create-partner-metadata": "tsx dbc/scripts/src/create-partner-metadata.ts",
+      "dbc-create-pool": "tsx dbc/scripts/src/create-pool.ts",
+      "dbc-migrate-to-damm-v1": "tsx dbc/scripts/src/migrate-to-damm-v1.ts",
+      "dbc-migrate-to-damm-v2": "tsx dbc/scripts/src/migrate-to-damm-v2.ts",
+      "dbc-simulate-curve": "tsx dbc/scripts/src/simulate-curve.ts",
+      "dbc-swap-buy": "tsx dbc/scripts/src/swap-buy.ts",
+      "dbc-swap-quote": "tsx dbc/scripts/src/swap-quote.ts"
+
+    },
+    "keywords": [],
+    "author": "@dannweeeee",
+    "license": "ISC",
+    "description": "",
+    "dependencies": {
+      "@coral-xyz/anchor": "^0.31.1",
+      "@mercurial-finance/dynamic-amm-sdk": "^1.1.23",
+      "@mercurial-finance/vault-sdk": "^2.2.1",
+      "@meteora-ag/cp-amm-sdk": "^1.0.10",
+      "@meteora-ag/dynamic-amm-sdk": "^1.3.5-rc.0",
+      "@meteora-ag/dynamic-bonding-curve-sdk": "^1.2.4",
+      "@meteora-ag/dlmm": "^1.4.7",
+      "@solana/spl-token": "^0.4.13",
+      "@solana/web3.js": "^1.98.2",
+      "bn.js": "^5.2.2",
+      "bs58": "^6.0.0",
+      "decimal.js": "^10.5.0",
+      "dotenv": "^16.5.0",
+      "jito-ts": "^4.2.0"
+    },
+    "devDependencies": {
+      "tsx": "^4.19.3"
+    }
+}
