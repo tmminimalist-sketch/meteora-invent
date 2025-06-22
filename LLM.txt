@@ -34,7 +34,7 @@ The 4 pools developers can interact with are:
 ## Environment Variables
  - Use `.env` files for all sensitive data
  - Validate required environment variables on startup
- - run `npx tsx validate-env.ts` to validate PAYER_PRIVATE_KEY, RPC URL and to identify the RPC cluster
+ - run `npm run validate-env` to validate PAYER_PRIVATE_KEY, RPC URL and to identify the RPC cluster
  - Never hardcode private keys or RPC endpoints
 
 ## Debugging
