@@ -1,3 +1,5 @@
+import { PublicKey } from "@solana/web3.js";
+import { NATIVE_MINT } from "@solana/spl-token";
 import {
   ActivationType,
   BuildCurveWithMarketCapParam,
@@ -10,8 +12,7 @@ import {
   TokenUpdateAuthorityOption,
   BaseFeeMode,
 } from "@meteora-ag/dynamic-bonding-curve-sdk";
-import { NATIVE_MINT } from "@solana/spl-token";
-import { PublicKey } from "@solana/web3.js";
+
 
 export const tokenParams = {
   totalTokenSupply: 1000000000,

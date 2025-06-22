@@ -1,33 +1,43 @@
 import {
-    DynamicBondingCurveClient,
-} from "@meteora-ag/dynamic-bonding-curve-sdk";
-import bs58 from "bs58";
-import {
     Connection,
     Keypair,
     sendAndConfirmTransaction,
     PublicKey
 } from "@solana/web3.js";
-import "dotenv/config";
+import {
+    DynamicBondingCurveClient,
+} from "@meteora-ag/dynamic-bonding-curve-sdk";
+import bs58 from "bs58";
+import path from "path";
+import { config } from "dotenv";
 
-const WALLET_PRIVATE_KEY = process.env.PAYER_PaRIVATE_KEY;
-if (!WALLET_PRIVATE_KEY) {
+config({ path: path.resolve(process.cwd(), "../.env") });
+
+const PAYER_PRIVATE_KEY = process.env.PAYER_PRIVATE_KEY;
+if (!PAYER_PRIVATE_KEY) {
     throw new Error("PRIVATE_KEY is not set");
 }
-const walletSecretKey = bs58.decode(WALLET_PRIVATE_KEY);
-const wallet = Keypair.fromSecretKey(walletSecretKey);
+const payerSecretKey = bs58.decode(PAYER_PRIVATE_KEY);
+const payer = Keypair.fromSecretKey(payerSecretKey);
 
 const connection = new Connection(
     process.env.RPC_URL || "https://api.mainnet-beta.solana.com"
 );
 
 
-async function main() {
+
+async function quicklaunch() {
+
+    // Variables to be configured
     const tokenParams = {
         name: "PUMP IT Token",
         symbol: "PUMP",
         uri: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTgk7EaZ4MxetCM1IB2B8z0MFJZg8IOn8AcMw&s",
     };
+    const configKey = new PublicKey('6ZjAF1MqbWZ4cCHGqpAMAZbUBi5KnAZDTDT6nXEA5iYZ') // TO BE CHANGED // Or use custom / partner config key 
+    //
+
+
     // Attempt to grind token address to match first 3 characters of ticker
     const start = tokenParams.symbol.slice(0, 3);
     let baseMint = Keypair.generate();
@@ -43,7 +53,6 @@ async function main() {
             }
         }
     }
-    const configKey = new PublicKey('6ZjAF1MqbWZ4cCHGqpAMAZbUBi5KnAZDTDT6nXEA5iYZ') // TO BE CHANGED // Or use custom / partner config key 
 
     const client = new DynamicBondingCurveClient(connection, "confirmed");
     
@@ -51,14 +60,14 @@ async function main() {
         ...tokenParams,
         config: configKey,
         baseMint: baseMint.publicKey,
-        payer: wallet.publicKey,
-        poolCreator: wallet.publicKey,
+        payer: payer.publicKey,
+        poolCreator: payer.publicKey,
     });
 
     const createPoolSignature = await sendAndConfirmTransaction(
         connection,
         createPoolTx,
-        [wallet, baseMint, wallet],
+        [payer, baseMint, payer],
         {
         commitment: "confirmed",
         skipPreflight: true,
@@ -71,7 +80,7 @@ async function main() {
     );
 }
 
-main()
+quicklaunch()
 .then(() => process.exit(0))
 .catch((error) => {
     console.error(error);

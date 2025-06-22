@@ -13,7 +13,22 @@ import {
 import { Connection, Keypair, PublicKey, sendAndConfirmTransaction } from '@solana/web3.js'
 import Decimal from 'decimal.js'
 import bs58 from 'bs58'
-import "dotenv/config";
+import path from "path";
+import { config } from "dotenv";
+
+config({ path: path.resolve(process.cwd(), "../.env") });
+
+const PAYER_PRIVATE_KEY = process.env.PAYER_PRIVATE_KEY;
+if (!PAYER_PRIVATE_KEY) {
+    throw new Error("PRIVATE_KEY is not set");
+}
+const payerSecretKey = bs58.decode(PAYER_PRIVATE_KEY);
+const payer = Keypair.fromSecretKey(payerSecretKey);
+
+const connection = new Connection(
+    process.env.RPC_URL || "https://api.mainnet-beta.solana.com"
+);
+
 
 async function simulateCurve() {
     console.log('Testing buildCurveGraph...')
@@ -53,6 +68,8 @@ async function simulateCurve() {
     //     327.68, // 15
     // ]
 
+
+    // Change to Market Cap
     const curveConfig = buildCurveWithLiquidityWeights({
         totalTokenSupply: 1000000000,
         initialMarketCap: 250,
@@ -99,20 +116,8 @@ async function simulateCurve() {
     console.log('migrationQuoteThreshold', curveConfig.migrationQuoteThreshold.toString())
 
     try {
-        const PAYER_PRIVATE_KEY = process.env.PAYER_PRIVATE_KEY;
-        if (!PAYER_PRIVATE_KEY) {
-            throw new Error("PRIVATE_KEY is not set");
-        }
-        const payerSecretKey = bs58.decode(PAYER_PRIVATE_KEY);
-        const payer = Keypair.fromSecretKey(payerSecretKey);
-        console.log("Payer public key:", payer.publicKey.toBase58());
 
         const config = Keypair.generate();
-
-        const connection = new Connection(
-            process.env.RPC_URL || 'https://api.mainnet-beta.solana.com',
-            'confirmed'
-        )
 
         const client = new DynamicBondingCurveClient(connection, 'confirmed')
 

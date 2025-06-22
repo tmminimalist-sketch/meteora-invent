@@ -3,8 +3,11 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "lock-position": "tsx src/lock-position.ts",
-    "claim-position-fee": "tsx src/claim-position-fee.ts"
+    "lock-position": "tsx create-position/src/lock-position.ts",
+    "claim-position-fee": "tsx claim-fees/src/claim-position-fee.ts",
+    "create-pool": "tsx create-pool/src/create-pool.ts",
+    "create-position": "tsx create-position/src/create-position.ts",
+    "get-postion-fees": "tsx claim-fees/src/get-position-fees.ts"
   },
   "keywords": [],
   "author": "@dannweeeee",

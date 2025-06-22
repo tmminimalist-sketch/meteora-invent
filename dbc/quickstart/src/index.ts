@@ -1,54 +1,58 @@
 import {
-  buildCurveWithMarketCap,
-  DynamicBondingCurveClient,
-} from "@meteora-ag/dynamic-bonding-curve-sdk";
-import bs58 from "bs58";
-import {
   Connection,
   Keypair,
   sendAndConfirmTransaction,
 } from "@solana/web3.js";
+import {
+  buildCurveWithMarketCap,
+  DynamicBondingCurveClient,
+} from "@meteora-ag/dynamic-bonding-curve-sdk";
+import bs58 from "bs58";
 import "dotenv/config";
+import path from "path";
+import { config } from "dotenv";
 import { quoteMint, configKeyParams, tokenParams } from "../examples/basic";
 
-const WALLET_PRIVATE_KEY = process.env.PAYER_PRIVATE_KEY;
-if (!WALLET_PRIVATE_KEY) {
-  throw new Error("PRIVATE_KEY is not set");
+config({ path: path.resolve(process.cwd(), "../.env") });
+
+
+const PAYER_PRIVATE_KEY = process.env.PAYER_PRIVATE_KEY;
+if (!PAYER_PRIVATE_KEY) {
+    throw new Error("PRIVATE_KEY is not set");
 }
-const walletSecretKey = bs58.decode(WALLET_PRIVATE_KEY);
-const wallet = Keypair.fromSecretKey(walletSecretKey);
+const payerSecretKey = bs58.decode(PAYER_PRIVATE_KEY);
+const payer = Keypair.fromSecretKey(payerSecretKey);
 
 const connection = new Connection(
-  process.env.RPC_URL || "https://api.mainnet-beta.solana.com"
+    process.env.RPC_URL || "https://api.mainnet-beta.solana.com"
 );
 
-async function main() {
+
+async function quickstart() {
   const client = new DynamicBondingCurveClient(connection, "confirmed");
 
-  // Step 1: Create Config Key
   const configKey = Keypair.generate();
-
   const curveConfig = buildCurveWithMarketCap(configKeyParams);
 
   const createConfigTx = await client.partner.createConfig({
     config: configKey.publicKey,
-    feeClaimer: wallet.publicKey,
-    leftoverReceiver: wallet.publicKey,
-    payer: wallet.publicKey,
+    feeClaimer: payer.publicKey,
+    leftoverReceiver: payer.publicKey,
+    payer: payer.publicKey,
     quoteMint: quoteMint,
     ...curveConfig,
   });
 
   const { blockhash } = await connection.getLatestBlockhash("confirmed");
   createConfigTx.recentBlockhash = blockhash;
-  createConfigTx.feePayer = wallet.publicKey;
+  createConfigTx.feePayer = payer.publicKey;
 
   createConfigTx.partialSign(configKey);
 
   const createConfigSignature = await sendAndConfirmTransaction(
     connection,
     createConfigTx,
-    [wallet, configKey],
+    [payer, configKey],
     { commitment: "confirmed", skipPreflight: true }
   );
 
@@ -79,14 +83,14 @@ async function main() {
     ...tokenParams,
     config: configKey.publicKey,
     baseMint: baseMint.publicKey,
-    payer: wallet.publicKey,
-    poolCreator: wallet.publicKey,
+    payer: payer.publicKey,
+    poolCreator: payer.publicKey,
   });
 
   const createPoolSignature = await sendAndConfirmTransaction(
     connection,
     createPoolTx,
-    [wallet, baseMint, wallet],
+    [payer, baseMint, payer],
     {
       commitment: "confirmed",
       skipPreflight: true,
@@ -99,7 +103,7 @@ async function main() {
   );
 }
 
-main()
+quickstart()
   .then(() => process.exit(0))
   .catch((error) => {
     console.error(error);

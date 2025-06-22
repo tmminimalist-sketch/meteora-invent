@@ -1,22 +1,15 @@
-# DAMM V2 Examples
+# DAMM V2
 
-This folder contains examples for interacting with Meteora's DAMM V2.
+This folder contains all the scripts to interact with Meterora's Dynamic AMM V2
 
-## Lock a Position
+## Claim Fees
 
-- [Lock a Position](./src/lock-position.ts)
+Use [claim fees](./claim-fees/README.md) to claim any unclaimed fees from a DAMM V2 position
 
-## Getting Started
+## Create Pool
 
-### Install dependencies
+Use [create pool](./create-pool/README.md) to create a DAMM V2 pool
 
-```bash
-npm install
-```
+## Create position
 
-### Run the examples
-
-```bash
-npm run <file-name>
-# e.g. npm run lock-position
-```
+Use [create position](./create-postion/README.md) to create a position on DAMM V2 pools and to lock a position

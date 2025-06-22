@@ -16,21 +16,31 @@ import {
 } from "@meteora-ag/dynamic-bonding-curve-sdk";
 import { BN } from "bn.js";
 import bs58 from "bs58";
-import "dotenv/config";
 import { searcherClient } from "jito-ts/dist/sdk/block-engine/searcher";
 import { Bundle } from "jito-ts/dist/sdk/block-engine/types";
+import path from "path";
+import { config } from "dotenv";
 
+config({ path: path.resolve(process.cwd(), "../.env") });
 
+const PAYER_PRIVATE_KEY = process.env.PAYER_PRIVATE_KEY;
+if (!PAYER_PRIVATE_KEY) {
+    throw new Error("PRIVATE_KEY is not set");
+}
+const payerSecretKey = bs58.decode(PAYER_PRIVATE_KEY);
+const payer = Keypair.fromSecretKey(payerSecretKey);
+
+const connection = new Connection(
+  process.env.RPC_URL || "https://api.mainnet-beta.solana.com"
+);
 
 async function migrateToDammV2() {
 
-  const PAYER_PRIVATE_KEY = process.env.PAYER_PRIVATE_KEY;
-  if (!PAYER_PRIVATE_KEY) {
-    throw new Error("PRIVATE_KEY is not set");
-  }
-  const payerSecretKey = bs58.decode(PAYER_PRIVATE_KEY);
-  const payer = Keypair.fromSecretKey(payerSecretKey);
-  console.log("Payer public key:", payer.publicKey.toBase58());
+  // Variables to be configured
+  const baseMint = new PublicKey("");
+
+  //
+
 
   const JITO_BLOCK_ENGINE_URL = "mainnet.block-engine.jito.wtf";
 
@@ -38,14 +48,9 @@ async function migrateToDammV2() {
     "96gYZGLnJYVFmbjzopPSU6QiEV5fGqZNyN9nmNhvrZU5"
   );
 
-    const connection = new Connection(
-      process.env.RPC_URL || 'https://api.mainnet-beta.solana.com',
-      'confirmed'
-  )
+
   try {
     const client = new DynamicBondingCurveClient(connection, "confirmed");
-
-    const baseMint = new PublicKey("");
 
     const virtualPoolState = await client.state.getPoolByBaseMint(baseMint);
     if (!virtualPoolState) {

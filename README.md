@@ -1,47 +1,48 @@
 # Meteora Studio
 
+Meteora has the best and the most comprehensive pools on Solana and provides the best tools for liquidity providers and token launchers. 
+
 Meteora Studio is a suite of scripts, tools and scaffolds to help you get started with building and launching on Meteora.
 
+## Prerequisites:
+
+-   [Node.js](https://nodejs.org/)  (version 18 or higher) installed
+-   [TypeScript](https://www.typescriptlang.org/)  (version 5.0 or higher)
 
 
-## Getting started  
+## Getting started
 
+Clone the repo
 ```bash
-
 git  clone  https://github.com/MeteoraAg/meteora-studio.git
-
 ```
 
-
-
-### Prerequisites:
-
-- [Node.js](https://nodejs.org/) (version 18 or higher) installed
-- [TypeScript](https://www.typescriptlang.org/) (version 5.0 or higher)
-
-	 
-To get started with launching your token, check out our [Quickstart](dbc/quickstart/README.md) 
-
-  
+This repo consists of 4 main folders, each contains scripts to interact with a type of Meteora pool
+These folders are:
+ - DBC (Dynamic Bonding Curve)
+ - DAMM V1
+ - DAMM V2
+ - DLMM (Dynamic Liquidity Market Maker)
 
 ## Dynamic Bonding Curve (DBC)
+The Dynamic Bonding Curve (DBC) program is a permissionless launch pool protocol that allows any launch partners to enable their users to launch tokens with customizable virtual curves directly on their platform (e.g. launchpad). This allows their users to create a new token and create a Dynamic Bonding Curve pool where anyone can buy tokens based on that bonding curve.
 
-Find the type of project you want to launch here
+The DBC folder contains the scripts to launch tokens using Meteora's DBC pools, buy tokens from DBC pools, and migrate tokens to DAMM.
 
-1.[Quicklaunch](dbc/quicklaunch/README.md) - Launch token with default launch config or with an existing config key.
-  
-2. [Quickstart](dbc/quickstart/README.md) - A quick and easy way to create a custom config key and launch your token.
-  
-2. [Scripts](dbc/script/README.md) - Some tools to help launch and buy tokens.
-  
+## Dynamic AMM V1 (DAMM V1)
 
-## Repository Structure
+Constant product AMM that supports token prices from 0 to infinity. LPs can earn additional yield by utilizing lending sources alongside traditional swap fees, enhancing their returns.
 
-```bash
-meteora-studio/
-├──  dbc/
-│  └──  quickstart/
-│  └──  quicklaunch/
-│  └──  scripts/
+This folder contains all the scripts to interact with Meteora's DAMM V1. The scripts include, creating a pool, creating a position and claiming fees
 
-```
+## Dynamic AMM V2 (DAMM V2)
+
+Dynamic AMM v2 is a constant-product AMM program, with features that optimize transaction fees and provide greater flexibility for liquidity providers, launchpads, and token launches. DAMM v2 comes with SPL and Token 2022 token support, optional concentrated liquidity, position NFT, dynamic fee, on-chain fee scheduler, new fee claiming mechanism and fee token selection, more flexible liquidity locks, and an in-built farming mechanism. Unlike DAMM v1, DAMM v2 is not integrated with Dynamic Vaults. DAMM v2 is a new program, and not an upgrade of the Dynamic AMM v1 program.
+
+This folder contains all the scripts to interact with Meteora's DAMM V2. The scripts include, creating a pool, creating a position and claiming fees
+
+## Dynamic Liquidity Market Maker (DLMM)
+
+DLMM (Dynamic Liquidity Market Maker) gives LPs access to dynamic fees to capitalize on volatility, and precise liquidity concentration all in real-time, with the flexibility to select their preferred volatility strategy.
+
+This folder contains the scripts to create and manage positions on Meteora's DLMM.

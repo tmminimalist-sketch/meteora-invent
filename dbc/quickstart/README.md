@@ -27,7 +27,7 @@ npm  install
 
 ```
 
-3. Copy `.env.example` file and add your private key and RPC URL into the [env file](./../.env) (RPC is optional but highly encouraged. Visit `https://www.helius.dev/` to get an RPC URL)
+3. Copy `.env.example` file and add your private key and RPC URL into the [env file](./../../.env) (RPC is optional but highly encouraged. Visit `https://www.helius.dev/` to get an RPC URL)
 
 ```bash
 

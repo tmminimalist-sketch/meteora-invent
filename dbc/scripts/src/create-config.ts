@@ -17,22 +17,28 @@ import {
   TokenUpdateAuthorityOption,
 } from "@meteora-ag/dynamic-bonding-curve-sdk";
 import { NATIVE_MINT } from "@solana/spl-token";
-import "dotenv/config";
 import bs58 from "bs58";
+import path from "path";
+import { config } from "dotenv";
+
+config({ path: path.resolve(process.cwd(), "../.env") });
+
+const PAYER_PRIVATE_KEY = process.env.PAYER_PRIVATE_KEY;
+if (!PAYER_PRIVATE_KEY) {
+    throw new Error("PRIVATE_KEY is not set");
+}
+const payerSecretKey = bs58.decode(PAYER_PRIVATE_KEY);
+const payer = Keypair.fromSecretKey(payerSecretKey);
+
+const connection = new Connection(
+    process.env.RPC_URL || "https://api.mainnet-beta.solana.com"
+);
+
+
 
 async function createConfig() {
-  const PAYER_PRIVATE_KEY = process.env.PAYER_PRIVATE_KEY;
-  if (!PAYER_PRIVATE_KEY) {
-    throw new Error("PRIVATE_KEY is not set");
-  }
-  const payerSecretKey = bs58.decode(PAYER_PRIVATE_KEY);
-  const payer = Keypair.fromSecretKey(payerSecretKey);
-  console.log("Payer public key:", payer.publicKey.toBase58());
 
-  const connection = new Connection(
-    process.env.RPC_URL || "https://api.mainnet-beta.solana.com",
-    "confirmed"
-  );
+
 
   const config = Keypair.generate();
   console.log(`Config account: ${config.publicKey.toString()}`);
