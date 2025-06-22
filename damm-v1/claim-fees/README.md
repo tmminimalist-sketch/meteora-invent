@@ -3,22 +3,22 @@
 
   
 
-This folder contains scripts for checking and claiming unclaimed fees in a **Meteora DAMM V1 pool**.
+This folder contains scripts for checking and claiming unclaimed fees from locked positions in a **Meteora DAMM V1 pool**.
 
   
 ## Scripts
 
 ## Check Unclaimed Fees
 
-Checks for any unclaimed fees by owner of a position
-- [Check Fees](./src/get-position-fees.ts)
+Checks for any unclaimed fees by owner of a locked position
+- [Check Fees](./src/get-locked-fees.ts)
   
 
 ## Claim Unclaimed Fees
 
-Claims any unclaimed fees by owner of a position
+Claims any unclaimed fees from a locked position
 
-- [Claim Fees](./src/claim-position-fees.ts)
+- [Claim Fees](./src/claim-locked-fees.ts)
 
   
 
@@ -52,13 +52,13 @@ cp  .env.example  .env
 
 4. Edit the script
 
-- [Check Fees](./src/get-position-fees.ts)
-Enter the public key of the owner of the position and the pool address into the [script](./src/get-lock-fees.ts) 
+- [Check Fees](./src/get-locked-fees.ts)
+Enter the public key of the owner of the position and the pool address into the [script](./src/get-locked-fees.ts) 
 
   
-- [Claim Fees](./src/claim-position-fees.ts)
+- [Claim Fees](./src/claim-locked-fees.ts)
 Enter the position's owners private key into the [env file](./../../.env) if the owner is not the payer
-Enter the receivers public key and pool address into the [script](./src/claim-lock-fees.ts) if receiver is not owner
+Enter the receivers public key and pool address into the [script](./src/claim-locked-fees.ts) if receiver is not owner
 
   
 
@@ -67,7 +67,7 @@ Enter the receivers public key and pool address into the [script](./src/claim-lo
 - To check the fees from a pool:
 
 ```bash
-npm  run  get-position-fees
+npm  run  get-locked-fees
 ```
 
   
@@ -77,5 +77,5 @@ npm  run  get-position-fees
   
 
 ```bash
-npm  run  claim-position-fees
+npm  run  claim-locked-fees
 ```

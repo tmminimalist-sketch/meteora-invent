@@ -29,7 +29,7 @@ async function validateEnv() {
           "4uhcVJyU9pJkvQyS88uRDiswHXSCkY3zQawwpjk2NsNY": "testnet"
       };
       console.log("RPC_URL is valid");
-      console.log("RPC Cluster:", map[hash.toString()] || "unknown");
+      console.log("RPC Cluster:", map[hash.toString() as keyof typeof map] || "unknown");
     } catch (error) {
       console.log("RPC_URL is not valid");
     }

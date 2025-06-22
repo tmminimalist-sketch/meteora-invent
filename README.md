@@ -12,9 +12,22 @@ Meteora Studio is a suite of scripts, tools and scaffolds to help you get starte
 
 ## Getting started
 
-Clone the repo
+1. Clone the repo
+
 ```bash
 git  clone  https://github.com/MeteoraAg/meteora-studio.git
+```
+
+2. Install dependancies
+
+```bash
+npm install
+```
+
+3. Copy `.env.example` file and add your private key and RPC URL into .env (RPC is optional but highly encouraged. Visit `https://www.helius.dev/` to get an RPC URL)
+
+```bash
+cp .env.example .env
 ```
 
 This repo consists of 4 main folders, each contains scripts to interact with a type of Meteora pool

@@ -8,10 +8,8 @@ import {
   getTokenProgram,
   getUnClaimReward,
 } from "@meteora-ag/cp-amm-sdk";
-import path from "path";
-import { config } from "dotenv";
+import 'dotenv/config';
 
-config({ path: path.resolve(process.cwd(), "../.env") });  
   
   const connection = new Connection(
       process.env.RPC_URL || "https://api.mainnet-beta.solana.com"
@@ -30,9 +28,7 @@ async function checkPositionFee() {
     const cpAmm = new CpAmm(connection);
     try {
       // get pool state
-      const poolState = await cpAmm.fetchPoolState(poolAddress); // DAMM V2 pool ad
-      // adress (can use deriveDAMMV2PoolAddress)
-      // get position address for the user
+      const poolState = await cpAmm.fetchPoolState(poolAddress);
       const tokenAMint = poolState.tokenAMint;
       const tokenBMint = poolState.tokenBMint;
       const tokenAData = await getMint(connection, tokenAMint);
@@ -45,12 +41,15 @@ async function checkPositionFee() {
         console.log("No positions found for this user.");
         return;
       }
-      const positionState = await cpAmm.fetchPositionState(
-        userPositions[0].position
-      );
-      const unClaimedReward = getUnClaimReward(poolState, positionState);
-      console.log(tokenAMint.toBase58(), unClaimedReward.feeTokenA.toNumber() / 10 ** tokenAData.decimals);
-      console.log(tokenBMint.toBase58(), unClaimedReward.feeTokenB.toNumber() / 10 ** tokenBData.decimals);
+      for (const position of userPositions) {
+        const positionState = await cpAmm.fetchPositionState(
+          position.position
+        );
+        console.log("Position Address:", position.position.toBase58());
+        const unClaimedReward = getUnClaimReward(poolState, positionState);
+        console.log(tokenAMint.toBase58(), unClaimedReward.feeTokenA.toNumber() / 10 ** tokenAData.decimals);
+        console.log(tokenBMint.toBase58(), unClaimedReward.feeTokenB.toNumber() / 10 ** tokenBData.decimals);
+      }
     } catch (error) {
       console.error("Error:", error);
     }

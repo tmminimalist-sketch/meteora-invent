@@ -18,10 +18,8 @@ import {
 } from "@meteora-ag/dynamic-bonding-curve-sdk";
 import { NATIVE_MINT } from "@solana/spl-token";
 import bs58 from "bs58";
-import path from "path";
-import { config } from "dotenv";
+import 'dotenv/config';
 
-config({ path: path.resolve(process.cwd(), "../.env") });
 
 const PAYER_PRIVATE_KEY = process.env.PAYER_PRIVATE_KEY;
 if (!PAYER_PRIVATE_KEY) {

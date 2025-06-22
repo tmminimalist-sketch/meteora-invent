@@ -75,32 +75,7 @@ Gets quote for token in DBC pool.
 
 ## Getting Started
 
-  
-1. Change directory to the `meteora-studio/dbc` folder
-
-```bash
-
-cd  meteora-studio/dbc
-
-```
-
-2. Install dependencies
-
-```bash
-
-npm  install
-
-```
-
-3. Copy `.env.example` file and add your private key and RPC URL into the [env file](./../../.env) (RPC is optional but highly encouraged. Visit `https://www.helius.dev/` to get an RPC URL)
-
-```bash
-
-cp  .env.example  .env
-
-```
-
-4. Edit the script
+1. Edit the script
 - [Create a DBC Config](./src/create-config.ts)
 	Edit `curveConfig`  to match your parameters
 
@@ -128,7 +103,7 @@ cp  .env.example  .env
 	Edit `curveConfig` and `liquidityWeights` to match your launch parameters
 
 	
-5. Run the script
+2. Run the script
 
 ```bash
 

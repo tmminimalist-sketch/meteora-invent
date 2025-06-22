@@ -2,7 +2,7 @@ import { BN } from "@coral-xyz/anchor";
 import { bs58 } from "@coral-xyz/anchor/dist/cjs/utils/bytes";
 import DLMMPool, { StrategyType } from "@meteora-ag/dlmm";
 import { Connection, Keypair, PublicKey } from "@solana/web3.js";
-import * as dotenv from "dotenv";
+import 'dotenv/config';
 
 const PAYER_PRIVATE_KEY = process.env.PAYER_PRIVATE_KEY;
 if (!PAYER_PRIVATE_KEY) {
@@ -21,13 +21,14 @@ const connection = new Connection(
 async function createImbalancePosition() {
 
   // Variables to be configured
-  const poolAddress = new PublicKey(""); 
-  const XAmount = 1
-  const YAmount = 1
+  const poolAddress = new PublicKey("5rCf1DM8LjKTw4YqhnoLcngyZYeNnQqztScTogYHAS6"); 
+  // Example of creating a position on a SOL-USDC pool with 0.1 SOL and 100 USDC
+  const XAmount = 0.1
+  const YAmount = 100
   const XDecimals = 9
   const YDecimals = 6
   const totalRangeInterval = 10; // 10 bins on each side of the active bin
-  const strategyType = StrategyType.Spot // StrategyType.Spot, StrategyType.Imbalance, StrategyType.OneSided
+  const strategyType = StrategyType.Spot // StrategyType.Spot, StrategyType.Curve, StrategyType.BidAsk
 
 
   //

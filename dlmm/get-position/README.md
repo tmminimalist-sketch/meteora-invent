@@ -22,30 +22,7 @@ Retrieves positions by wallet
 ## Getting Started
 
 
-  
-
-1. Change directory to the `damm` folder
-
-```bash
-cd  meteora-studio/dlmm
-```
-
-
-2. Install dependencies
-  
-
-```bash
-npm  install
-```
-
-3.  (optional) Copy `.env.example` file and add your RPC URL into .env (RPC is optional but highly encouraged. Visit `https://www.helius.dev/` to get an RPC URL)
-
-
-```bash
-cp  .env.example  .env
-```
-
-4. Enter your pool details into the script
+1. Enter your pool details into the script
 
 - [Get Active Bin](./src/get-active-bin.ts)
 
@@ -56,7 +33,7 @@ Enter pool address into `poolAddress`
 
 Enter pool address into `poolAddress`  and wallet address into `userPublicKey`
 
-5. Run the script to create the position
+2. Run the script to create the position
 
 - To get active bins
 

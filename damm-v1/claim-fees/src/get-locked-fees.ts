@@ -1,4 +1,4 @@
-import { Connection, PublicKey, Keypair } from "@solana/web3.js";
+import { Connection, PublicKey } from "@solana/web3.js";
 import AmmImpl from "@meteora-ag/dynamic-amm-sdk";
 import 'dotenv/config';
 

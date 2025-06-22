@@ -19,15 +19,12 @@ const connection = new Connection(
 
 
 async function createBalancePosition() {
-  console.log("Starting balance position creation process...");
-
-
   // Variables to be configured
-  const poolAddress = new PublicKey("");
-  const XAmount = 10
+  const poolAddress = new PublicKey("5rCf1DM8LjKTw4YqhnoLcngyZYeNnQqztScTogYHAS6");
+  const XAmount = 0.1
   const XDecimals = 9
   const totalRangeInterval = 10; // 10 bins on each side of the active bin
-  const strategyType = StrategyType.Spot // StrategyType.Spot, StrategyType.Imbalance, StrategyType.OneSided
+  const strategyType = StrategyType.Spot // StrategyType.Spot, StrategyType.Curve, StrategyType.BidAsk
   //
 
   const dlmmPool = await DLMMPool.create(connection, poolAddress);

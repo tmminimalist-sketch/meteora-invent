@@ -10,32 +10,7 @@ The Dynamic Bonding Curve Quickstart repository provides a foundational understa
 
 ## Getting Started
 
-  
-1. Change directory to the `meteora-studio/dbc` folder
-
-```bash
-
-cd  meteora-studio/dbc
-
-```
-
-2. Install dependencies
-
-```bash
-
-npm  install
-
-```
-
-3. Copy `.env.example` file and add your private key and RPC URL into the [env file](./../../.env) (RPC is optional but highly encouraged. Visit `https://www.helius.dev/` to get an RPC URL)
-
-```bash
-
-cp  .env.example  .env
-
-```
-
-4. For a basic default launch, edit token params in examples/basic.ts
+1. For a basic default launch, edit token params in examples/basic.ts
 
   
 
@@ -75,7 +50,7 @@ To read more about the lauch params, visit [DBC Docs](https://docs.meteora.ag/pr
 
   
 
-5. Run the script to launch a token
+2. Run the script to launch a token
 
 
 ```bash
