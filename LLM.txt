@@ -13,50 +13,9 @@ Files to never edit:
  - .gitignore
  - package.json
 
-# Project Context
-
-This repo contains scripts to help developers interact with Meteora's pools
-The 4 pools developers can interact with are:
- - Dynamic Bonding Curve Pools (DBC)
- - Dynamic AMM V1 (DAMM V1)
- - Dynamic AMM V2 (DAMM V2)
- - Dynamic Liquidity Market Maker (DLMM)
-
-## Architecture Decisions
-
-- All scripts are written in TypeScript for type safety
-- Each pool type has its own directory with independent dependencies
-- Individual TypeScript files for specific operations
-- Sensitive data such as private keys and RPC are stored in the .env file
-- Built specifically for Solana blockchain interactions
-
-
-## Environment Variables
- - Use `.env` files for all sensitive data
- - Validate required environment variables on startup
- - run `npm run validate-env` to validate PAYER_PRIVATE_KEY, RPC URL and to identify the RPC cluster
- - Never hardcode private keys or RPC endpoints
-
 ## Debugging
   - Always run the validate-env.ts and ensure that the rpc is active and that the wallet exists
-
-## The different types of pools 
-
-Dynamic Bonding Curve (DBC)
- - The Dynamic Bonding Curve (DBC) program is a permissionless launch pool protocol that allows any launch partners to enable their users to launch tokens with customizable virtual curves directly on their platform (e.g. launchpad).
-   This allows their users to create a new token and create a Dynamic Bonding Curve pool where anyone can buy tokens based on that bonding curve.
-
-
-Dynamic AMM V1 (DAMM V1)
- - Constant product AMM that supports token prices from 0 to infinity.
-   LPs can earn additional yield by utilizing lending sources alongside traditional swap fees, enhancing their returns.
-
-Dynamic AMM V2 (DAMM V2)
- - Dynamic AMM v2 is a constant-product AMM program, with features that optimize transaction fees and provide greater flexibility for liquidity providers, launchpads, and token launches. DAMM v2 comes with SPL and Token 2022 token support, optional concentrated liquidity, position NFT, dynamic fee, on-chain fee scheduler, new fee claiming mechanism and fee token selection, more flexible liquidity locks, and an in-built farming mechanism. Unlike DAMM v1, DAMM v2 is not integrated with Dynamic Vaults.
-   DAMM v2 is a new program, and not an upgrade of the Dynamic AMM v1 program.
-
-Dynamic Liquidity Market Maker (DLMM)
- - DLMM (Dynamic Liquidity Market Maker) gives LPs access to dynamic fees to capitalize on volatility, and precise liquidity concentration all in real-time, with the flexibility to select their preferred volatility strategy.
+  - Read the README when in doubt
 
 
 ## Guidelines
@@ -65,28 +24,9 @@ Dynamic Liquidity Market Maker (DLMM)
  - In each folder, there will be a README which includes instructions on how to use the script and how to edit them.
  - All variables that should be edited are marked out in the script
 
-## Repo Stucture
 
-meteora-studio/
-├──  dbc/
-│  └──  quickstart/
-│  └──  quicklaunch/
-│  └──  scripts/
-│
-├──  damm-v1/
-│  └──  claim-fees/
-│  └──  create-pool/
-│
-├──  damm-v2/
-│  └──  claim-fees/
-│  └──  create-pool/
-│  └──  create-position/
-│
-├──  dlmm/
-│  └──  create-position/
-│  └──  get-position/
-│  └──  manage-position/
-│
-├── .gitignore
-├── .env
-├── validate-env.ts
+## Getting Started
+ - Read the main README and ensure that the user sets the repo up properly 
+ - Run `npm run validate-env` to ensure that the user has set up the environment file with valid RPC and Private Key and that there are sufficient funds in the wallet.
+ 
+
