@@ -5,10 +5,7 @@ import {
 } from '@meteora-ag/dynamic-bonding-curve-sdk'
 import { NATIVE_MINT } from '@solana/spl-token'
 import BN from 'bn.js'
-import path from "path";
-import { config } from "dotenv";
-
-config({ path: path.resolve(process.cwd(), "../.env") });
+import "dotenv/config";
 
 const connection = new Connection(
     process.env.RPC_URL || "https://api.mainnet-beta.solana.com"

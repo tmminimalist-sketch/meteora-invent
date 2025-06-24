@@ -15,7 +15,7 @@ Files to never edit:
 
 ## Debugging
   - Always run the validate-env.ts and ensure that the rpc is active and that the wallet exists
-  - Read the README when in doubt
+  - Read the README or ask the user when in doubt
 
 
 ## Guidelines
@@ -28,5 +28,5 @@ Files to never edit:
 ## Getting Started
  - Read the main README and ensure that the user sets the repo up properly 
  - Run `npm run validate-env` to ensure that the user has set up the environment file with valid RPC and Private Key and that there are sufficient funds in the wallet.
- 
+
 

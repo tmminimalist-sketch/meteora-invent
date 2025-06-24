@@ -1,10 +1,10 @@
 
 
-# Dynamic Bonding Curve Quickstart
+# Dynamic Bonding Curve Custom Pool
 
   
 
-The Dynamic Bonding Curve Quickstart repository provides a foundational understanding of how the Dynamic Bonding Curve operates. Within the quickstart folder, you'll learn how to create a configuration key and launch a token pool on Solana.
+The Dynamic Bonding Curve Custom Pool repository provides a foundational understanding of how the Dynamic Bonding Curve operates. Within the quickstart folder, you'll learn how to create a configuration key and launch a token pool on Solana.
 
   
 

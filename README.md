@@ -33,8 +33,8 @@ cp .env.example .env
 This repo consists of 4 main folders, each contains scripts to interact with a type of Meteora pool
 These folders are:
  - DBC (Dynamic Bonding Curve)
- - DAMM V1
- - DAMM V2
+ - DAMM V1 (Dynamic AMM V1)
+ - DAMM V2 (Dynamic AMM V2)
  - DLMM (Dynamic Liquidity Market Maker)
 
 ## Dynamic Bonding Curve (DBC)

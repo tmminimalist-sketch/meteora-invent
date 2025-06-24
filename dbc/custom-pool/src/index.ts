@@ -9,11 +9,8 @@ import {
 } from "@meteora-ag/dynamic-bonding-curve-sdk";
 import bs58 from "bs58";
 import "dotenv/config";
-import path from "path";
-import { config } from "dotenv";
 import { quoteMint, configKeyParams, tokenParams } from "../examples/basic";
 
-config({ path: path.resolve(process.cwd(), "../.env") });
 
 
 const PAYER_PRIVATE_KEY = process.env.PAYER_PRIVATE_KEY;
@@ -28,7 +25,7 @@ const connection = new Connection(
 );
 
 
-async function quickstart() {
+async function customPool() {
   const client = new DynamicBondingCurveClient(connection, "confirmed");
 
   const configKey = Keypair.generate();
@@ -103,7 +100,7 @@ async function quickstart() {
   );
 }
 
-quickstart()
+customPool()
   .then(() => process.exit(0))
   .catch((error) => {
     console.error(error);

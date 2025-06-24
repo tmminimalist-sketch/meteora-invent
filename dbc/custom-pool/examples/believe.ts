@@ -5,24 +5,30 @@
 
 import {
     ActivationType,
-    BuildCurveWithMarketCapParam,
     CollectFeeMode,
     MigrationFeeOption,
     MigrationOption,
-    FeeSchedulerParams,
     TokenDecimal,
     TokenType,
     TokenUpdateAuthorityOption,
     BaseFeeMode,
-    buildCurveWithMarketCap
+    buildCurveWithMarketCap,
+    BuildCurveWithMarketCapParam
 } from "@meteora-ag/dynamic-bonding-curve-sdk";
 import { NATIVE_MINT } from "@solana/spl-token";
 
+export const tokenParams = {
+  totalTokenSupply: 1000000000,
+  tokenBaseDecimal: TokenDecimal.SIX,
+  name: "PUMP IT Token",
+  symbol: "PUMP",
+  uri: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTgk7EaZ4MxetCM1IB2B8z0MFJZg8IOn8AcMw&s",
+};
+
 export const quoteMint = NATIVE_MINT;
 
-
-const curveConfig = buildCurveWithMarketCap({
-    totalTokenSupply: 1000000000,
+export const configKeyParams: BuildCurveWithMarketCapParam = {
+    totalTokenSupply: tokenParams.totalTokenSupply,
     initialMarketCap: 23,
     migrationMarketCap: 395,
     migrationOption: MigrationOption.MET_DAMM_V2,
@@ -60,5 +66,5 @@ const curveConfig = buildCurveWithMarketCap({
       creatorFeePercentage: 0,
     },
     tokenUpdateAuthority: TokenUpdateAuthorityOption.Immutable,
-});
+};
   

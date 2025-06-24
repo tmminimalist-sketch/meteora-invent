@@ -29,9 +29,9 @@
       "dlmm-add-balanced-liquidity": "tsx dlmm/manage-position/src/add-balanced-liquidity.ts",
       "dlmm-add-imbalanced-liquidity": "tsx dlmm/manage-position/src/add-imbalanced-liquidity.ts",
 
-      "dbc-quickstart": "tsx dbc/quickstart/src/index.ts",
+      "dbc-custom-launch": "tsx dbc/custom-launch/src/index.ts",
 
-      "dbc-quicklaunch": "tsx dbc/quicklaunch/src/index.ts",
+      "dbc-quick-launch": "tsx dbc/quick-launch/src/index.ts",
 
       "dbc-create-config": "tsx dbc/scripts/src/create-config.ts",
       "dbc-create-partner-metadata": "tsx dbc/scripts/src/create-partner-metadata.ts",

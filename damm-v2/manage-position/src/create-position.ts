@@ -17,8 +17,8 @@ import {
   TOKEN_PROGRAM_ID,
 } from "@solana/spl-token";
 import bs58 from "bs58";
-import path from "path";
-import { config } from "dotenv";
+import "dotenv/config";
+
 
 
 const PAYER_PRIVATE_KEY = process.env.PAYER_PRIVATE_KEY;

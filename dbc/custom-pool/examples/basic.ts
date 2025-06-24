@@ -62,5 +62,5 @@ export const configKeyParams: BuildCurveWithMarketCapParam = {
   migrationFee: {
     feePercentage: 0,
     creatorFeePercentage: 0,
-  },
+  }
 };

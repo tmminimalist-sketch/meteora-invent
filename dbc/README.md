@@ -1,14 +1,18 @@
 # Dynamic Bonding Curve
 This folder contains all the scripts to interact with Meterora's Dynamic Bonding Curve 
 
-## Quicklaunch
+## Config Keys
 
-Use [quicklaunch](./quicklaunch/README.md) to launch a token using an existing config key or to use the default configs to launch a token
+Config Keys are an essential part of launching using DBC. The parameters set in the config keys determine the launch parameters used. You can either re use a existing config key or create one yourself.
+
+## Quick launch
+
+Use [quick launch](./quick-launch/README.md) to launch a token using an existing config key or to use the default configs to launch a token
 
 
-## Quickstart
+## Custom Launch
 
-Use [quickstart](./quickstart/README.md) to set custom launch parameters, create a custom config key and to launch a token.
+Use [custom launch](./custom-launch/README.md) to set custom launch parameters, create a custom config key and to launch a token.
 
 
 ## Scripts

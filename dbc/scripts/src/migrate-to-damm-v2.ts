@@ -18,10 +18,8 @@ import { BN } from "bn.js";
 import bs58 from "bs58";
 import { searcherClient } from "jito-ts/dist/sdk/block-engine/searcher";
 import { Bundle } from "jito-ts/dist/sdk/block-engine/types";
-import path from "path";
-import { config } from "dotenv";
+import "dotenv/config";
 
-config({ path: path.resolve(process.cwd(), "../.env") });
 
 const PAYER_PRIVATE_KEY = process.env.PAYER_PRIVATE_KEY;
 if (!PAYER_PRIVATE_KEY) {
