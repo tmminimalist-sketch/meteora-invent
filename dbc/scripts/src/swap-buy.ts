@@ -12,27 +12,34 @@ import { NATIVE_MINT } from '@solana/spl-token'
 import BN from 'bn.js'
 import bs58 from 'bs58'
 import "dotenv/config";
+
+
+const PAYER_PRIVATE_KEY = process.env.PAYER_PRIVATE_KEY;
+if (!PAYER_PRIVATE_KEY) {
+    throw new Error("PRIVATE_KEY is not set");
+}
+const payerSecretKey = bs58.decode(PAYER_PRIVATE_KEY);
+const payer = Keypair.fromSecretKey(payerSecretKey);
+
+const connection = new Connection(
+    process.env.RPC_URL || "https://api.mainnet-beta.solana.com"
+);
+
+
 async function swapBuy() {
-    console.log('Starting pool creation and swap process...')
 
-    const WALLET_PRIVATE_KEY = process.env.PAYER_PRIVATE_KEY;
-    if (!WALLET_PRIVATE_KEY) {
-        throw new Error("PRIVATE_KEY is not set");
-    }
-
+    // Variables to be configured
     const baseMint = new PublicKey('')
-    const amountIn = 0.01 * 1e9; // Amount is in base units
+    const amountIn = 0.01;
+    const amountInDecimals = 9;
+    const minimumAmountOut = 0;
+    const amountOutDecimals = 6;
     const swapBaseForQuote = false; // False to buy token, true to sell token
-    const walletSecretKey = bs58.decode(WALLET_PRIVATE_KEY);
-    const wallet = Keypair.fromSecretKey(walletSecretKey);
-    console.log("Wallet public key:", wallet.publicKey.toBase58());
 
-    const connection = new Connection(
-        process.env.RPC_URL || 'https://api.mainnet-beta.solana.com',
-        'confirmed'
-    )
+    //
 
     try{
+        console.log("Payer public key:", payer.publicKey.toBase58());
         const client = new DynamicBondingCurveClient(connection, "confirmed");
         const virtualPoolState = await client.state.getPoolByBaseMint(baseMint);
         if (!virtualPoolState) {
@@ -49,10 +56,10 @@ async function swapBuy() {
         console.log('Derived pool address:', poolAddress.toString())
 
         const swapParam = {
-            amountIn: new BN(amountIn),
-            minimumAmountOut: new BN(0),
+            amountIn: new BN(amountIn * 10 ** amountInDecimals),
+            minimumAmountOut: new BN(minimumAmountOut * 10 ** amountOutDecimals),
             swapBaseForQuote: swapBaseForQuote,
-            owner: wallet.publicKey,
+            owner: payer.publicKey,
             pool: poolAddress,
             referralTokenAccount: null,
         }
@@ -62,7 +69,7 @@ async function swapBuy() {
         const swapSignature = await sendAndConfirmTransaction(
             connection,
             swapTransaction,
-            [wallet],
+            [payer],
             {
                 commitment: 'confirmed',
                 skipPreflight: true,

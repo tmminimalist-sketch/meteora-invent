@@ -3,28 +3,26 @@ import { DynamicBondingCurveClient } from '@meteora-ag/dynamic-bonding-curve-sdk
 import bs58 from 'bs58'
 import "dotenv/config";
 
-/**
- * Create a partner metadata for the dynamic bonding curve
- */
+
+const PAYER_PRIVATE_KEY = process.env.PAYER_PRIVATE_KEY;
+if (!PAYER_PRIVATE_KEY) {
+    throw new Error("PRIVATE_KEY is not set");
+}
+const payerSecretKey = bs58.decode(PAYER_PRIVATE_KEY);
+const payer = Keypair.fromSecretKey(payerSecretKey);
+
+const connection = new Connection(
+    process.env.RPC_URL || "https://api.mainnet-beta.solana.com"
+);
+
+const PARTNER_PRIVATE_KEY = process.env.PARTNER_PRIVATE_KEY || PAYER_PRIVATE_KEY; // Default is the payer private key.
+const partnerSecretKey = bs58.decode(PARTNER_PRIVATE_KEY);
+const partner = Keypair.fromSecretKey(partnerSecretKey);
+console.log("Partner public key:", partner.publicKey.toBase58());
+
 async function createPartnerMetadata() {
-    const PAYER_PRIVATE_KEY = process.env.PAYER_PRIVATE_KEY;
-    if (!PAYER_PRIVATE_KEY) {
-        throw new Error("PRIVATE_KEY is not set");
-    }
-    const payerSecretKey = bs58.decode(PAYER_PRIVATE_KEY);
-    const payer = Keypair.fromSecretKey(payerSecretKey);
-    console.log("Payer public key:", payer.publicKey.toBase58());
 
-    const PARTNER_PRIVATE_KEY = process.env.PARTNER_PRIVATE_KEY || PAYER_PRIVATE_KEY; // Default is the payer private key.
-    const partnerSecretKey = bs58.decode(PARTNER_PRIVATE_KEY);
-    const partner = Keypair.fromSecretKey(partnerSecretKey);
-    console.log("Partner public key:", partner.publicKey.toBase58());
-
-    const connection = new Connection(
-        process.env.RPC_URL || 'https://api.mainnet-beta.solana.com',
-          'confirmed'
-    )
-
+    // Variables to be configured
     const createPartnerMetadataParam = {
         name: 'Meteora',
         website: 'https://launch.meteora.ag',

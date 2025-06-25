@@ -75,44 +75,19 @@ Gets quote for token in DBC pool.
 
 ## Getting Started
 
-  
-1. Change directory to the `dbc/scripts` folder
-
-```bash
-
-cd  meteora-studio/dbc
-
-```
-
-2. Install dependencies
-
-```bash
-
-npm  install
-
-```
-
-3. Copy `.env.example` file and add your private key and RPC URL into the [env file](./../.env) (RPC is optional but highly encouraged. Visit `https://www.helius.dev/` to get an RPC URL)
-
-```bash
-
-cp  .env.example  .env
-
-```
-
-4. Edit the script
+1. Edit the script
 - [Create a DBC Config](./src/create-config.ts)
 	Edit `curveConfig`  to match your parameters
 
 - [Create Partner Metadata](./src/create-partner-metadata.ts)
 		Edit `createPartnerMetadataParam` to match your project details
 		
-	Edit `POOL_CREATOR_PRIVATE_KEY` in the [env file]( ./../env) if pool creator address is not payer address
+	Edit `POOL_CREATOR_PRIVATE_KEY` in the [env file]( ./../../env) if pool creator address is not payer address
 		
 - [Create a DBC Pool](./src/create-pool.ts)
 	Enter your config key into  `configAddress` 
 	
-	Edit `POOL_CREATOR_PRIVATE_KEY` in the [env file]( ./../env) if pool creator address is not payer address
+	Edit `POOL_CREATOR_PRIVATE_KEY` in the [env file]( ./../../env) if pool creator address is not payer address
 	
 - [Migrate to DAMM V1](./src/migrate-to-damm-v1.ts) and [Migrate to DAMM V2](./src/migrate-to-damm-v2.ts)
 
@@ -128,7 +103,7 @@ cp  .env.example  .env
 	Edit `curveConfig` and `liquidityWeights` to match your launch parameters
 
 	
-5. Run the script
+2. Run the script
 
 ```bash
 

@@ -8,34 +8,38 @@ import { DynamicBondingCurveClient } from '@meteora-ag/dynamic-bonding-curve-sdk
 import bs58 from 'bs58'
 import "dotenv/config";
 
-async function createPool() {
-  const PAYER_PRIVATE_KEY = process.env.PAYER_PRIVATE_KEY;
-  if (!PAYER_PRIVATE_KEY) {
+
+const PAYER_PRIVATE_KEY = process.env.PAYER_PRIVATE_KEY;
+if (!PAYER_PRIVATE_KEY) {
     throw new Error("PRIVATE_KEY is not set");
-  }
-  const payerSecretKey = bs58.decode(PAYER_PRIVATE_KEY);
-  const payer = Keypair.fromSecretKey(payerSecretKey);
-  console.log("Payer public key:", payer.publicKey.toBase58());
+}
+const payerSecretKey = bs58.decode(PAYER_PRIVATE_KEY);
+const payer = Keypair.fromSecretKey(payerSecretKey);
 
-  const POOL_CREATOR_PRIVATE_KEY = process.env.POOL_CREATOR_PRIVATE_KEY || PAYER_PRIVATE_KEY; // Default is the payer private key.
-  const poolCreatorSecretKey = bs58.decode(POOL_CREATOR_PRIVATE_KEY);
-  const poolCreator = Keypair.fromSecretKey(poolCreatorSecretKey);
-  console.log("Pool creator public key:", poolCreator.publicKey.toBase58());
+const connection = new Connection(
+    process.env.RPC_URL || "https://api.mainnet-beta.solana.com"
+);
 
-  const connection = new Connection(
-    process.env.RPC_URL || 'https://api.mainnet-beta.solana.com',
-      'confirmed'
-  )
+const POOL_CREATOR_PRIVATE_KEY = process.env.POOL_CREATOR_PRIVATE_KEY || PAYER_PRIVATE_KEY; // Default is the payer private key.
+const poolCreatorSecretKey = bs58.decode(POOL_CREATOR_PRIVATE_KEY);
+const poolCreator = Keypair.fromSecretKey(poolCreatorSecretKey);
+console.log("Pool creator public key:", poolCreator.publicKey.toBase58());
 
+async function createPool() {
+
+  // Variables to be configured
   const configAddress = new PublicKey('')
+  const tokenParams = {
+    name: 'Test',
+    symbol: 'TEST',
+    uri: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Test-Logo.svg/2560px-Test-Logo.svg.png',
+}
+  //
+
   console.log(`Using config: ${configAddress.toString()}`)
 
   try {
-      const tokenParams = {
-        name: 'Test',
-          symbol: 'TEST',
-          uri: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Test-Logo.svg/2560px-Test-Logo.svg.png',
-      }
+
       
       const start = tokenParams.symbol.slice(0, 3);
       let baseMint = Keypair.generate();
