@@ -3,7 +3,7 @@
 This folder contains all the scripts to interact with Meteora's Dynamic Bonding Curve
 
 ## Quick Launch
-- Launch a token using the default config key or existing config key. [Launch Pool](./quick-launch/src/launch-pool.ts)
+- Launch a token using one of our config keys or an existing config key. [Launch Pool](./quick-launch/src/launch-pool.ts)
 
 
 ## Create Config

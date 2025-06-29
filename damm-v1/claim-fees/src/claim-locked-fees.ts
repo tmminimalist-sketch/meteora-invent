@@ -1,4 +1,4 @@
-import { Connection, PublicKey, Keypair } from "@solana/web3.js";
+import { Connection, PublicKey, Keypair, sendAndConfirmTransaction } from "@solana/web3.js";
 import AmmImpl from "@meteora-ag/dynamic-amm-sdk";
 import bs58 from "bs58";
 import { ComputeBudgetProgram } from "@solana/web3.js";
@@ -93,47 +93,13 @@ async function checkAndClaimLockFees() {
     if (payer) signers.push(payer);
     if (receiverPublicKey) signers.push(tempWSolAcc);
 
-    const signature = await connection.sendTransaction(claimTx as any, signers);
+    const signature = await sendAndConfirmTransaction(connection as any, claimTx as any, signers, {
+      commitment: "confirmed",
+    });
 
-    console.log(`Claim transaction sent: ${signature}`);
-    console.log("Waiting for confirmation...");
+    console.log("Transaction signature:", signature);
+    console.log("Transaction:", `https://solscan.io/tx/${signature}?cluster=mainnet`);
 
-    // const maxRetries = 3;
-    // let retryCount = 0;
-    // let confirmed = false;
-
-    // while (retryCount < maxRetries && !confirmed) {
-    //   try {
-    //     const confirmation = await connection.confirmTransaction(
-    //       {
-    //         signature,
-    //         blockhash: claimTx.recentBlockhash!,
-    //         lastValidBlockHeight: (
-    //           await connection.getLatestBlockhash()
-    //         ).lastValidBlockHeight,
-    //       },
-    //       "confirmed"
-    //     );
-
-    //     if (confirmation.value.err) {
-    //       throw new Error(`Transaction failed: ${confirmation.value.err}`);
-    //     }
-
-    //     confirmed = true;
-    //     console.log("Fees claimed successfully!");
-      // } catch (error) {
-      //   retryCount++;
-      //   if (retryCount === maxRetries) {
-      //     console.error(`Transaction failed after ${maxRetries} attempts.`);
-      //     console.error(
-      //       "Please check the transaction status manually using the signature above."
-      //     );
-      //     throw error;
-      //   }
-      //   console.log(`Confirmation attempt ${retryCount} failed, retrying...`);
-      //   await new Promise((resolve) => setTimeout(resolve, 2000));
-      // }
-    // }
   } catch (error) {
     console.error("Error claiming fees:", error);
   }
