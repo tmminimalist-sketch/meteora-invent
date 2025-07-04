@@ -1,4 +1,4 @@
-import { Connection, PublicKey, Keypair } from "@solana/web3.js";
+import { Connection, PublicKey, Keypair, sendAndConfirmTransaction } from "@solana/web3.js";
 import AmmImpl from "@meteora-ag/dynamic-amm-sdk";
 import bs58 from "bs58";
 import { ComputeBudgetProgram } from "@solana/web3.js";
@@ -30,11 +30,11 @@ async function checkAndClaimLockFees() {
 
     // Variables to be configured
     const poolAddress = new PublicKey("");
-    const RECEIVER_PUBLIC_KEY = ""; // Enter receiver public key here. Default is owner.
+    const receiver = ""; // Enter receiver public key here. Default is owner.
 
     //
 
-    const receiverPublicKey = RECEIVER_PUBLIC_KEY ? new PublicKey(RECEIVER_PUBLIC_KEY) : undefined;
+    const receiverPublicKey = receiver ? new PublicKey(receiver) : undefined;
 
     // init AMM instance
     const amm = await AmmImpl.create(connection as any, poolAddress);
@@ -42,7 +42,7 @@ async function checkAndClaimLockFees() {
     const tokenAAddress = amm.vaultA.tokenMint.address.toString();
     const tokenBDecimals = amm.vaultB.tokenMint.decimals;
     const tokenBAddress = amm.vaultB.tokenMint.address.toString();
-
+    console.log(amm.decimals)
     // get user's lock escrow info
     const lockEscrow = await amm.getUserLockEscrow(owner.publicKey);
 
@@ -60,9 +60,9 @@ async function checkAndClaimLockFees() {
     }
 
     console.log("Unclaimed fees:");
-    console.log(`LP tokens: ${unclaimedFees.lp.toString() / 10 ** 6}`);
-    console.log(`${tokenAAddress}: ${unclaimedFees.tokenA.toString() / 10 ** tokenADecimals}`);
-    console.log(`${tokenBAddress}: ${unclaimedFees.tokenB.toString() / 10 ** tokenBDecimals}`);
+    console.log(`LP tokens: ${unclaimedFees.lp.toNumber() / 10 ** amm.decimals}`);
+    console.log(`${tokenAAddress}: ${unclaimedFees.tokenA.toNumber() / 10 ** tokenADecimals}`);
+    console.log(`${tokenBAddress}: ${unclaimedFees.tokenB.toNumber() / 10 ** tokenBDecimals}`);
 
     const amountToClaim = unclaimedFees.lp;
 
@@ -93,47 +93,13 @@ async function checkAndClaimLockFees() {
     if (payer) signers.push(payer);
     if (receiverPublicKey) signers.push(tempWSolAcc);
 
-    const signature = await connection.sendTransaction(claimTx as any, signers);
+    const signature = await sendAndConfirmTransaction(connection as any, claimTx as any, signers, {
+      commitment: "confirmed",
+    });
 
-    console.log(`Claim transaction sent: ${signature}`);
-    console.log("Waiting for confirmation...");
+    console.log("Transaction signature:", signature);
+    console.log("Transaction:", `https://solscan.io/tx/${signature}?cluster=mainnet`);
 
-    const maxRetries = 3;
-    let retryCount = 0;
-    let confirmed = false;
-
-    while (retryCount < maxRetries && !confirmed) {
-      try {
-        const confirmation = await connection.confirmTransaction(
-          {
-            signature,
-            blockhash: claimTx.recentBlockhash!,
-            lastValidBlockHeight: (
-              await connection.getLatestBlockhash()
-            ).lastValidBlockHeight,
-          },
-          "confirmed"
-        );
-
-        if (confirmation.value.err) {
-          throw new Error(`Transaction failed: ${confirmation.value.err}`);
-        }
-
-        confirmed = true;
-        console.log("Fees claimed successfully!");
-      } catch (error) {
-        retryCount++;
-        if (retryCount === maxRetries) {
-          console.error(`Transaction failed after ${maxRetries} attempts.`);
-          console.error(
-            "Please check the transaction status manually using the signature above."
-          );
-          throw error;
-        }
-        console.log(`Confirmation attempt ${retryCount} failed, retrying...`);
-        await new Promise((resolve) => setTimeout(resolve, 2000));
-      }
-    }
   } catch (error) {
     console.error("Error claiming fees:", error);
   }
