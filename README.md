@@ -1,95 +1,212 @@
-# Meteora Studio
-Meteora has the best and the most comprehensive pools on Solana and provides the best tools for liquidity providers and token launchers.
+# Meteora Invent Monorepo
 
-Meteora Studio is a suite of scripts, tools and scaffolds to help you get started with building and launching on Meteora.
- 
+A high-performance monorepo containing Meteora's studio scripts and scaffold templates, powered by Turborepo and pnpm workspaces.
 
-## Prerequisites:
+## 🏗️ Repository Structure
 
-- [Node.js](https://nodejs.org/) (version 18 or higher) installed
-
-- [TypeScript](https://www.typescriptlang.org/) (version 5.0 or higher)
-
-
-## Getting started
-
-1. Clone the repo
-
-
-```bash
-git  clone  https://github.com/MeteoraAg/meteora-studio.git
+```
+meteora-invent/
+├── studio/                 # Scripts for DBC, DLMM, DAMM v1 & v2
+│   ├── damm-v1/           # Dynamic AMM v1 scripts
+│   ├── damm-v2/           # Dynamic AMM v2 scripts
+│   ├── dbc/               # Dynamic Bonding Curve scripts
+│   └── dlmm/              # Dynamic Liquidity Market Maker scripts
+├── scaffolds/             # Frontend application templates
+│   └── fun-launch/        # Fun launch scaffold template
+└── packages/              # Shared packages (future)
 ```
 
-  
+## 🚀 Getting Started
 
-2. Install dependancies
+### Prerequisites
 
-  
+- Node.js >= 18.0.0
+- pnpm >= 9.0.0
 
-```bash
-npm  install
-```
-
-  
-
-3. Copy `.env.example` file and add your private key and RPC URL into .env (RPC is optional but highly encouraged. Visit `https://www.helius.dev/` to get an RPC URL)
-
-  
+### Installation
 
 ```bash
-cp  .env.example  .env
+# Install pnpm if you haven't already
+npm install -g pnpm@9
+
+# Install all dependencies
+pnpm install
+
+# Build all packages
+pnpm build
 ```
 
-  
+## 📦 Workspaces
 
-This repo consists of 4 main folders, each contains scripts to interact with a type of Meteora pool
+### Studio (`@meteora-invent/studio`)
 
-These folders are:
+The studio workspace contains all the scripts for interacting with Meteora's protocols.
 
-- DBC (Dynamic Bonding Curve)
+#### Available Scripts
 
-- DAMM V1 (Dynamic AMM V1)
+**DAMM v1 Scripts:**
+```bash
+pnpm studio damm-v1-create-constant-product-pool
+pnpm studio damm-v1-create-memecoin-pool
+pnpm studio damm-v1-create-stable-pool
+pnpm studio damm-v1-get-configs
+pnpm studio damm-v1-create-position
+pnpm studio damm-v1-withdraw-liquidity
+pnpm studio damm-v1-claim-locked-fees
+pnpm studio damm-v1-get-locked-fees
+```
 
-- DAMM V2 (Dynamic AMM V2)
+**DAMM v2 Scripts:**
+```bash
+pnpm studio damm-v2-create-pool
+pnpm studio damm-v2-get-configs
+pnpm studio damm-v2-create-position
+pnpm studio damm-v2-get-positions
+pnpm studio damm-v2-lock-position
+pnpm studio damm-v2-withdraw-liquidity
+pnpm studio damm-v2-get-position-fees
+pnpm studio damm-v2-claim-position-fees
+```
 
-- DLMM (Dynamic Liquidity Market Maker)
+**DLMM Scripts:**
+```bash
+pnpm studio dlmm-create-balanced-position
+pnpm studio dlmm-create-imbalanced-position
+pnpm studio dlmm-get-active-bin
+pnpm studio dlmm-get-positions-list
+pnpm studio dlmm-add-balanced-liquidity
+pnpm studio dlmm-add-imbalanced-liquidity
+```
 
-  
+**DBC Scripts:**
+```bash
+pnpm studio dbc-quick-launch
+pnpm studio dbc-create-config
+pnpm studio dbc-create-partner-metadata
+pnpm studio dbc-simulate-curve
+pnpm studio dbc-migrate-to-damm-v1
+pnpm studio dbc-migrate-to-damm-v2
+pnpm studio dbc-swap-buy
+pnpm studio dbc-swap-quote
+```
 
-## Dynamic Bonding Curve (DBC)
+### Scaffolds
 
-The Dynamic Bonding Curve (DBC) program is a permissionless launch pool protocol that allows any launch partners to enable their users to launch tokens with customizable virtual curves directly on their platform (e.g. launchpad). This allows their users to create a new token and create a Dynamic Bonding Curve pool where anyone can buy tokens based on that bonding curve.
+#### Fun Launch (`@meteora-invent/scaffold-fun-launch`)
 
-The DBC folder contains the scripts to interact with Meteora's Dynamic Bonding Curve. To learn more about the scripts, go to the [DBC README](./dbc/README.md).
+A Next.js application template for launching fun tokens.
 
-  
+```bash
+# Run the fun-launch scaffold in development
+pnpm --filter @meteora-invent/scaffold-fun-launch dev
 
-## Dynamic AMM V1 (DAMM V1)
+# Build the fun-launch scaffold
+pnpm --filter @meteora-invent/scaffold-fun-launch build
+```
 
-  
+## 🛠️ Common Commands
 
-Constant product AMM that supports token prices from 0 to infinity. LPs can earn additional yield by utilizing lending sources alongside traditional swap fees, enhancing their returns.
+### Root Level Commands
 
-  
+```bash
+# Install dependencies for all workspaces
+pnpm install
 
-This folder contains all the scripts to interact with Meteora's DAMM V1. To learn more about the scripts, go to the [DAMM V1 README](./damm-v1/README.md).
+# Build all packages
+pnpm build
 
-  
+# Run development servers for all packages that have them
+pnpm dev
 
-## Dynamic AMM V2 (DAMM V2)
+# Lint all packages
+pnpm lint
 
-  
+# Format all packages
+pnpm format
 
-Dynamic AMM v2 is a constant-product AMM program, with features that optimize transaction fees and provide greater flexibility for liquidity providers, launchpads, and token launches. DAMM v2 comes with SPL and Token 2022 token support, optional concentrated liquidity, position NFT, dynamic fee, on-chain fee scheduler, new fee claiming mechanism and fee token selection, more flexible liquidity locks, and an in-built farming mechanism. Unlike DAMM v1, DAMM v2 is not integrated with Dynamic Vaults. DAMM v2 is a new program, and not an upgrade of the Dynamic AMM v1 program.
+# Clean all build artifacts and node_modules
+pnpm clean
+```
 
-  
+### Working with Specific Workspaces
 
-This folder contains all the scripts to interact with Meteora's DAMM V2. To learn more about the scripts, go to the [DAMM V2 README](./damm-v2/README.md).
+```bash
+# Run a command in the studio workspace
+pnpm studio <command>
 
-  
+# Run a command in a specific scaffold
+pnpm --filter @meteora-invent/scaffold-fun-launch <command>
 
-## Dynamic Liquidity Market Maker (DLMM)
+# Run a command in all scaffolds
+pnpm scaffold <command>
+```
 
-DLMM (Dynamic Liquidity Market Maker) gives LPs access to dynamic fees to capitalize on volatility, and precise liquidity concentration all in real-time, with the flexibility to select their preferred volatility strategy. 
+### Turborepo Commands
 
-This folder contains the scripts to create and manage positions on Meteora's DLMM. To learn more about the scripts, go to the [DLMM README](./dlmm/README.md).
+```bash
+# Run build with Turbo cache
+pnpm build
+
+# Run build without cache
+pnpm build --force
+
+# See Turbo build graph
+pnpm build --graph
+```
+
+## 🔧 Configuration
+
+### Environment Variables
+
+Each workspace may require its own environment variables. Copy the `.env.example` files to `.env` and configure them:
+
+```bash
+# For studio workspace
+cp studio/.env.example studio/.env
+
+# For scaffolds
+cp scaffolds/fun-launch/.env.example scaffolds/fun-launch/.env
+```
+
+### TypeScript
+
+The monorepo uses TypeScript project references for better performance and type safety. Each workspace extends the root `tsconfig.json`.
+
+## 📝 Development Guidelines
+
+### Adding a New Scaffold
+
+1. Create a new directory under `scaffolds/`
+2. Initialize with your framework of choice
+3. Update `package.json` name to follow the pattern: `@meteora-invent/scaffold-[name]`
+4. Add necessary scripts to `package.json`
+5. Create a `tsconfig.json` that extends the root config
+
+### Adding Studio Scripts
+
+1. Create your script in the appropriate directory (damm-v1, damm-v2, dlmm, or dbc)
+2. Add a corresponding script entry in `studio/package.json`
+3. Add the script to `turbo.json` pipeline if it needs special handling
+
+## 🏃‍♂️ Performance
+
+This monorepo uses Turborepo for:
+- **Incremental builds**: Only rebuild what changed
+- **Parallel execution**: Run independent tasks simultaneously
+- **Remote caching**: Share build artifacts across machines (when configured)
+- **Pipeline optimization**: Automatic task scheduling based on dependencies
+
+## 🤝 Contributing
+
+1. Create a feature branch
+2. Make your changes
+3. Run `pnpm format` and `pnpm lint`
+4. Submit a pull request
+
+## 📄 License
+
+ISC
+
+---
+
+Built with ❤️ by [@dannweeeee](https://github.com/dannweeeee)
