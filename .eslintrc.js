@@ -1,6 +1,6 @@
 module.exports = {
   root: true,
-  extends: ['@meteora-invent/config/eslint'],
+  extends: ['@meteora-invent/config-eslint'],
   parserOptions: {
     project: './tsconfig.json',
     tsconfigRootDir: __dirname,
