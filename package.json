@@ -30,7 +30,7 @@
     "syncpack:fix": "syncpack fix-mismatches"
   },
   "devDependencies": {
-    "@types/node": "^20.0.0",
+    "@types/node": "^20",
     "eslint": "^8.57.0",
     "husky": "^9.0.0",
     "lint-staged": "^15.0.0",
