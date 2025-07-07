@@ -22,8 +22,8 @@ async function createPool() {
   const binStep = 4;
   const price = 150; // price of base token / price of quote token
   const feeBps = 100; // 1%
-  const activationPoint = undefined;
-  const creatorPoolOnOffControl = undefined;
+  const activationPoint = undefined as BN | undefined;
+  const creatorPoolOnOffControl = undefined as boolean | undefined;
 
   const baseMintDecimals = (await getMint(connection, baseMint)).decimals;
   const quoteMintDecimals = (await getMint(connection, quoteMint)).decimals;
