@@ -1,7 +1,6 @@
-import { Connection, PublicKey, Keypair } from '@solana/web3.js';
 import AmmImpl from '@meteora-ag/dynamic-amm-sdk';
+import { Connection, PublicKey, Keypair, ComputeBudgetProgram } from '@solana/web3.js';
 import bs58 from 'bs58';
-import { ComputeBudgetProgram } from '@solana/web3.js';
 import 'dotenv/config';
 import { BN, AnchorProvider, Wallet } from '@coral-xyz/anchor';
 

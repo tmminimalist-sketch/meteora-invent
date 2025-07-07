@@ -1,4 +1,3 @@
-import { Connection, Keypair, PublicKey, sendAndConfirmTransaction } from '@solana/web3.js';
 import {
   DynamicBondingCurveClient,
   CollectFeeMode,
@@ -12,6 +11,7 @@ import {
   TokenUpdateAuthorityOption,
 } from '@meteora-ag/dynamic-bonding-curve-sdk';
 import { NATIVE_MINT } from '@solana/spl-token';
+import { Connection, Keypair, PublicKey, sendAndConfirmTransaction } from '@solana/web3.js';
 import bs58 from 'bs58';
 import 'dotenv/config';
 

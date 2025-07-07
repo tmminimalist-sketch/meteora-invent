@@ -1,12 +1,4 @@
 import {
-  Connection,
-  Keypair,
-  PublicKey,
-  SystemProgram,
-  Transaction,
-  VersionedTransaction,
-} from '@solana/web3.js';
-import {
   DAMM_V2_MIGRATION_FEE_ADDRESS,
   DynamicBondingCurveClient,
   deriveDbcPoolAddress,
@@ -14,6 +6,14 @@ import {
   deriveBaseKeyForLocker,
   deriveEscrow,
 } from '@meteora-ag/dynamic-bonding-curve-sdk';
+import {
+  Connection,
+  Keypair,
+  PublicKey,
+  SystemProgram,
+  Transaction,
+  VersionedTransaction,
+} from '@solana/web3.js';
 import { BN } from 'bn.js';
 import bs58 from 'bs58';
 import { searcherClient } from 'jito-ts/dist/sdk/block-engine/searcher';

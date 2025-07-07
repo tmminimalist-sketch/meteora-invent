@@ -1,7 +1,6 @@
-import { Connection, Keypair, PublicKey } from '@solana/web3.js';
 import { BN } from '@coral-xyz/anchor';
-import DLMMPool, { autoFillYByStrategy } from '@meteora-ag/dlmm';
-import { StrategyType } from '@meteora-ag/dlmm';
+import DLMMPool, { autoFillYByStrategy, StrategyType } from '@meteora-ag/dlmm';
+import { Connection, Keypair, PublicKey } from '@solana/web3.js';
 import bs58 from 'bs58';
 import 'dotenv/config';
 

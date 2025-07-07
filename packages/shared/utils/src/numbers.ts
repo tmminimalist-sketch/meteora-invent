@@ -1,5 +1,5 @@
 import BN from 'bn.js';
-import Decimal from 'decimal.js';
+import { Decimal } from 'decimal.js';
 
 /**
  * Convert a number to BN (Big Number)

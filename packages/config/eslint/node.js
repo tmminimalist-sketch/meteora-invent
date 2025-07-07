@@ -8,10 +8,10 @@ module.exports = {
     // Node.js specific rules
     'no-process-exit': 'error',
     'no-sync': 'warn',
-    
+
     // Allow console in Node.js scripts
     'no-console': 'off',
-    
+
     // Node.js error handling
     'handle-callback-err': 'error',
     'no-new-require': 'error',

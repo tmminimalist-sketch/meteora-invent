@@ -1,7 +1,7 @@
-import { Connection, Keypair, PublicKey, sendAndConfirmTransaction } from '@solana/web3.js';
 import { BN } from '@coral-xyz/anchor';
 import DLMM, { ActivationType } from '@meteora-ag/dlmm';
 import { getMint } from '@solana/spl-token';
+import { Connection, Keypair, PublicKey, sendAndConfirmTransaction } from '@solana/web3.js';
 import bs58 from 'bs58';
 import 'dotenv/config';
 

@@ -1,5 +1,5 @@
-import { Connection, Keypair, sendAndConfirmTransaction } from '@solana/web3.js';
 import { DynamicBondingCurveClient } from '@meteora-ag/dynamic-bonding-curve-sdk';
+import { Connection, Keypair, sendAndConfirmTransaction } from '@solana/web3.js';
 import bs58 from 'bs58';
 import 'dotenv/config';
 

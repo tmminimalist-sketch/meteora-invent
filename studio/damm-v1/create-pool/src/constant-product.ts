@@ -1,8 +1,7 @@
+import { AnchorProvider, Wallet, BN } from '@coral-xyz/anchor';
 import AmmImpl, { PROGRAM_ID } from '@meteora-ag/dynamic-amm-sdk';
-import { Connection, Keypair, PublicKey } from '@solana/web3.js';
-import { AnchorProvider, Wallet } from '@coral-xyz/anchor';
 import { derivePoolAddressWithConfig } from '@meteora-ag/dynamic-amm-sdk/dist/cjs/src/amm/utils';
-import { BN } from '@coral-xyz/anchor';
+import { Connection, Keypair, PublicKey } from '@solana/web3.js';
 import bs58 from 'bs58';
 import 'dotenv/config';
 

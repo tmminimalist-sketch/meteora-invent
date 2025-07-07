@@ -1,5 +1,5 @@
-import { Connection, PublicKey } from '@solana/web3.js';
 import AmmImpl from '@meteora-ag/dynamic-amm-sdk';
+import { Connection, PublicKey } from '@solana/web3.js';
 import 'dotenv/config';
 
 const connection = new Connection(process.env.RPC_URL || 'https://api.mainnet-beta.solana.com');

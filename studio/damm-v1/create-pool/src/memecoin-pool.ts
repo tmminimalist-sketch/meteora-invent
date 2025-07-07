@@ -1,8 +1,8 @@
+import { AnchorProvider, BN, Wallet } from '@coral-xyz/anchor';
 import { bs58 } from '@coral-xyz/anchor/dist/cjs/utils/bytes';
 import AmmImpl, { PROGRAM_ID } from '@meteora-ag/dynamic-amm-sdk';
 import { derivePoolAddressWithConfig } from '@meteora-ag/dynamic-amm-sdk/dist/cjs/src/amm/utils';
 import { Connection, Keypair, PublicKey } from '@solana/web3.js';
-import { AnchorProvider, BN, Wallet } from '@coral-xyz/anchor';
 import 'dotenv/config';
 
 const PAYER_PRIVATE_KEY = process.env.PAYER_PRIVATE_KEY;

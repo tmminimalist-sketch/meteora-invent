@@ -1,4 +1,3 @@
-import { Connection, Keypair, PublicKey, sendAndConfirmTransaction } from '@solana/web3.js';
 import {
   DynamicBondingCurveClient,
   deriveDbcPoolAddress,
@@ -7,6 +6,7 @@ import {
   deriveEscrow,
   DAMM_V1_MIGRATION_FEE_ADDRESS,
 } from '@meteora-ag/dynamic-bonding-curve-sdk';
+import { Connection, Keypair, PublicKey, sendAndConfirmTransaction } from '@solana/web3.js';
 import { BN } from 'bn.js';
 import bs58 from 'bs58';
 import 'dotenv/config';

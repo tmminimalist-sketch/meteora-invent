@@ -1,9 +1,9 @@
-import { Connection, Keypair, PublicKey } from '@solana/web3.js';
 import {
   deriveDbcPoolAddress,
   DynamicBondingCurveClient,
 } from '@meteora-ag/dynamic-bonding-curve-sdk';
 import { NATIVE_MINT } from '@solana/spl-token';
+import { Connection, Keypair, PublicKey } from '@solana/web3.js';
 import BN from 'bn.js';
 import 'dotenv/config';
 

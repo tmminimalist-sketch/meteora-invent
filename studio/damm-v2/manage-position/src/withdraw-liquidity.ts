@@ -1,7 +1,6 @@
-import { Connection, Keypair, PublicKey, sendAndConfirmTransaction } from '@solana/web3.js';
 import { BN } from '@coral-xyz/anchor';
 import { CpAmm, derivePositionNftAccount } from '@meteora-ag/cp-amm-sdk';
-
+import { Connection, Keypair, PublicKey, sendAndConfirmTransaction } from '@solana/web3.js';
 import bs58 from 'bs58';
 import 'dotenv/config';
 

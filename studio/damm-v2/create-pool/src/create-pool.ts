@@ -1,4 +1,3 @@
-import { Connection, Keypair, PublicKey, sendAndConfirmTransaction } from '@solana/web3.js';
 import { BN } from '@coral-xyz/anchor';
 import {
   CpAmm,
@@ -7,6 +6,7 @@ import {
   getSqrtPriceFromPrice,
 } from '@meteora-ag/cp-amm-sdk';
 import { getMint, NATIVE_MINT, TOKEN_2022_PROGRAM_ID, TOKEN_PROGRAM_ID } from '@solana/spl-token';
+import { Connection, Keypair, PublicKey, sendAndConfirmTransaction } from '@solana/web3.js';
 import bs58 from 'bs58';
 import 'dotenv/config';
 

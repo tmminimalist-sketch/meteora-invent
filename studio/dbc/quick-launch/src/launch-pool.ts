@@ -1,5 +1,5 @@
-import { Connection, Keypair, sendAndConfirmTransaction, PublicKey } from '@solana/web3.js';
 import { DynamicBondingCurveClient } from '@meteora-ag/dynamic-bonding-curve-sdk';
+import { Connection, Keypair, sendAndConfirmTransaction, PublicKey } from '@solana/web3.js';
 import bs58 from 'bs58';
 import 'dotenv/config';
 
@@ -30,7 +30,7 @@ async function quickLaunch() {
   let baseMint = Keypair.generate();
   const base58Regex = /^[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]+$/;
   if (base58Regex.test(start)) {
-    var attempts = 0;
+    let attempts = 0;
     while (attempts < 100000) {
       const keypair = Keypair.generate();
       attempts += 1;

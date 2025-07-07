@@ -1,7 +1,12 @@
-import { Connection, PublicKey, Keypair, sendAndConfirmTransaction } from '@solana/web3.js';
 import AmmImpl from '@meteora-ag/dynamic-amm-sdk';
+import {
+  Connection,
+  PublicKey,
+  Keypair,
+  sendAndConfirmTransaction,
+  ComputeBudgetProgram,
+} from '@solana/web3.js';
 import bs58 from 'bs58';
-import { ComputeBudgetProgram } from '@solana/web3.js';
 import 'dotenv/config';
 
 const PAYER_PRIVATE_KEY = process.env.PAYER_PRIVATE_KEY;

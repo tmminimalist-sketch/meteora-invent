@@ -1,9 +1,7 @@
-import { Connection, Keypair, PublicKey, sendAndConfirmTransaction } from '@solana/web3.js';
-import { NATIVE_MINT } from '@solana/spl-token';
-
 import { CpAmm, getTokenProgram, getUnClaimReward } from '@meteora-ag/cp-amm-sdk';
+import { NATIVE_MINT, getMint } from '@solana/spl-token';
+import { Connection, Keypair, PublicKey, sendAndConfirmTransaction } from '@solana/web3.js';
 import bs58 from 'bs58';
-import { getMint } from '@solana/spl-token';
 import 'dotenv/config';
 
 const PAYER_PRIVATE_KEY = process.env.PAYER_PRIVATE_KEY;

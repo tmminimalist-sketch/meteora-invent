@@ -12,8 +12,8 @@ import {
   BuildCurveWithMarketCapParam,
 } from '@meteora-ag/dynamic-bonding-curve-sdk';
 import { Connection, Keypair, PublicKey, sendAndConfirmTransaction } from '@solana/web3.js';
-import Decimal from 'decimal.js';
 import bs58 from 'bs58';
+import Decimal from 'decimal.js';
 import 'dotenv/config';
 
 const PAYER_PRIVATE_KEY = process.env.PAYER_PRIVATE_KEY;

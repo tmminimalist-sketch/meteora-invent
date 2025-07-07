@@ -1,5 +1,5 @@
-import { Connection, SystemProgram } from '@solana/web3.js';
 import { CpAmm } from '@meteora-ag/cp-amm-sdk';
+import { Connection, SystemProgram } from '@solana/web3.js';
 
 import 'dotenv/config';
 

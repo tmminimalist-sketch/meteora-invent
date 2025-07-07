@@ -1,3 +1,6 @@
+import { BN } from '@coral-xyz/anchor';
+import { CpAmm, derivePositionAddress, derivePositionNftAccount } from '@meteora-ag/cp-amm-sdk';
+import { getMint, TOKEN_2022_PROGRAM_ID, TOKEN_PROGRAM_ID } from '@solana/spl-token';
 import {
   Connection,
   Keypair,
@@ -5,9 +8,6 @@ import {
   sendAndConfirmTransaction,
   Transaction,
 } from '@solana/web3.js';
-import { BN } from '@coral-xyz/anchor';
-import { CpAmm, derivePositionAddress, derivePositionNftAccount } from '@meteora-ag/cp-amm-sdk';
-import { getMint, TOKEN_2022_PROGRAM_ID, TOKEN_PROGRAM_ID } from '@solana/spl-token';
 import bs58 from 'bs58';
 import 'dotenv/config';
 

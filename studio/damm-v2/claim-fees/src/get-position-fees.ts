@@ -1,6 +1,6 @@
-import { Connection, PublicKey } from '@solana/web3.js';
-import { getMint } from '@solana/spl-token';
 import { CpAmm, getTokenProgram, getUnClaimReward } from '@meteora-ag/cp-amm-sdk';
+import { getMint } from '@solana/spl-token';
+import { Connection, PublicKey } from '@solana/web3.js';
 import 'dotenv/config';
 
 const connection = new Connection(process.env.RPC_URL || 'https://api.mainnet-beta.solana.com');
