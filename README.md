@@ -1,95 +1,157 @@
-# Meteora Studio
-Meteora has the best and the most comprehensive pools on Solana and provides the best tools for liquidity providers and token launchers.
+# Meteora Invent
 
-Meteora Studio is a suite of scripts, tools and scaffolds to help you get started with building and launching on Meteora.
- 
+A toolkit consisting of everything you need to invent innovative token launches. Powered by
+**Meteora**, the most secure, sustainable and composable liquidity layer on Solana.
 
-## Prerequisites:
+## 🏗️ Structure
 
-- [Node.js](https://nodejs.org/) (version 18 or higher) installed
-
-- [TypeScript](https://www.typescriptlang.org/) (version 5.0 or higher)
-
-
-## Getting started
-
-1. Clone the repo
-
-
-```bash
-git  clone  https://github.com/MeteoraAg/meteora-studio.git
+```
+meteora-invent/
+├── packages/          # Shared packages
+│   └── config/        # Shared configurations
+│       ├── eslint/    # ESLint configurations
+│       ├── prettier/  # Prettier configuration
+│       └── typescript/# TypeScript configurations
+├── scaffolds/         # Scaffolds - production-ready frontend application templates
+│   └── fun-launch/    # Launchpad scaffold template
+└── studio/            # Studio - a collection of scripts for you to innovate and create
+    ├── damm-v1/       # Dynamic AMM v1 scripts
+    ├── damm-v2/       # Dynamic AMM v2 scripts
+    ├── dbc/           # Dynamic Bonding Curve scripts
+    └── dlmm/          # Dynamic Liquidity Market Maker scripts
 ```
 
-  
+## 🚀 Getting Started
 
-2. Install dependancies
+### Prerequisites
 
-  
+- Node.js >= 18.0.0
+- pnpm >= 9.0.0
 
-```bash
-npm  install
-```
-
-  
-
-3. Copy `.env.example` file and add your private key and RPC URL into .env (RPC is optional but highly encouraged. Visit `https://www.helius.dev/` to get an RPC URL)
-
-  
+### Installation
 
 ```bash
-cp  .env.example  .env
+# Install pnpm if you haven't already
+npm install -g pnpm
+
+# Install all dependencies
+pnpm install
+
+# Build all packages
+pnpm build
 ```
 
-  
+## 📦 Workspaces
 
-This repo consists of 4 main folders, each contains scripts to interact with a type of Meteora pool
+### Studio (`@meteora-invent/studio`)
 
-These folders are:
+The studio workspace contains all the scripts for interacting with Meteora's protocols.
 
-- DBC (Dynamic Bonding Curve)
+#### Getting Started
 
-- DAMM V1 (Dynamic AMM V1)
+Copy the `.env.example` file to `.env` and configure the environment variables.
 
-- DAMM V2 (Dynamic AMM V2)
+```bash
+cp studio/.env.example studio/.env
+```
 
-- DLMM (Dynamic Liquidity Market Maker)
+#### Install Dependencies
 
-  
+```bash
+pnpm install
+```
 
-## Dynamic Bonding Curve (DBC)
+#### Studio Scripts
 
-The Dynamic Bonding Curve (DBC) program is a permissionless launch pool protocol that allows any launch partners to enable their users to launch tokens with customizable virtual curves directly on their platform (e.g. launchpad). This allows their users to create a new token and create a Dynamic Bonding Curve pool where anyone can buy tokens based on that bonding curve.
+**DAMM v1 Scripts:**
 
-The DBC folder contains the scripts to interact with Meteora's Dynamic Bonding Curve. To learn more about the scripts, go to the [DBC README](./dbc/README.md).
+```bash
+pnpm studio damm-v1-create-constant-product-pool
+pnpm studio damm-v1-create-memecoin-pool
+pnpm studio damm-v1-create-stable-pool
+pnpm studio damm-v1-get-configs
+pnpm studio damm-v1-create-position
+pnpm studio damm-v1-withdraw-liquidity
+pnpm studio damm-v1-claim-locked-fees
+pnpm studio damm-v1-get-locked-fees
+```
 
-  
+**DAMM v2 Scripts:**
 
-## Dynamic AMM V1 (DAMM V1)
+```bash
+pnpm studio damm-v2-create-pool
+pnpm studio damm-v2-get-configs
+pnpm studio damm-v2-create-position
+pnpm studio damm-v2-get-positions
+pnpm studio damm-v2-lock-position
+pnpm studio damm-v2-withdraw-liquidity
+pnpm studio damm-v2-get-position-fees
+pnpm studio damm-v2-claim-position-fees
+```
 
-  
+**DLMM Scripts:**
 
-Constant product AMM that supports token prices from 0 to infinity. LPs can earn additional yield by utilizing lending sources alongside traditional swap fees, enhancing their returns.
+```bash
+pnpm studio dlmm-create-balanced-position
+pnpm studio dlmm-create-imbalanced-position
+pnpm studio dlmm-get-active-bin
+pnpm studio dlmm-get-positions-list
+pnpm studio dlmm-add-balanced-liquidity
+pnpm studio dlmm-add-imbalanced-liquidity
+```
 
-  
+**DBC Scripts:**
 
-This folder contains all the scripts to interact with Meteora's DAMM V1. To learn more about the scripts, go to the [DAMM V1 README](./damm-v1/README.md).
+```bash
+pnpm studio dbc-quick-launch
+pnpm studio dbc-create-config
+pnpm studio dbc-create-partner-metadata
+pnpm studio dbc-simulate-curve
+pnpm studio dbc-migrate-to-damm-v1
+pnpm studio dbc-migrate-to-damm-v2
+pnpm studio dbc-swap-buy
+pnpm studio dbc-swap-quote
+```
 
-  
+### Scaffolds
 
-## Dynamic AMM V2 (DAMM V2)
+#### Fun Launch (`@meteora-invent/scaffold-fun-launch`)
 
-  
+A Next.js application template for creating a launchpad.
 
-Dynamic AMM v2 is a constant-product AMM program, with features that optimize transaction fees and provide greater flexibility for liquidity providers, launchpads, and token launches. DAMM v2 comes with SPL and Token 2022 token support, optional concentrated liquidity, position NFT, dynamic fee, on-chain fee scheduler, new fee claiming mechanism and fee token selection, more flexible liquidity locks, and an in-built farming mechanism. Unlike DAMM v1, DAMM v2 is not integrated with Dynamic Vaults. DAMM v2 is a new program, and not an upgrade of the Dynamic AMM v1 program.
+#### Getting Started
 
-  
+Copy the `.env.example` file to `.env` and configure the environment variables.
 
-This folder contains all the scripts to interact with Meteora's DAMM V2. To learn more about the scripts, go to the [DAMM V2 README](./damm-v2/README.md).
+```bash
+cp scaffolds/fun-launch/.env.example scaffolds/fun-launch/.env
+```
 
-  
+#### Install Dependencies
 
-## Dynamic Liquidity Market Maker (DLMM)
+```bash
+pnpm install
+```
 
-DLMM (Dynamic Liquidity Market Maker) gives LPs access to dynamic fees to capitalize on volatility, and precise liquidity concentration all in real-time, with the flexibility to select their preferred volatility strategy. 
+#### Running the Scaffold
 
-This folder contains the scripts to create and manage positions on Meteora's DLMM. To learn more about the scripts, go to the [DLMM README](./dlmm/README.md).
+```bash
+# Run the fun-launch scaffold in development
+pnpm --filter @meteora-invent/scaffold/fun-launch dev
+
+# Build the fun-launch scaffold
+pnpm --filter @meteora-invent/scaffold/fun-launch build
+```
+
+## 🤝 Contributing
+
+1. Create a feature branch
+2. Make your changes
+3. Run `pnpm format` and `pnpm lint`
+4. Submit a pull request
+
+## 📄 License
+
+ISC
+
+---
