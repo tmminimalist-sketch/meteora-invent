@@ -1,6 +1,7 @@
 # Contributing to Meteora Invent
 
-Thank you for your interest in contributing to Meteora Invent! This document provides guidelines and instructions for contributing to this monorepo.
+Thank you for your interest in contributing to Meteora Invent! This document provides guidelines and
+instructions for contributing to this monorepo.
 
 ## Table of Contents
 
@@ -40,14 +41,14 @@ pnpm prepare
 
 ```
 meteora-invent/
-├── packages/           # Shared packages
+├── packages/          # Shared packages
 │   └── config/        # Shared configurations
 │       ├── eslint/    # ESLint configurations
 │       ├── prettier/  # Prettier configuration
 │       └── typescript/# TypeScript configurations
-├── scaffolds/         # Frontend application templates
-│   └── fun-launch/    # Fun launch scaffold
-└── studio/            # Protocol interaction scripts
+├── scaffolds/         # Scaffolds - production-ready frontend application templates
+│   └── fun-launch/    # Launchpad scaffold template
+└── studio/            # Studio - a collection of scripts for you to innovate and create
     ├── damm-v1/       # Dynamic AMM v1 scripts
     ├── damm-v2/       # Dynamic AMM v2 scripts
     ├── dbc/           # Dynamic Bonding Curve scripts
@@ -124,6 +125,7 @@ pnpm clean
 ### Import Organization
 
 Imports should be organized in the following order:
+
 1. Built-in Node.js modules
 2. External dependencies
 3. Internal packages
@@ -224,6 +226,6 @@ If you have questions or need help:
 
 1. Check existing issues and PRs
 2. Open a new issue for bugs or feature requests
-3. Join our community discussions
+3. Join our [Discord](https://discord.com/invite/meteora)
 
 Thank you for contributing to Meteora Invent! 🚀

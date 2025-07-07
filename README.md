@@ -7,14 +7,18 @@ A toolkit consisting of everything you need to invent innovative token launches.
 
 ```
 meteora-invent/
-├── studio/                # Studio - a collection of scripts for you to innovate and create
-│   ├── damm-v1/           # Dynamic AMM v1 scripts
-│   ├── damm-v2/           # Dynamic AMM v2 scripts
-│   ├── dbc/               # Dynamic Bonding Curve scripts
-│   └── dlmm/              # Dynamic Liquidity Market Maker scripts
-├── scaffolds/             # Scaffolds - production-ready frontend application templates
-│   └── fun-launch/        # Launchpad scaffold template
-└── packages/              # Shared packages
+├── packages/          # Shared packages
+│   └── config/        # Shared configurations
+│       ├── eslint/    # ESLint configurations
+│       ├── prettier/  # Prettier configuration
+│       └── typescript/# TypeScript configurations
+├── scaffolds/         # Scaffolds - production-ready frontend application templates
+│   └── fun-launch/    # Launchpad scaffold template
+└── studio/            # Studio - a collection of scripts for you to innovate and create
+    ├── damm-v1/       # Dynamic AMM v1 scripts
+    ├── damm-v2/       # Dynamic AMM v2 scripts
+    ├── dbc/           # Dynamic Bonding Curve scripts
+    └── dlmm/          # Dynamic Liquidity Market Maker scripts
 ```
 
 ## 🚀 Getting Started
