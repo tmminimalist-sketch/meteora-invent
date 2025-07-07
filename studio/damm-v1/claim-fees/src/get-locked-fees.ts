@@ -28,13 +28,13 @@ async function checkPositionFee() {
   // check if there are unclaimed fees
   const unclaimedFees = lockEscrow.fee.unClaimed;
 
-  if (unclaimedFees.lp.isZero()) {
+  if (!unclaimedFees.lp || unclaimedFees.lp.isZero()) {
     console.log('No unclaimed fees available');
     return;
   }
 
   console.log('Unclaimed fees:');
-  console.log(`LP tokens: ${unclaimedFees.lp.toNumber() / 10 ** amm.decimals}`);
+  console.log(`LP tokens: ${unclaimedFees.lp!.toNumber() / 10 ** amm.decimals}`);
   console.log(`${tokenAAddress}: ${unclaimedFees.tokenA.toNumber() / 10 ** tokenADecimals}`);
   console.log(`${tokenBAddress}: ${unclaimedFees.tokenB.toNumber() / 10 ** tokenBDecimals}`);
 }

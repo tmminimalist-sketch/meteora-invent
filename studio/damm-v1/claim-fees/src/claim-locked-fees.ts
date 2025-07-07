@@ -54,7 +54,7 @@ async function checkAndClaimLockFees() {
     // check if there are unclaimed fees
     const unclaimedFees = lockEscrow.fee.unClaimed;
 
-    if (unclaimedFees.lp.isZero()) {
+    if (!unclaimedFees.lp || unclaimedFees.lp.isZero()) {
       console.log('No unclaimed fees available');
       return;
     }

@@ -68,12 +68,18 @@ async function checkAndClaimPositionFee() {
       );
     }
 
+    const firstPosition = userPositions[0];
+    if (!firstPosition) {
+      console.log('No position found in the array.');
+      return;
+    }
+
     const claimPositionFeeTx = await cpAmm.claimPositionFee({
       owner: payer.publicKey,
       receiver: receiver,
       pool: poolAddress, // DAMM V2 pool address (can use deriveDAMMV2PoolAddress)
       position: positionAddress,
-      positionNftAccount: userPositions[0].positionNftAccount,
+      positionNftAccount: firstPosition.positionNftAccount,
       tokenAVault: poolState.tokenAVault,
       tokenBVault: poolState.tokenBVault,
       tokenAMint: poolState.tokenAMint,

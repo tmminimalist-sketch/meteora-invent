@@ -108,6 +108,9 @@ export function HolderTable<TData, TValue>({ columns, data }: HolderTableProps<T
               {items.length > 0 ? (
                 items.map((virtualRow) => {
                   const row = rows[virtualRow.index];
+                  if (!row) {
+                    return null;
+                  }
                   return (
                     <TableRow
                       key={row.id}

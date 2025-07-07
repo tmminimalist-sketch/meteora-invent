@@ -2,7 +2,7 @@ import Decimal from 'decimal.js';
 
 const getDecimalCount = (value: string) => {
   const parts = value.split('.');
-  return parts.length > 1 ? parts[1].length : 0;
+  return parts.length > 1 && parts[1] ? parts[1].length : 0;
 };
 
 const userLocale =
@@ -42,9 +42,9 @@ function generateSubscriptNumbers(x: number): string {
 
   for (let i = 0; i < xString.length; i++) {
     const digit: number = parseInt(xString.charAt(i), 10);
-    const subscriptNumber: string = subscriptNumbers[digit];
+    const subscriptNumber: string | undefined = subscriptNumbers[digit];
 
-    if (subscriptNumber) {
+    if (subscriptNumber !== undefined) {
       result += subscriptNumber;
     }
   }

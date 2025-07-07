@@ -93,7 +93,9 @@ async function createConstantProductPool() {
 
     console.log('\nPool created successfully!');
     console.log('Pool address:', poolPubkey.toBase58());
-    console.log('Transaction: https://solscan.io/tx/' + transactions[0].signature);
+    if (transactions.length > 0 && transactions[0]?.signature) {
+      console.log('Transaction: https://solscan.io/tx/' + transactions[0].signature);
+    }
     process.exit(0);
   } catch (error) {
     console.error('Error creating constant product pool:', error);

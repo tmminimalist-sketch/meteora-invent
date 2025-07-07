@@ -337,7 +337,8 @@ export const TokenChart: React.FC<ChartProps> = memo(({ renderingId, style, opt 
           });
 
           // Force price chart auto scaling
-          const priceScale = activeChart.getPanes()[0].getMainSourcePriceScale();
+          const panes = activeChart.getPanes();
+          const priceScale = panes[0]?.getMainSourcePriceScale();
           if (priceScale) {
             priceScale.setAutoScale(true);
           }
@@ -389,6 +390,7 @@ export const TokenChart: React.FC<ChartProps> = memo(({ renderingId, style, opt 
         };
       } catch (error) {
         console.error('Failed to initialize TradingView widget:', error);
+        return;
       }
     };
     initializeWidget();

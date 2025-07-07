@@ -121,7 +121,7 @@ export const ApeQueries = {
         if (lastPage?.txs.length === 0) {
           return;
         }
-        const lastTs = lastPage?.txs[lastPage?.txs.length - 1].timestamp;
+        const lastTs = lastPage?.txs[lastPage?.txs.length - 1]?.timestamp;
         return {
           offset: lastPage?.next,
           offsetTs: lastTs,

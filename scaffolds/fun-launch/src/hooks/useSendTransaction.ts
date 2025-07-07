@@ -67,7 +67,9 @@ export function useSendTransaction() {
       return txSignature;
     } catch (error: any) {
       const errorMessage = error?.message || 'Unknown error';
+      setError(new Error(errorMessage));
       options.onError?.(`Transaction failed: ${errorMessage}`);
+      return null;
     } finally {
       setIsLoading(false);
     }

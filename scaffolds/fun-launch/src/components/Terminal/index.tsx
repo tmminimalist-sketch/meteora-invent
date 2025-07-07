@@ -29,6 +29,8 @@ export function TerminalComponent({ mint }: { mint: string }) {
     if (intervalId) {
       return () => clearInterval(intervalId);
     }
+    // Explicit return for the case when intervalId is undefined
+    return;
   }, [isLoaded]);
 
   useEffect(() => {

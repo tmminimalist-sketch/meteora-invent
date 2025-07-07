@@ -51,7 +51,7 @@ async function simulateCurve() {
     },
     dynamicFeeEnabled: true,
     activationType: ActivationType.Slot,
-    collectFeeMode: CollectFeeMode.OnlyQuote,
+    collectFeeMode: CollectFeeMode.QuoteToken,
     migrationFeeOption: MigrationFeeOption.FixedBps100,
     tokenType: TokenType.SPL,
     partnerLpPercentage: 0,

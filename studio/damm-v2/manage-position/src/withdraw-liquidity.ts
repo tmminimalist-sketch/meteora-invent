@@ -42,7 +42,7 @@ async function withdrawLiquidity() {
     maxSqrtPrice: poolState.sqrtMaxPrice,
   });
 
-  console.log('Liquidity tokens to withdraw', liquidityToRemove.toString() / 2 ** 64);
+  console.log('Liquidity tokens to withdraw', Number(liquidityToRemove.toString()) / 2 ** 64);
   console.log(`Expected token A: ${withdrawQuote.outAmountA.toNumber() / 2 ** 64}`);
   console.log(`Expected token B: ${withdrawQuote.outAmountB.toNumber() / 2 ** 64}`);
 

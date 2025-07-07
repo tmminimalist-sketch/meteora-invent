@@ -46,6 +46,10 @@ async function createMemecoinPool() {
   });
   const feeConfig = feeConfigurations.find(({ publicKey }) => publicKey.equals(config));
 
+  if (!feeConfig) {
+    throw new Error('Fee configuration not found for the provided config address');
+  }
+
   // Get pool address
   const poolPubkey = derivePoolAddressWithConfig(
     memecoinMint,

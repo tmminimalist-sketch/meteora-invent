@@ -46,7 +46,7 @@ async function createPool() {
     creatorPoolOnOffControl, // creatorPoolOnOffControl
     { cluster: 'mainnet-beta' } // opt parameter with cluster
   );
-  console.log('Pool Address:', createLbPairTx.instructions[0].keys[0].pubkey.toBase58());
+  console.log('Pool Address:', createLbPairTx.instructions[0]?.keys[0]?.pubkey.toBase58());
   const signature = await sendAndConfirmTransaction(connection, createLbPairTx, [payer], {
     commitment: 'confirmed',
   });

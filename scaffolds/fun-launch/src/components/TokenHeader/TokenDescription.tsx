@@ -13,7 +13,8 @@ type TokenDescriptionProps = {
 export function useTokenDescription() {
   const address = useTokenAddress();
   return useQuery({
-    ...ApeQueries.tokenDescription({ id: address }),
+    ...ApeQueries.tokenDescription({ id: address || '' }),
+    enabled: !!address,
   });
 }
 

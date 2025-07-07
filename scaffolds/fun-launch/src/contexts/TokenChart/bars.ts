@@ -16,19 +16,27 @@ export function getNextBar(
     return mostRecentBar;
   }
 
-  const newBar = constructBars(
-    swaps,
-    resolutionToChartTimeInterval[resolution],
-    baseAssetCircSupply
-  )[0];
+  const timeInterval = resolutionToChartTimeInterval[resolution];
+  if (!timeInterval) {
+    return mostRecentBar;
+  }
+
+  const newBars = constructBars(swaps, timeInterval, baseAssetCircSupply);
+  const newBar = newBars[0];
+
+  if (!newBar || newBar.time === undefined) {
+    return mostRecentBar;
+  }
 
   if (newBar.time > mostRecentBar.time) {
     // If constructing a new bar, we take into consideration the previous bar's close
     return {
-      ...newBar,
+      time: newBar.time,
       open: mostRecentBar.close,
-      high: Math.max(mostRecentBar.close, newBar.high),
-      low: Math.min(mostRecentBar.close, newBar.low),
+      high: Math.max(mostRecentBar.close, newBar.high ?? mostRecentBar.close),
+      low: Math.min(mostRecentBar.close, newBar.low ?? mostRecentBar.close),
+      close: newBar.close ?? mostRecentBar.close,
+      volume: newBar.volume ?? 0,
     };
   }
 
@@ -36,9 +44,9 @@ export function getNextBar(
   return {
     time: mostRecentBar.time,
     open: mostRecentBar.open,
-    high: Math.max(mostRecentBar.high, newBar.high),
-    low: Math.min(mostRecentBar.low, newBar.low),
-    close: newBar.close,
+    high: Math.max(mostRecentBar.high, newBar.high ?? mostRecentBar.high),
+    low: Math.min(mostRecentBar.low, newBar.low ?? mostRecentBar.low),
+    close: newBar.close ?? mostRecentBar.close,
     volume: (mostRecentBar.volume ?? 0) + (newBar.volume ?? 0),
   };
 }
@@ -52,11 +60,18 @@ function constructBars(
   timeInterval: ChartTimeInterval,
   baseAssetCircSupply?: number | undefined // if number, chart is showing mcap instead of price
 ): Bar[] {
-  const startMillis: number = getTimeIntervalStart(swaps[0].timestamp, timeInterval).valueOf();
-  const endMillis: number = getTimeIntervalStart(
-    swaps[swaps.length - 1].timestamp,
-    timeInterval
-  ).valueOf();
+  if (swaps.length === 0) {
+    return [];
+  }
+
+  const firstSwap = swaps[0];
+  const lastSwap = swaps[swaps.length - 1];
+  if (!firstSwap || !lastSwap) {
+    return [];
+  }
+
+  const startMillis: number = getTimeIntervalStart(firstSwap.timestamp, timeInterval).valueOf();
+  const endMillis: number = getTimeIntervalStart(lastSwap.timestamp, timeInterval).valueOf();
 
   const grouping: Record<string, Tx[]> = {};
 
@@ -69,19 +84,26 @@ function constructBars(
   // assign transactions to their appropriate time interval
   for (const tx of swaps) {
     const group = getTimeIntervalStart(tx.timestamp, timeInterval).valueOf();
-    grouping[group].push(tx);
+    const groupArray = grouping[group];
+    if (groupArray) {
+      groupArray.push(tx);
+    }
   }
 
   const bars: Bar[] = Object.entries(grouping).map(([timestamp, txs]) => {
     const prices: number[] = txs
       .map((tx) => tx.usdPrice)
       .map((price) => price * (baseAssetCircSupply ?? 1));
+
+    const firstPrice = prices[0];
+    const lastPrice = prices[prices.length - 1];
+
     return {
       time: Number(timestamp),
-      open: prices[0],
-      high: Math.max(...prices),
-      low: Math.min(...prices),
-      close: prices[prices.length - 1],
+      open: firstPrice ?? 0,
+      high: prices.length > 0 ? Math.max(...prices) : 0,
+      low: prices.length > 0 ? Math.min(...prices) : 0,
+      close: lastPrice ?? 0,
       volume: txs.reduce((vol, tx) => vol + tx.usdVolume, 0),
     };
   });

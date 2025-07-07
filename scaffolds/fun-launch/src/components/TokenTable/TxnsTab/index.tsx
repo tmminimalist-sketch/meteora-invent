@@ -10,9 +10,15 @@ export const TxnsTab: React.FC = memo(() => {
   const tokenId = useTokenAddress();
   const { data: symbol } = useTokenInfo((data) => data?.baseAsset.symbol);
 
-  const { data, isFetching, fetchNextPage, hasNextPage } = useInfiniteQuery(
-    ApeQueries.tokenTxs({ id: tokenId })
-  );
+  const { data, isFetching, fetchNextPage, hasNextPage } = useInfiniteQuery({
+    ...ApeQueries.tokenTxs({ id: tokenId || '' }),
+    enabled: !!tokenId,
+  });
+
+  // Don't render if tokenId is not available
+  if (!tokenId) {
+    return null;
+  }
 
   const allRows = useMemo(
     () => (data && data.pages ? data.pages.flatMap((d) => d?.txs ?? []) : []),

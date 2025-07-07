@@ -111,6 +111,11 @@ async function uploadImage(tokenLogo: string, mint: string): Promise<string | fa
   }
 
   const [, contentType, base64Data] = matches;
+
+  if (!contentType || !base64Data) {
+    return false;
+  }
+
   const fileBuffer = Buffer.from(base64Data, 'base64');
   const fileName = `images/${mint}.${contentType.split('/')[1]}`;
 

@@ -44,7 +44,11 @@ async function migrateToDammV1() {
     const quoteMint = new PublicKey(poolConfigState.quoteMint);
 
     const migrationFeeOption = poolConfigState.migrationFeeOption;
-    const dammConfigAddress = new PublicKey(DAMM_V1_MIGRATION_FEE_ADDRESS[migrationFeeOption]);
+    const dammConfigAddressString = DAMM_V1_MIGRATION_FEE_ADDRESS[migrationFeeOption];
+    if (!dammConfigAddressString) {
+      throw new Error(`Migration fee address not found for option: ${migrationFeeOption}`);
+    }
+    const dammConfigAddress = new PublicKey(dammConfigAddressString);
 
     const poolAddress = deriveDbcPoolAddress(quoteMint, baseMint, config);
     console.log('Derived pool address:', poolAddress.toString());

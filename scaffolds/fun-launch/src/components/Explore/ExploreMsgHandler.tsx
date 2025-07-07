@@ -36,7 +36,10 @@ export const ExploreMsgHandler: React.FC = () => {
                 (p) => p.baseAsset.id === update.pool.baseAsset.id
               );
               if (newIdx !== -1) {
-                recentPools[newIdx] = patchStreamPool(update.pool, recentPools[newIdx]);
+                const existingPool = recentPools[newIdx];
+                if (existingPool) {
+                  recentPools[newIdx] = patchStreamPool(update.pool, existingPool);
+                }
               } else {
                 Object.assign(update.pool, { streamed: true });
                 recentPools.push(update.pool);
@@ -54,10 +57,13 @@ export const ExploreMsgHandler: React.FC = () => {
                 (p) => p.baseAsset.id === update.pool.baseAsset.id
               );
               if (aboutToGraduateIdx !== -1) {
-                aboutToGraduatePools[aboutToGraduateIdx] = patchStreamPool(
-                  update.pool,
-                  aboutToGraduatePools[aboutToGraduateIdx]
-                );
+                const existingPool = aboutToGraduatePools[aboutToGraduateIdx];
+                if (existingPool) {
+                  aboutToGraduatePools[aboutToGraduateIdx] = patchStreamPool(
+                    update.pool,
+                    existingPool
+                  );
+                }
               } else if (
                 update.pool.bondingCurve !== undefined &&
                 update.pool.bondingCurve > minBondingCurve
@@ -79,10 +85,10 @@ export const ExploreMsgHandler: React.FC = () => {
                 (p) => p.baseAsset.id === update.pool.baseAsset.id
               );
               if (graduatedIdx !== -1) {
-                graduatedPools[graduatedIdx] = patchStreamPool(
-                  update.pool,
-                  graduatedPools[graduatedIdx]
-                );
+                const existingPool = graduatedPools[graduatedIdx];
+                if (existingPool) {
+                  graduatedPools[graduatedIdx] = patchStreamPool(update.pool, existingPool);
+                }
               } else {
                 Object.assign(update.pool, { streamed: true });
                 graduatedPools.push(update.pool);
@@ -116,7 +122,10 @@ export const ExploreMsgHandler: React.FC = () => {
             if (recentPools) {
               const idx = recentPools.findIndex((p) => p.baseAsset.id === update.pool.baseAsset.id);
               if (idx !== -1) {
-                recentPools[idx] = patchStreamPool(update.pool, recentPools[idx]);
+                const existingPool = recentPools[idx];
+                if (existingPool) {
+                  recentPools[idx] = patchStreamPool(update.pool, existingPool);
+                }
               }
             }
 
@@ -127,7 +136,10 @@ export const ExploreMsgHandler: React.FC = () => {
                 (p) => p.baseAsset.id === update.pool.baseAsset.id
               );
               if (idx !== -1) {
-                aboutToGraduatePools[idx] = patchStreamPool(update.pool, aboutToGraduatePools[idx]);
+                const existingPool = aboutToGraduatePools[idx];
+                if (existingPool) {
+                  aboutToGraduatePools[idx] = patchStreamPool(update.pool, existingPool);
+                }
               } else {
                 // Already sorted by bonding curve
                 const minBondingCurve =
@@ -149,7 +161,10 @@ export const ExploreMsgHandler: React.FC = () => {
                 (p) => p.baseAsset.id === update.pool.baseAsset.id
               );
               if (idx !== -1) {
-                graduatedPools[idx] = patchStreamPool(update.pool, graduatedPools[idx]);
+                const existingPool = graduatedPools[idx];
+                if (existingPool) {
+                  graduatedPools[idx] = patchStreamPool(update.pool, existingPool);
+                }
               }
             }
 

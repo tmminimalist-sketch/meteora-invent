@@ -4,8 +4,6 @@ import { TokenDetails } from '@/components/TokenHeader/TokenDetail';
 import { TokenHeader } from '@/components/TokenHeader/TokenHeader';
 import { TokenStats } from '@/components/TokenHeader/TokenStats';
 import { TokenBottomPanel } from '@/components/TokenTable';
-import { TxnsTab } from '@/components/TokenTable/TxnsTab';
-import { TxTable } from '@/components/TokenTable/TxnsTab/TxTable';
 import Page from '@/components/ui/Page/Page';
 import { DataStreamProvider, useDataStream } from '@/contexts/DataStreamProvider';
 import { TokenChartProvider } from '@/contexts/TokenChartProvider';
@@ -17,6 +15,11 @@ const Terminal = dynamic(() => import('@/components/Terminal'), { ssr: false });
 
 const SwapWidget = () => {
   const tokenId = useTokenAddress();
+
+  if (!tokenId) {
+    return null;
+  }
+
   return <Terminal mint={tokenId} />;
 };
 

@@ -149,6 +149,9 @@ export const DataStreamProvider = ({ children }: { children: React.ReactNode }) 
       // We assume all actions are related to the subscribed token-tx-table
       if (msg.type === 'actions') {
         const tokenId = msg.data?.[0]?.asset;
+        if (!tokenId) {
+          return;
+        }
         // Update token tx
         queryClient.setQueriesData(
           {

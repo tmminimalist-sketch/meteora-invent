@@ -28,7 +28,7 @@ function getNumberSmallFormatter(decimals: number): Intl.NumberFormat {
     minimumSignificantDigits: 3,
     maximumSignificantDigits: decimals,
     maximumFractionDigits: decimals,
-    roundingMode: 'trunc',
+    // roundingMode: 'trunc', // Removed as it's not supported in all TypeScript versions
   });
   intlNumberSmallFormatters[decimals] = formatter;
   return formatter;
@@ -278,7 +278,10 @@ export function parseSubscript(num: string): number {
   const parsed = num.replace(DIGIT_SUBSCRIPT_RE, (match) => {
     let digits = '';
     for (let i = 0; i < match.length; i++) {
-      digits += SUBSCRIPT_DIGIT[match[i]];
+      const char = match[i];
+      if (char && SUBSCRIPT_DIGIT[char]) {
+        digits += SUBSCRIPT_DIGIT[char];
+      }
     }
     return digits;
   });

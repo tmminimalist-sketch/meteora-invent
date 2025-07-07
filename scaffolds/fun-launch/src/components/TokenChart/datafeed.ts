@@ -87,8 +87,17 @@ export function createDataFeed(
           return;
         }
 
+        const interval = resolutionToChartTimeInterval[resolution];
+        if (!interval) {
+          console.error('TokenChart.getBars: invalid resolution: ', { resolution });
+          onHistoryCallback([], {
+            noData: true,
+          });
+          return;
+        }
+
         const params = {
-          interval: resolutionToChartTimeInterval[resolution],
+          interval,
           baseAsset: baseAsset.id,
           from: Math.max(0, periodParams.from) * 1000, // prevent TV from requesting a negative value
           to: periodParams.to * 1000,
@@ -130,7 +139,10 @@ export function createDataFeed(
         if (periodParams.firstDataRequest) {
           const key = `${baseAsset.id}`;
           // store most recent bar on first request (copy is necessary since TV mutates it)
-          resolutionToMostRecentBarRef.current[key] = structuredClone(bars[bars.length - 1]);
+          const lastBar = bars[bars.length - 1];
+          if (lastBar) {
+            resolutionToMostRecentBarRef.current[key] = structuredClone(lastBar);
+          }
         }
 
         onHistoryCallback(bars, {

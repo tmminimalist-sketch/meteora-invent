@@ -195,6 +195,9 @@ export function TxTable<TData, TValue>({
               <>
                 {items.map((virtualRow) => {
                   const row = rows[virtualRow.index];
+                  if (!row) {
+                    return null;
+                  }
                   return (
                     <TableRow
                       key={row.id}

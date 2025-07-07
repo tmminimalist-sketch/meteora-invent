@@ -14,8 +14,9 @@ export function useTokenAddress() {
 export function usePageTokenInfo<T = TokenInfoQueryData>(select?: (data: TokenInfoQueryData) => T) {
   const tokenId = useTokenAddress();
   return useQuery({
-    ...ApeQueries.tokenInfo({ id: tokenId }),
+    ...ApeQueries.tokenInfo({ id: tokenId || '' }),
     refetchInterval: 60 * 1000,
+    enabled: !!tokenId,
     select,
   });
 }
@@ -25,8 +26,9 @@ export function useTokenInfo<T = QueryData<typeof ApeQueries.tokenInfo>>(
 ) {
   const tokenId = useTokenAddress();
   return useQuery({
-    ...ApeQueries.tokenInfo({ id: tokenId }),
+    ...ApeQueries.tokenInfo({ id: tokenId || '' }),
     refetchInterval: 60 * 1000,
+    enabled: !!tokenId,
     select,
   });
 }
@@ -34,15 +36,17 @@ export function useTokenInfo<T = QueryData<typeof ApeQueries.tokenInfo>>(
 export function useHolders() {
   const address = useTokenAddress();
   return useQuery({
-    ...ApeQueries.tokenHolders({ id: address }),
+    ...ApeQueries.tokenHolders({ id: address || '' }),
     refetchInterval: 5 * 1000,
+    enabled: !!address,
   });
 }
 
 export function usePoolMinimalTokenInfo() {
   const tokenId = useTokenAddress();
   return useQuery({
-    ...ApeQueries.tokenInfo({ id: tokenId }),
+    ...ApeQueries.tokenInfo({ id: tokenId || '' }),
+    enabled: !!tokenId,
     select: (pool) => {
       if (!pool) {
         return;
