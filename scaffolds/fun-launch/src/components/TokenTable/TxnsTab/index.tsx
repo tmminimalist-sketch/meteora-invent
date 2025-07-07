@@ -15,11 +15,6 @@ export const TxnsTab: React.FC = memo(() => {
     enabled: !!tokenId,
   });
 
-  // Don't render if tokenId is not available
-  if (!tokenId) {
-    return null;
-  }
-
   const allRows = useMemo(
     () => (data && data.pages ? data.pages.flatMap((d) => d?.txs ?? []) : []),
     [data]
@@ -41,6 +36,11 @@ export const TxnsTab: React.FC = memo(() => {
       data && data.pages.length > 1 ? data.pages.slice(1).flatMap((d) => d?.txs ?? []) : [];
     return [...pausedPage, ...fetchedPages];
   }, [data, pausedPage]);
+
+  // Don't render if tokenId is not available
+  if (!tokenId) {
+    return null;
+  }
 
   return (
     <TxTable
