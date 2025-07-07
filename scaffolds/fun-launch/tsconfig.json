@@ -6,7 +6,8 @@
       "@/*": ["./src/*"]
     },
     "composite": true,
-    "noEmit": false
+    "noEmit": false,
+    "strictNullChecks": false
   },
   "include": [
     "next-env.d.ts",
