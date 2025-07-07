@@ -1,49 +1,43 @@
-import { Connection, Keypair, PublicKey } from "@solana/web3.js";
-import { BN } from "@coral-xyz/anchor";
-import DLMMPool, { autoFillYByStrategy } from "@meteora-ag/dlmm";
-import { StrategyType } from "@meteora-ag/dlmm";
-import bs58 from "bs58";
-import "dotenv/config";
+import { Connection, Keypair, PublicKey } from '@solana/web3.js';
+import { BN } from '@coral-xyz/anchor';
+import DLMMPool, { autoFillYByStrategy } from '@meteora-ag/dlmm';
+import { StrategyType } from '@meteora-ag/dlmm';
+import bs58 from 'bs58';
+import 'dotenv/config';
 
 const PAYER_PRIVATE_KEY = process.env.PAYER_PRIVATE_KEY;
 if (!PAYER_PRIVATE_KEY) {
-    throw new Error("PRIVATE_KEY is not set");
+  throw new Error('PRIVATE_KEY is not set');
 }
 const payerSecretKey = bs58.decode(PAYER_PRIVATE_KEY);
 const payer = Keypair.fromSecretKey(payerSecretKey);
 
-const connection = new Connection(
-    process.env.RPC_URL || "https://api.mainnet-beta.solana.com"
-);
-
-
+const connection = new Connection(process.env.RPC_URL || 'https://api.mainnet-beta.solana.com');
 
 async function addLiquidity() {
-
   // Variables to be configured
-  const poolAddress = new PublicKey("");
-  const existingPositionPubkey = new PublicKey("");
-  const XAmount = 1
-  const XDecimals = 9
+  const poolAddress = new PublicKey('');
+  const existingPositionPubkey = new PublicKey('');
+  const XAmount = 1;
+  const XDecimals = 9;
   const minBinId = -5219;
   const maxBinId = -5199;
-  const strategyType = StrategyType.Spot // StrategyType.Spot, StrategyType.Imbalance, StrategyType.OneSided
+  const strategyType = StrategyType.Spot; // StrategyType.Spot, StrategyType.Imbalance, StrategyType.OneSided
 
   //
 
   // Initialise DLMM pool
   const dlmmPool = await DLMMPool.create(connection, poolAddress);
-  console.log("DLMM pool initialized successfully");
+  console.log('DLMM pool initialized successfully');
 
   // Get active bin information
-  console.log("Fetching active bin information...");
+  console.log('Fetching active bin information...');
   const activeBin = await dlmmPool.getActiveBin();
-  console.log("Active bin ID:", activeBin.binId.toString());
-
+  console.log('Active bin ID:', activeBin.binId.toString());
 
   console.log(`Setting bin range: min=${minBinId}, max=${maxBinId}`);
 
-  const totalXAmount = new BN(XAmount * 10 ** XDecimals); 
+  const totalXAmount = new BN(XAmount * 10 ** XDecimals);
   const totalYAmount = autoFillYByStrategy(
     activeBin.binId,
     dlmmPool.lbPair.binStep,
@@ -55,11 +49,10 @@ async function addLiquidity() {
     strategyType
   );
 
-
-  console.log("Using existing position:", existingPositionPubkey.toBase58());
+  console.log('Using existing position:', existingPositionPubkey.toBase58());
 
   try {
-    console.log("Adding liquidity...");
+    console.log('Adding liquidity...');
     const addLiquidityTx = await dlmmPool.addLiquidityByStrategy({
       positionPubKey: existingPositionPubkey,
       user: payer.publicKey,
@@ -74,17 +67,14 @@ async function addLiquidity() {
 
     // Send and confirm the transaction
     const signature = await connection.sendTransaction(addLiquidityTx, [payer]);
-    await connection.confirmTransaction(signature, "confirmed");
+    await connection.confirmTransaction(signature, 'confirmed');
 
-    console.log("Liquidity added successfully");
-    console.log("Transaction: https://solscan.io/tx/" + signature);
+    console.log('Liquidity added successfully');
+    console.log('Transaction: https://solscan.io/tx/' + signature);
     process.exit(0);
   } catch (error) {
-    console.error("Error adding liquidity:", error);
-    console.error(
-      "Error details:",
-      error instanceof Error ? error.message : String(error)
-    );
+    console.error('Error adding liquidity:', error);
+    console.error('Error details:', error instanceof Error ? error.message : String(error));
     process.exit(1);
   }
 }

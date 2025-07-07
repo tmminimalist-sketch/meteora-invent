@@ -1,16 +1,13 @@
-import { Connection, PublicKey } from "@solana/web3.js";
-import AmmImpl from "@meteora-ag/dynamic-amm-sdk";
+import { Connection, PublicKey } from '@solana/web3.js';
+import AmmImpl from '@meteora-ag/dynamic-amm-sdk';
 import 'dotenv/config';
 
-const connection = new Connection(
-    process.env.RPC_URL || "https://api.mainnet-beta.solana.com"
-);
+const connection = new Connection(process.env.RPC_URL || 'https://api.mainnet-beta.solana.com');
 
 async function checkPositionFee() {
-
   //Variables to be configured
-  const poolAddress = new PublicKey("");
-  const owner = new PublicKey("");
+  const poolAddress = new PublicKey('');
+  const owner = new PublicKey('');
 
   //
 
@@ -24,19 +21,19 @@ async function checkPositionFee() {
   const lockEscrow = await amm.getUserLockEscrow(owner);
 
   if (!lockEscrow) {
-    console.log("No lock escrow found for this user");
+    console.log('No lock escrow found for this user');
     return;
   }
 
   // check if there are unclaimed fees
   const unclaimedFees = lockEscrow.fee.unClaimed;
-  
+
   if (unclaimedFees.lp.isZero()) {
-    console.log("No unclaimed fees available");
+    console.log('No unclaimed fees available');
     return;
   }
-  
-  console.log("Unclaimed fees:");
+
+  console.log('Unclaimed fees:');
   console.log(`LP tokens: ${unclaimedFees.lp.toNumber() / 10 ** amm.decimals}`);
   console.log(`${tokenAAddress}: ${unclaimedFees.tokenA.toNumber() / 10 ** tokenADecimals}`);
   console.log(`${tokenBAddress}: ${unclaimedFees.tokenB.toNumber() / 10 ** tokenBDecimals}`);

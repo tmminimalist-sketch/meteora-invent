@@ -1,36 +1,31 @@
-import { Connection, PublicKey, Keypair, sendAndConfirmTransaction } from "@solana/web3.js";
-import AmmImpl from "@meteora-ag/dynamic-amm-sdk";
-import bs58 from "bs58";
-import { ComputeBudgetProgram } from "@solana/web3.js";
+import { Connection, PublicKey, Keypair, sendAndConfirmTransaction } from '@solana/web3.js';
+import AmmImpl from '@meteora-ag/dynamic-amm-sdk';
+import bs58 from 'bs58';
+import { ComputeBudgetProgram } from '@solana/web3.js';
 import 'dotenv/config';
-
 
 const PAYER_PRIVATE_KEY = process.env.PAYER_PRIVATE_KEY;
 if (!PAYER_PRIVATE_KEY) {
-    throw new Error("PRIVATE_KEY is not set");
+  throw new Error('PRIVATE_KEY is not set');
 }
 const payerSecretKey = bs58.decode(PAYER_PRIVATE_KEY);
 const payer = Keypair.fromSecretKey(payerSecretKey);
 
 const OWNER_PRIVATE_KEY = process.env.OWNER_PRIVATE_KEY || PAYER_PRIVATE_KEY;
 if (!OWNER_PRIVATE_KEY) {
-    throw new Error("OWNER_PRIVATE_KEY is not set");
+  throw new Error('OWNER_PRIVATE_KEY is not set');
 }
 const ownerSecretKey = bs58.decode(OWNER_PRIVATE_KEY);
 const owner = Keypair.fromSecretKey(ownerSecretKey);
-console.log("Owner public key:", owner.publicKey.toBase58());
+console.log('Owner public key:', owner.publicKey.toBase58());
 
-const connection = new Connection(
-    process.env.RPC_URL || "https://api.mainnet-beta.solana.com"
-);
-
+const connection = new Connection(process.env.RPC_URL || 'https://api.mainnet-beta.solana.com');
 
 async function checkAndClaimLockFees() {
   try {
-
     // Variables to be configured
-    const poolAddress = new PublicKey("");
-    const receiver = ""; // Enter receiver public key here. Default is owner.
+    const poolAddress = new PublicKey('');
+    const receiver = ''; // Enter receiver public key here. Default is owner.
 
     //
 
@@ -42,12 +37,12 @@ async function checkAndClaimLockFees() {
     const tokenAAddress = amm.vaultA.tokenMint.address.toString();
     const tokenBDecimals = amm.vaultB.tokenMint.decimals;
     const tokenBAddress = amm.vaultB.tokenMint.address.toString();
-    console.log(amm.decimals)
+    console.log(amm.decimals);
     // get user's lock escrow info
     const lockEscrow = await amm.getUserLockEscrow(owner.publicKey);
 
     if (!lockEscrow) {
-      console.log("No lock escrow found for this user");
+      console.log('No lock escrow found for this user');
       return;
     }
 
@@ -55,11 +50,11 @@ async function checkAndClaimLockFees() {
     const unclaimedFees = lockEscrow.fee.unClaimed;
 
     if (unclaimedFees.lp.isZero()) {
-      console.log("No unclaimed fees available");
+      console.log('No unclaimed fees available');
       return;
     }
 
-    console.log("Unclaimed fees:");
+    console.log('Unclaimed fees:');
     console.log(`LP tokens: ${unclaimedFees.lp.toNumber() / 10 ** amm.decimals}`);
     console.log(`${tokenAAddress}: ${unclaimedFees.tokenA.toNumber() / 10 ** tokenADecimals}`);
     console.log(`${tokenBAddress}: ${unclaimedFees.tokenB.toNumber() / 10 ** tokenBDecimals}`);
@@ -94,21 +89,19 @@ async function checkAndClaimLockFees() {
     if (receiverPublicKey) signers.push(tempWSolAcc);
 
     const signature = await sendAndConfirmTransaction(connection as any, claimTx as any, signers, {
-      commitment: "confirmed",
+      commitment: 'confirmed',
     });
 
-    console.log("Transaction signature:", signature);
-    console.log("Transaction:", `https://solscan.io/tx/${signature}?cluster=mainnet`);
-
+    console.log('Transaction signature:', signature);
+    console.log('Transaction:', `https://solscan.io/tx/${signature}?cluster=mainnet`);
   } catch (error) {
-    console.error("Error claiming fees:", error);
+    console.error('Error claiming fees:', error);
   }
 }
 
 checkAndClaimLockFees()
-.then(() => process.exit(0))
-.catch((error) => {
-  console.error(error);
-  process.exit(1);
-});
-
+  .then(() => process.exit(0))
+  .catch((error) => {
+    console.error(error);
+    process.exit(1);
+  });

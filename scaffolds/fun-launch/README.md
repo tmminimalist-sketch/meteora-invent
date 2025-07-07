@@ -17,8 +17,8 @@ cd templates/fun-launch
 pnpm install
 ```
 
-3. Set up environment variables
-   Create a `.env` file in the root directory with the following variables:
+3. Set up environment variables Create a `.env` file in the root directory with the following
+   variables:
 
 ```env
 # Cloudflare R2 Storage
@@ -77,14 +77,12 @@ pnpm dev
 4. Import your GitHub repository
 
 5. Configure your project:
-
    - Framework Preset: Next.js
    - Root Directory: ./
    - Build Command: `npm run build`
    - Output Directory: .next
 
 6. Add Environment Variables:
-
    - Add all the environment variables from your `.env` file:
      - `R2_ACCESS_KEY_ID`
      - `R2_SECRET_ACCESS_KEY`

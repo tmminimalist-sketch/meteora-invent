@@ -7,21 +7,25 @@ This folder contains scripts to create **Meteora DAMM V1 pools**.
 ### Constant Product Pool
 
 Creates a standard constant product AMM pool
+
 - [Create Constant Product Pool](./src/constant-product.ts)
 
 ### Memecoin Pool
 
 Creates a memecoin pool with optional M3M3 vault features
+
 - [Create Memecoin Pool](./src/memecoin-pool.ts)
 
 ### Stable Pool
 
 Creates a stable pool for tokens with similar values (e.g, USDC and USDT)
+
 - [Create Stable Pool](./src/stable-pool.ts)
 
 ### Get Configurations
 
 Retrieves available pool configurations from the Meteora API
+
 - [Get Configurations](./src/get-configs.ts)
 
 ## Usage
@@ -55,18 +59,18 @@ Retrieves available pool configurations from the Meteora API
   - `tokenBDecimal`: Decimals of token B
   - `feeBps`: Base fee in Bps
 
-- [Get Configurations](./src/get-configs.ts)
-No parameters or private key needed. This script fetches all available configs and their data.
-Set `onlyPermissionless` to false to get all config keys instead of only the permissionless configs.
-
+- [Get Configurations](./src/get-configs.ts) No parameters or private key needed. This script
+  fetches all available configs and their data. Set `onlyPermissionless` to false to get all config
+  keys instead of only the permissionless configs.
 
 2. Run the script
-	```bash
-	npm run <script-name>
-	
-	# Script names
-	# damm-v1-create-constant-product-pool
-	# damm-v1-create-memecoin-pool
-	# damm-v1-create-stable-pool
-	# damm-v1-get-configs
-	```
+
+   ```bash
+   npm run <script-name>
+
+   # Script names
+   # damm-v1-create-constant-product-pool
+   # damm-v1-create-memecoin-pool
+   # damm-v1-create-stable-pool
+   # damm-v1-get-configs
+   ```

@@ -1,0 +1,22 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "jsx": "preserve",
+    "skipLibCheck": true
+  },
+  "exclude": [
+    "**/node_modules",
+    "**/dist",
+    "**/build",
+    "**/.next",
+    "**/.turbo",
+    "**/out",
+    "**/*.d.ts",
+    "packages/config/dist",
+    "packages/shared/utils/dist",
+    "studio/dist",
+    "scaffolds/*/dist",
+    "scaffolds/*/.next"
+  ]
+}

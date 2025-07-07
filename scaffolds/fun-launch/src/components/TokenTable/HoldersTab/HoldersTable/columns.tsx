@@ -1,27 +1,21 @@
-import { ColumnDef } from "@tanstack/react-table";
-import { useSetAtom } from "jotai";
-import Link from "next/link";
-import { useCallback } from "react";
+import { ColumnDef } from '@tanstack/react-table';
+import { useSetAtom } from 'jotai';
+import Link from 'next/link';
+import { useCallback } from 'react';
 
-import {
-  BottomPanelTab,
-  bottomPanelTabAtom,
-  traderAddressAtom,
-} from "../../config";
-import { HolderAddressTag } from "../HolderTag";
-import { HolderInfo } from "./utils";
-import { formatReadablePercentChange } from "@/lib/format/number";
-import { ReadableNumber } from "@/components/ui/ReadableNumber";
-import { TraderAddress } from "../../TraderAddress";
-import { TraderIndicators } from "../../TraderIndicators";
+import { BottomPanelTab, bottomPanelTabAtom, traderAddressAtom } from '../../config';
+import { HolderAddressTag } from '../HolderTag';
+import { HolderInfo } from './utils';
+import { formatReadablePercentChange } from '@/lib/format/number';
+import { ReadableNumber } from '@/components/ui/ReadableNumber';
+import { TraderAddress } from '../../TraderAddress';
+import { TraderIndicators } from '../../TraderIndicators';
 
 export const columns: ColumnDef<HolderInfo>[] = [
   {
-    accessorKey: "address",
+    accessorKey: 'address',
     header: () => {
-      return (
-        <div className="flex gap-x-1.5 rounded-md py-0.5 text-left">{`Address`}</div>
-      );
+      return <div className="flex gap-x-1.5 rounded-md py-0.5 text-left">{`Address`}</div>;
     },
     cell: function Cell({ row }) {
       const setTraderAddress = useSetAtom(traderAddressAtom);
@@ -59,10 +53,7 @@ export const columns: ColumnDef<HolderInfo>[] = [
                 className="flex-row-reverse text-left"
               />
             </Link>
-            <HolderAddressTag
-              address={row.original.address}
-              tags={row.original.tags}
-            />
+            <HolderAddressTag address={row.original.address} tags={row.original.tags} />
             <TraderIndicators address={row.original.address} className="pl-1" />
           </div>
         </div>
@@ -70,24 +61,22 @@ export const columns: ColumnDef<HolderInfo>[] = [
     },
   },
   {
-    accessorKey: "percentage",
+    accessorKey: 'percentage',
     size: 50,
     header: () => <div className="text-right">{`% Owned`}</div>,
     cell: ({ row }) => {
       return (
         <div className="truncate text-right font-medium">
           {formatReadablePercentChange(
-            row.original.percentage === undefined
-              ? undefined
-              : row.original.percentage / 100,
-            { hideSign: "positive" }
+            row.original.percentage === undefined ? undefined : row.original.percentage / 100,
+            { hideSign: 'positive' }
           )}
         </div>
       );
     },
   },
   {
-    accessorKey: "amount",
+    accessorKey: 'amount',
     header: () => <div className="text-right">{`Amount`}</div>,
     cell: ({ row }) => {
       return (
@@ -102,19 +91,14 @@ export const columns: ColumnDef<HolderInfo>[] = [
     },
   },
   {
-    accessorKey: "balance",
+    accessorKey: 'balance',
     header: () => <div className="text-right">{`Balance`}</div>,
     cell: ({ row }) => {
-      const amount = parseFloat(row.original.balance?.toString() ?? "0");
+      const amount = parseFloat(row.original.balance?.toString() ?? '0');
 
       return (
         <div className="mt-1 flex h-full flex-col justify-center text-right font-medium">
-          <ReadableNumber
-            className="block"
-            num={amount}
-            format="compact"
-            prefix="$"
-          />
+          <ReadableNumber className="block" num={amount} format="compact" prefix="$" />
           <ReadableNumber
             className="block text-right text-neutral-600 lg:hidden"
             num={row.original.amount}

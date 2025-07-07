@@ -3,11 +3,11 @@
  */
 export function truncateMiddle(str: string, maxLength: number = 10): string {
   if (str.length <= maxLength) return str;
-  
+
   const charsToShow = maxLength - 3; // 3 for the ellipsis
   const frontChars = Math.ceil(charsToShow / 2);
   const backChars = Math.floor(charsToShow / 2);
-  
+
   return str.substring(0, frontChars) + '...' + str.substring(str.length - backChars);
 }
 
@@ -24,9 +24,9 @@ export function formatAddress(address: string, chars: number = 4): string {
  */
 export function formatNumber(num: number | string, decimals: number = 2): string {
   const number = typeof num === 'string' ? parseFloat(num) : num;
-  
+
   if (isNaN(number)) return '0';
-  
+
   return number.toLocaleString('en-US', {
     minimumFractionDigits: decimals,
     maximumFractionDigits: decimals,
@@ -44,7 +44,7 @@ export function formatTokenAmount(
   const divisor = Math.pow(10, decimals);
   const value = typeof amount === 'string' ? parseFloat(amount) : amount;
   const formatted = value / divisor;
-  
+
   return formatNumber(formatted, displayDecimals);
 }
 
@@ -57,7 +57,7 @@ export function formatCompact(num: number): string {
     compactDisplay: 'short',
     maximumFractionDigits: 2,
   });
-  
+
   return formatter.format(num);
 }
 
@@ -73,7 +73,7 @@ export function formatPercentage(value: number, decimals: number = 2): string {
  */
 export function formatDate(date: Date | string | number): string {
   const dateObj = new Date(date);
-  
+
   return dateObj.toLocaleDateString('en-US', {
     year: 'numeric',
     month: 'short',
@@ -91,12 +91,12 @@ export function formatDuration(seconds: number): string {
   const hours = Math.floor((seconds % 86400) / 3600);
   const minutes = Math.floor((seconds % 3600) / 60);
   const secs = Math.floor(seconds % 60);
-  
+
   const parts = [];
   if (days > 0) parts.push(`${days}d`);
   if (hours > 0) parts.push(`${hours}h`);
   if (minutes > 0) parts.push(`${minutes}m`);
   if (secs > 0 || parts.length === 0) parts.push(`${secs}s`);
-  
+
   return parts.join(' ');
 }

@@ -1,9 +1,4 @@
-import {
-  Connection,
-  Keypair,
-  PublicKey,
-  sendAndConfirmTransaction,
-} from "@solana/web3.js";
+import { Connection, Keypair, PublicKey, sendAndConfirmTransaction } from '@solana/web3.js';
 import {
   DynamicBondingCurveClient,
   CollectFeeMode,
@@ -15,33 +10,25 @@ import {
   TokenDecimal,
   buildCurveWithMarketCap,
   TokenUpdateAuthorityOption,
-} from "@meteora-ag/dynamic-bonding-curve-sdk";
-import { NATIVE_MINT } from "@solana/spl-token";
-import bs58 from "bs58";
+} from '@meteora-ag/dynamic-bonding-curve-sdk';
+import { NATIVE_MINT } from '@solana/spl-token';
+import bs58 from 'bs58';
 import 'dotenv/config';
-
 
 const PAYER_PRIVATE_KEY = process.env.PAYER_PRIVATE_KEY;
 if (!PAYER_PRIVATE_KEY) {
-    throw new Error("PRIVATE_KEY is not set");
+  throw new Error('PRIVATE_KEY is not set');
 }
 const payerSecretKey = bs58.decode(PAYER_PRIVATE_KEY);
 const payer = Keypair.fromSecretKey(payerSecretKey);
 
-const connection = new Connection(
-    process.env.RPC_URL || "https://api.mainnet-beta.solana.com"
-);
-
-
+const connection = new Connection(process.env.RPC_URL || 'https://api.mainnet-beta.solana.com');
 
 async function createConfig() {
-
-
-
   const config = Keypair.generate();
   console.log(`Config account: ${config.publicKey.toString()}`);
 
-  const feeClaimer = new PublicKey(process.env.PARTNER_PRIVATE_KEY || "");
+  const feeClaimer = new PublicKey(process.env.PARTNER_PRIVATE_KEY || '');
 
   const configKeyParams = buildCurveWithMarketCap({
     totalTokenSupply: 1000000000,
@@ -84,10 +71,10 @@ async function createConfig() {
     },
   });
 
-  console.log("curve config", configKeyParams);
+  console.log('curve config', configKeyParams);
 
   try {
-    const client = new DynamicBondingCurveClient(connection, "confirmed");
+    const client = new DynamicBondingCurveClient(connection, 'confirmed');
 
     const transaction = await client.partner.createConfig({
       config: config.publicKey,
@@ -98,24 +85,21 @@ async function createConfig() {
       ...configKeyParams,
     });
 
-    const { blockhash } = await connection.getLatestBlockhash("confirmed");
+    const { blockhash } = await connection.getLatestBlockhash('confirmed');
     transaction.recentBlockhash = blockhash;
     transaction.feePayer = payer.publicKey;
 
     transaction.partialSign(config);
 
-    const signature = await sendAndConfirmTransaction(
-      connection,
-      transaction,
-      [payer, config],
-      { commitment: "confirmed" }
-    );
+    const signature = await sendAndConfirmTransaction(connection, transaction, [payer, config], {
+      commitment: 'confirmed',
+    });
 
     console.log(`Config created successfully!`);
     console.log(`Transaction: https://solscan.io/tx/${signature}`);
     console.log(`Config address: ${config.publicKey.toString()}`);
   } catch (error) {
-    console.error("Failed to create config:", error);
+    console.error('Failed to create config:', error);
   }
 }
 
