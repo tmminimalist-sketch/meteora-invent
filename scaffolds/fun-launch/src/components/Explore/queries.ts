@@ -75,7 +75,7 @@ export const ApeQueries = {
 
         return {
           ...pool,
-          bondingCurveId: null,
+          bondingCurveId: null as any,
         };
       },
     };

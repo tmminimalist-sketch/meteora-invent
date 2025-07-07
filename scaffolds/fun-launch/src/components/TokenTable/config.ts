@@ -19,4 +19,4 @@ export const bottomPanelTabAtom = atomWithStorage<BottomPanelTab | undefined>(
 /**
  * Filtered trader address
  */
-export const traderAddressAtom = atom<string | undefined>(undefined);
+export const traderAddressAtom = atom(undefined as string | undefined);

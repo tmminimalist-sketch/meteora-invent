@@ -14,7 +14,7 @@ import { toast } from 'sonner';
 const poolSchema = z.object({
   tokenName: z.string().min(3, 'Token name must be at least 3 characters'),
   tokenSymbol: z.string().min(1, 'Token symbol is required'),
-  tokenLogo: z.instanceof(File, { message: 'Token logo is required' }),
+  tokenLogo: z.instanceof(File, { message: 'Token logo is required' }).optional(),
   website: z.string().url({ message: 'Please enter a valid URL' }).optional().or(z.literal('')),
   twitter: z.string().url({ message: 'Please enter a valid URL' }).optional().or(z.literal('')),
 });
@@ -124,7 +124,13 @@ export default function CreatePool() {
       }
     },
     validators: {
-      onSubmit: poolSchema,
+      onSubmit: ({ value }) => {
+        const result = poolSchema.safeParse(value);
+        if (!result.success) {
+          return result.error.formErrors.fieldErrors;
+        }
+        return undefined;
+      },
     },
   });
 
@@ -313,7 +319,13 @@ export default function CreatePool() {
                   {form.state.errors.map((error, index) =>
                     Object.entries(error || {}).map(([, value]) => (
                       <div key={index} className="flex items-start gap-2">
-                        <p className="text-red-200">{value.map((v) => v.message).join(', ')}</p>
+                        <p className="text-red-200">
+                          {Array.isArray(value)
+                            ? value.map((v: any) => v.message || v).join(', ')
+                            : typeof value === 'string'
+                              ? value
+                              : String(value)}
+                        </p>
                       </div>
                     ))
                   )}
