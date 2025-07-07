@@ -7,18 +7,23 @@ A platform for launching tokens with customizable price curves.
 1. Clone the repository
 
 ```bash
-git clone https://github.com/MeteoraAg/meteora-scaffold
-cd templates/fun-launch
+git clone https://github.com/MeteoraAg/meteora-invent.git
+cd scaffolds/fun-launch
 ```
 
 2. Install dependencies
 
 ```bash
+cd scaffolds/fun-launch
 pnpm install
 ```
 
 3. Set up environment variables Create a `.env` file in the root directory with the following
    variables:
+
+```bash
+cd scaffolds/fun-launch && cp .env.example .env
+```
 
 ```env
 # Cloudflare R2 Storage
@@ -61,6 +66,7 @@ The pool config key is used to configure the bonding curve parameters. You'll ne
 4. Run the development server
 
 ```bash
+cd scaffolds/fun-launch
 pnpm dev
 ```
 
@@ -79,7 +85,7 @@ pnpm dev
 5. Configure your project:
    - Framework Preset: Next.js
    - Root Directory: ./
-   - Build Command: `npm run build`
+   - Build Command: `pnpm build`
    - Output Directory: .next
 
 6. Add Environment Variables:
@@ -135,7 +141,3 @@ You can manage your environment variables in Vercel:
 3. Commit your changes (`git commit -m 'Add some amazing feature'`)
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.

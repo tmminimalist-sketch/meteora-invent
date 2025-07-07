@@ -1,10 +1,7 @@
 # Meteora Studio
 
-Meteora has the best and the most comprehensive pools on Solana and provides the best tools for
-liquidity providers and token launchers.
-
-Meteora Studio is a suite of scripts, tools and scaffolds to help you get started with building and
-launching on Meteora.
+Meteora Studio is a suite of scripts and tools to help you get started with building and launching
+tokens on Meteora.
 
 ## Prerequisites:
 
@@ -17,23 +14,24 @@ launching on Meteora.
 1. Clone the repo
 
 ```bash
-git  clone  https://github.com/MeteoraAg/meteora-studio.git
+git clone https://github.com/MeteoraAg/meteora-invent.git
 ```
 
 2. Install dependancies
 
 ```bash
-npm  install
+cd studio
+pnpm install
 ```
 
 3. Copy `.env.example` file and add your private key and RPC URL into .env (RPC is optional but
    highly encouraged. Visit `https://www.helius.dev/` to get an RPC URL)
 
 ```bash
-cp  .env.example  .env
+cd studio && cp .env.example .env
 ```
 
-This repo consists of 4 main folders, each contains scripts to interact with a type of Meteora pool
+Studio consists of 4 main folders, each contains scripts to interact with a type of Meteora pool
 
 These folders are:
 
