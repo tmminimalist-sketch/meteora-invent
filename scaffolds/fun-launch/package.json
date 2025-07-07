@@ -51,9 +51,9 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
-    "@meteora-invent/config/eslint": "workspace:*",
-    "@meteora-invent/config/prettier": "workspace:*",
-    "@meteora-invent/config/typescript": "workspace:*",
+    "@meteora-invent/config-eslint": "workspace:*",
+    "@meteora-invent/config-prettier": "workspace:*",
+    "@meteora-invent/config-typescript": "workspace:*",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",

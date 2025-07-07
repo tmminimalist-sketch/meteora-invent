@@ -2,3 +2,5 @@ packages:
   - "studio"
   - "scaffolds/*"
   - "packages/*"
+  - "packages/config/*"
+  - "packages/shared/*"

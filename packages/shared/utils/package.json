@@ -1,5 +1,5 @@
 {
-  "name": "@meteora-invent/shared/utils",
+  "name": "@meteora-invent/shared-utils",
   "version": "0.0.0",
   "private": true,
   "description": "Shared utility functions for Meteora Invent monorepo",
@@ -18,9 +18,9 @@
     "decimal.js": "^10.5.0"
   },
   "devDependencies": {
-    "@meteora-invent/config/eslint": "workspace:*",
-    "@meteora-invent/config/prettier": "workspace:*",
-    "@meteora-invent/config/typescript": "workspace:*",
+    "@meteora-invent/config-eslint": "workspace:*",
+    "@meteora-invent/config-prettier": "workspace:*",
+    "@meteora-invent/config-typescript": "workspace:*",
     "@types/bn.js": "^5.1.5",
     "eslint": "^8.57.0",
     "typescript": "^5.0.0"

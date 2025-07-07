@@ -62,9 +62,9 @@
         "jito-ts": "^4.2.0"
     },
     "devDependencies": {
-        "@meteora-invent/config/eslint": "workspace:*",
-        "@meteora-invent/config/prettier": "workspace:*",
-        "@meteora-invent/config/typescript": "workspace:*",
+        "@meteora-invent/config-eslint": "workspace:*",
+        "@meteora-invent/config-prettier": "workspace:*",
+        "@meteora-invent/config-typescript": "workspace:*",
         "eslint": "^8.57.0",
         "tsx": "^4.19.3"
     }
