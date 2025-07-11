@@ -14,7 +14,6 @@ cd scaffolds/fun-launch
 2. Install dependencies
 
 ```bash
-cd scaffolds/fun-launch
 pnpm install
 ```
 
@@ -22,7 +21,7 @@ pnpm install
    variables:
 
 ```bash
-cd scaffolds/fun-launch && cp .env.example .env
+cp .env.example .env
 ```
 
 ```env
@@ -66,7 +65,6 @@ The pool config key is used to configure the bonding curve parameters. You'll ne
 4. Run the development server
 
 ```bash
-cd scaffolds/fun-launch
 pnpm dev
 ```
 

@@ -28,7 +28,7 @@ pnpm install
    highly encouraged. Visit `https://www.helius.dev/` to get an RPC URL)
 
 ```bash
-cd studio && cp .env.example .env
+cp .env.example .env
 ```
 
 Studio consists of 4 main folders, each contains scripts to interact with a type of Meteora pool
