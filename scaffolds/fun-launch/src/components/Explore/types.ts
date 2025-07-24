@@ -279,18 +279,16 @@ export type Tx = {
   type: 'buy' | 'sell';
   usdPrice: number;
   usdVolume: number;
+  nativeVolume: number;
   traderAddress: string;
   txHash: string;
   amount: number;
   isMev: boolean;
-  /**
-   * Whether this tx comes from the most reliable pool
-   *
-   * NOTE: used to determine if this tx should be
-   * displayed on the chart
-   */
-  isMrp: boolean;
   poolId: string;
+  /**
+   * Whether this tx should be displayed on the chart
+   */
+  isValidPrice: boolean;
 };
 
 export type Holder = {
