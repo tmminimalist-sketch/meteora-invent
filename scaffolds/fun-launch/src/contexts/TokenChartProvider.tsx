@@ -84,12 +84,14 @@ export const TokenChartProvider: React.FC<PropsWithChildren> = ({ children }) =>
       const devAddress = baseAsset.dev;
       const filteredTxs = msg.data.filter(
         (tx) =>
+          // Relavent token
+          tx.asset === baseAsset.id &&
           // Remove MEV swaps
           !tx.isMev &&
           // Remove tiny swaps
           tx.usdVolume >= SMALL_TRADE_VALUE &&
-          // Ensure swaps are from most reliable pool OR user/dev trades
-          (tx.isMrp || tx.traderAddress === userAddress || tx.traderAddress === devAddress)
+          // Ensure swaps are from most reliable pool OR user/dev trades OR a "reliable swap" from another pool
+          (tx.isValidPrice || tx.traderAddress === userAddress || tx.traderAddress === devAddress)
       );
 
       if (filteredTxs.length === 0) {
